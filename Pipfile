@@ -5,6 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
+django-crispy-forms = "1.14.0"
+crispy_bootstrap5 = "*"
+whitenoise = "*"
+
 
 [dev-packages]
 
