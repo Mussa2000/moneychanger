@@ -5,6 +5,11 @@
 __pycache__
 db.sqlite3
 media
+ddc
+migrate.sh
+.vscode
+
+
 
 # Backup files # 
 *.bak 
