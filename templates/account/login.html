@@ -50,7 +50,7 @@
                         {% csrf_token %}
                         <div class="form-group">
                             <div class="form-label-group">
-                                <label class="form-label" for="email-address">Username</label>
+                                <label class="form-label" for="email-address">Email or Username</label>
                                 <a class="link link-primary link-sm" tabindex="-1" href=""></a>
                             </div>
                             <div class="form-control-wrap">
@@ -59,8 +59,8 @@
                         </div><!-- .form-group -->
                         <div class="form-group">
                             <div class="form-label-group">
-                                <label class="form-label" for="password">Passcode</label>
-                                <a class="link link-primary link-sm" tabindex="-1" href="html/pages/auths/auth-reset.html"></a>
+                                <label class="form-label" for="password">Password</label>
+                                <a class="link link-primary link-sm" tabindex="-1" href="{% url 'password_reset_request' %}">Forgot Password?</a>
                             </div>
                             <div class="form-control-wrap">
                                 <a tabindex="-1" href="#" class="form-icon form-icon-right passcode-switch lg" data-target="password">

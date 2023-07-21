@@ -137,3 +137,24 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_REDIRECT_URL = 'dashboard'
+
+# Emails
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = "smtp.office365.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "apps@oacey.com"
+DEFAULT_FROM_EMAIL = "apps@oacey.com"
+EMAIL_HOST_PASSWORD = "Petalm@123"
+ADMINS = [
+    ("SuperCode", "gish@petalmafrica.com"),
+    ("Nyasha C", "nyashac@petalmafrica.com"),
+    ("Courage", "courage@petalmafrica.com"),
+]
+DEFAULT_SYSTEM_USER_EMAIL = "dev@oacey.com"
