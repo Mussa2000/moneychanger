@@ -58,3 +58,15 @@ class UserDeleteView(DeleteView):
     
     def get_success_url(self):
         return reverse("users-index")
+
+
+from django.contrib.auth.views import PasswordResetView
+
+class CustomPasswordResetView(PasswordResetView):
+    email_template_name = 'account/password_reset_email.html'
+
+    def get_email_context(self):
+        context = super().get_email_context()
+        # Add any additional context variables here
+        context['custom_variable'] = 'Custom Value'
+        return context
