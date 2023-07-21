@@ -59,9 +59,8 @@ class UserDeleteView(DeleteView):
     def get_success_url(self):
         return reverse("users-index")
 
-
+#Custom email reset 
 from django.contrib.auth.views import PasswordResetView
-from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.auth.views import PasswordResetView
@@ -71,10 +70,7 @@ class CustomPasswordResetView(PasswordResetView):
     html_email_template_name = 'account/password_reset_email.html'
 
     def send_mail(self, subject_template_name, email_template_name, context, from_email, to_email, html_email_template_name=None):
-        # Render the email template with styles
         html_email = render_to_string(html_email_template_name, context)
-
-        # Create an EmailMessage object
         email_message = EmailMessage(
             subject_template_name,
             html_email,
@@ -82,8 +78,5 @@ class CustomPasswordResetView(PasswordResetView):
             [to_email],
         )
 
-        # Set the content_subtype to 'html'
         email_message.content_subtype = 'html'
-
-        # Send the email
         email_message.send()
