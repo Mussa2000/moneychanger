@@ -6,6 +6,11 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
+from django.contrib.auth.views import PasswordResetView
+from django.template.loader import render_to_string
+from django.core.mail import EmailMessage
+from django.contrib.auth.views import PasswordResetView
+
 
 @csrf_exempt
 def login_user(request):
@@ -60,10 +65,6 @@ class UserDeleteView(DeleteView):
         return reverse("users-index")
 
 #Custom email reset 
-from django.contrib.auth.views import PasswordResetView
-from django.template.loader import render_to_string
-from django.core.mail import EmailMessage
-from django.contrib.auth.views import PasswordResetView
 
 class CustomPasswordResetView(PasswordResetView):
     email_template_name = 'account/password_reset_email.html'
