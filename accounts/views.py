@@ -1,68 +1,77 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import ListView, UpdateView, DeleteView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
-from .forms import CustomUserCreationForm
+from .forms import UserCreationForm
 from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.auth.views import PasswordResetView
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.views.generic import View, TemplateView
 
-@csrf_exempt
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            messages.success(request, (f"You have successfully logged in as: {user.username}"))
-            return redirect('dashboard')       
-        else:
-            messages.success(request, ("Please check your credentials and try again"))
-            return redirect('login')
-    else:
-        return render(request, 'registration/login.html', {})
 
-class UserListView(ListView):
-    model = User
-    template_name = 'registration/index.html'
+class ChangeUsernameView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
+    template_name = "account/change_username.html"
+    success_url = reverse_lazy(
+        "dashboard-view"
+    )  # Replace 'home' with your app's home URL name
 
-def register_user(request):
-        if request.method == "GET":
-            return render(
-                request, "registration/create.html",
-                {"form": CustomUserCreationForm}
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        return render(request, self.template_name, {"user": user})
+
+    def post(self, request, user_id):
+        user = User.objects.get(id=user_id)
+        new_username = request.POST.get("new_username")
+
+        if User.objects.filter(username=new_username).exists():
+            messages.error(
+                request, "Username already exists. Please choose a different username."
             )
-        elif request.method == "POST":
-            form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, ("User created successfully"))
-            return redirect('users-index')
-        else:
-            messages.success(request, ("Something went wrong please try again"))
-            return redirect('register-user')
-        
+            return redirect(
+                "change-username-view", user_id=user_id
+            )  # Replace 'change_username' with your app's change_username URL name
 
-class UserUpdateView(UpdateView):
-    model = User
-    template_name = 'registration/update.html'
-    form_class = CustomUserCreationForm
-    success_message = "User updated successfully"   
-    def get_success_url(self):
-        return reverse("users-index")
+        user.username = new_username
+        user.save()
+        messages.success(
+            request, f"Username has been changed successfully to {new_username}."
+        )
+        return redirect(reverse("dashboard-view"))
 
-class UserDeleteView(DeleteView):
-    model = User
-    success_message = "User deleted successfully"
-    
-    def get_success_url(self):
-        return reverse("users-index")
+
+
+class ChangePasswordView(View):
+    template_name = "account/change_password.html"
+
+    def get(self, request, user_id):
+        user = User.objects.get(pk=user_id)
+        return render(request, self.template_name, context={"user": user})
+
+    def post(self, request, user_id):
+        try:
+            user = User.objects.get(id=user_id)
+            new_password = request.POST["new_password"]
+            user.set_password(new_password)
+            user.save()
+            messages.success(request, f"Password changed successfully: {new_password}")
+            return redirect(
+                reverse("dashboard-view")
+            )  # Replace 'profiles' with the appropriate URL name
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist.")
+        return render(request, self.template_name)
+
 
 #Custom email reset 
 

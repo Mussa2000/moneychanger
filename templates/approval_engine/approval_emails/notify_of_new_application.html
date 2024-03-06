@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New <strong>Approval Ticket</strong> Notification</title>
+</head>
+<body>
+    <table role="presentation" align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+            <td style="padding: 20px; text-align: center; font-size: 24px;">
+                <h2>New <strong>Approval Ticket</strong> Notification</h2>
+                <p>Dear {{ first_approver.user.first_name }} {{ first_approver.user.last_name }}</p>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; text-align: left; font-size: 16px;">
+                <p>A new <strong>Approval Ticket</strong> requires your approval.</p>
+                <p>Entity: <strong>{{ approval_ticket }}</strong></p>
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; text-align: left; font-size: 16px;">
+                <p>Please review the <strong>Approval Ticket</strong> details and provide your approval at your earliest convenience.</p>
+                <p><strong>Note:</strong> You can respond directly to this email or use the provided link to access the approval system.</p>
+                <a href="https://{{site.domain}}{% url 'detail-approval_ticket-view' approval_ticket.pk  %}"><button>Review <strong>Approval Ticket</strong></button></a>
+                
+                
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px; text-align: center; font-size: 16px;">
+                <p>Thank you for your prompt attention to this matter. If you have any questions or need further information, feel free to development@rapiso.co.zw us.</p>
+                <p>Best regards,<br><strong>RAPISO</strong></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

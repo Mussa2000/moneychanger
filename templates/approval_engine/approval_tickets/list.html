@@ -1,0 +1,96 @@
+{% extends '../layouts/base.html'%}
+{% load crispy_forms_tags %}
+
+{% block toolbar %}
+<a href="{% url 'select-model-view' %}" class="btn btn-outline-primary btn-round my-2">Start Approval Workflow</a>
+{% endblock toolbar %}
+{% block content %}
+<div class="nk-block-head nk-block-head-sm">
+  <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+    <div class="nk-block-head-content">
+      <h6 class="nk-block-title page-title" style="font-size: 0.85rem;">Approval Tickets</h6>
+    </div><!-- .nk-block-head-content -->
+    <div class="nk-block-head-content">
+      <div class="toggle-wrap nk-block-tools-toggle">
+        <div class="toggle-expand-content" data-content="pageMenu">
+          <ul class="nk-block-tools g-3" >
+            <li>
+              <a href="{% url 'select-model-view' %}" class="btn btn-outline-primary btn-round my-2">Start Approval Workflow</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div><!-- .nk-block-between -->
+</div>
+
+<div class="container">
+  <div class=" card card-full p-3 ">
+<div class="nk-block nk-block-lg">
+  
+  
+  <div class="card card-bordered card-preview">
+    <table class="table table-tranx">
+        <thead>
+            <tr class="tb-tnx-head">
+                
+                <th class="tb-tnx-info">
+                    <span class="tb-tnx-desc d-none d-sm-inline-block">
+                        <span>Ticket</span>
+                    </span>
+                        
+                </th>
+                <th class="tb-tnx-amount is-alt">
+                    <span class="tb-tnx-status d-none d-md-inline-block">Approval Workflow</span>
+                </th>
+                
+               
+            </tr>
+        </thead>
+        <tbody>
+
+          {% for ticket in approval_tickets %}
+          
+            <tr class="tb-tnx-item">
+                
+                <td class="tb-tnx-info">
+                    
+                    <div class="tb-tnx-info">
+                        <span class="date"><a href="{% url 'detail-approval_ticket-view' ticket.pk %}">{{ ticket.get_action_model }}</a></span>
+                       
+                    </div>
+                    <div class="tb-tnx-date">
+                      {% comment %} <span class="date">{{ ticket.created|date:"Y-m-d" }}</span> {% endcomment %}
+                      <span class="date">{{ ticket }}</span>
+
+                     
+                  </div>
+                </td>
+                <td class="tb-tnx-amount is-alt">
+                   
+                    <div class="tb-tnx-status">
+                        <span class="">
+                          {% if ticket.is_approved %}
+                          <span class="badge badge-dim bg-success">APPROVED </span>
+                          {% else %}
+                          {% if not ticket.denied_group_mark %}
+                            <span class="badge badge-dim bg-info">In Progress</span>
+                          {% else %}
+                          <span class="badge badge-dim bg-danger">Revoked </span>
+                          {% endif %}
+                          {% endif %}
+                      </span>
+                    </div>
+                    
+                </td>
+                
+            </tr>
+            
+            {% endfor %}
+            
+        </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
