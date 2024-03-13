@@ -3,5 +3,6 @@
     "cSpell.words": [
         "whitenoise"
     ],
-    "nuxt.isNuxtApp": false
+    "nuxt.isNuxtApp": false,
+    "taipyStudio.gUI.elementsFilePaths": []
 }

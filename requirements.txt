@@ -1,8 +1,15 @@
 django 
 django-crispy-forms == 1.14.0
 crispy_bootstrap5
+django-allauth
 whitenoise
 requests
 loguru
-
-
+pydantic
+pymysql
+stringcase
+qrcode
+appwrite
+django-extensions
+django-cors-headers
+inflect

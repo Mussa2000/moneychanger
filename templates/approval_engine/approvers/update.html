@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block head-title %}
+    Update Approver
+{% endblock %}
+
+{% block content %}
+    {% csrf_token %}
+    {% crispy form %}
+{% endblock %}

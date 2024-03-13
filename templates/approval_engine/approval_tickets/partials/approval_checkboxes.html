@@ -1,0 +1,19 @@
+<div class="my-2 border border-primary p-4">
+  <h4 class="text-header">Approval Workflow</h4>
+  <div class="scrollable-list my-2" style="  background-color: #f2f2f2; /* Light grey */
+  background-image: linear-gradient(to bottom, #d27f7f12, #97e9fe3d); /* Gradient from light grey to red */
+  border-radius: 7px; /* Rounded corners */
+  padding: 7px;
+  " >
+    {% for approval_level in approval_levels %}
+    <div class="form-check ">
+      <input class="form-check-input mx-2" type="checkbox" {% if approval_level.approver in approval_ticket.approved_roles %}checked{% endif %}>
+      <label class="form-check-label">
+        {{ approval_level}}
+      </label>
+    </div>
+    {% empty %}
+    <p>No approval levels found.</p>
+    {% endfor %}
+  </div>
+</div>

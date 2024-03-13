@@ -1,0 +1,41 @@
+{% extends '../layouts/base.html'%}
+ {% load crispy_forms_tags %} 
+
+    {% block head-title %}
+        Approvals Dashboard
+    {% endblock %}
+
+{% block toolbar%}
+<a href="{% url 'create-approval_ticket-view' %}">+ Start Approval</a>
+{% endblock %} 
+
+{% block content %}
+
+<div class="card card-full">
+  <div class="card-inner">
+    <div class="card-title-group">
+      <div class="card-title">
+        <h6 class="title">Approval Tickets</h6>
+      </div>
+    </div>
+  </div>
+  <div class="nk-tb-list mt-n2">
+    <div class="nk-tb-item nk-tb-head">
+      <div class="nk-tb-col"><span>Id</span></div>
+      
+    </div>
+
+    {% for approval_ticket in approval_tickets %}
+        <div class="nk-tb-item">
+        
+
+        <div class="nk-tb-col tb-col-md">
+            <span class="tb-lead"> {{ approval_ticket.id }} </span>
+        </div>
+        
+        
+        </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
