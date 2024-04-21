@@ -39,7 +39,7 @@ urlpatterns = [
     path('product/delete/<int:pk>/', ProductDeleteView.as_view(), name="product-delete"), 
     
     path('transaction/index/',TransactionListView.as_view(), name="transaction-index"), 
-    path('transaction/create/<int:pk>', TransactionCreateView.as_view(), name="place-transaction"),  
+    path('transaction/create/', TransactionCreateView.as_view(), name="create-transaction"),  
     path('transaction/update/<int:pk>/', TransactionUpdateView.as_view(), name="transaction-update"), 
     path('transaction/details/<int:pk>/', TransactionDetailsView.as_view(), name="transaction-details"), 
     path('transaction/delete/<int:pk>/', TransactionDeleteView.as_view(), name="transaction-delete"), 

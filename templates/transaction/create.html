@@ -7,13 +7,13 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Create Bank Form</h3>
+                <h3 class="nk-block-title page-title">Create transaction Form</h3>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li class="nk-block-tools-opt"><a href="{% url 'bank-index' %}" class="btn btn-primary"><em
+                            <li class="nk-block-tools-opt"><a href="{% url 'transaction-index' %}" class="btn btn-primary"><em
                                         class="icon ni ni-curve-down-left"></em><span>Back</span></a></li>
                         </ul>
                     </div>
@@ -50,45 +50,35 @@
                             {% endfor %}
                         </ul>
                         {% endif %}
-                        {% comment %} <div class="alert alert-pro alert-success bg-lighter">
-                            <div class="alert-text">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label for="{{ form.created_by.id_for_label }}">Bank Name: </label>
-                                        <strong class="text-info">{{ request.user.branch }}</strong>
-                                        <input type="hidden" id="{{ form.branch.id_for_label }}" name="{{ form.branch.html_name }}" value="{{ request.user.branch.pk }}">  
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.created_by.id_for_label }}">Manager: </label>
-                                        <strong class="text-info">{{ request.user.first_name }} {{ request.user.last_name }}</strong>
-                                        <input type="hidden" id="{{ form.created_by.id_for_label }}" name="{{ form.created_by.html_name }}" value="{{ request.user.pk }}">  
-                                    </div>
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
                         <div class="row my-2">
                             <div class="col-md-6">
-                                <label for="{{ form.name.id_for_label }}">Bank Name</label>
+                                <label for="{{ form.user.id_for_label }}">Farmer</label>
                                 <div class="form-control-wrap">
-                                    {{ form.name }}
+                                    {{ form.user }}
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label for="{{ form.acc_number.id_for_label }}">Account Number</label>
+                                <label for="{{ form.tra_date.id_for_label }}">Transaction Date</label>
                                 <div class="form-control-wrap">
-                                    {{ form.acc_number}}
+                                    {{ form.tra_date}}
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <label for="{{ form.address.id_for_label }}">Address</label>
+                            <div class="col-md-6">
+                                <label for="{{ form.product.id_for_label }}">Product</label>
                                 <div class="form-control-wrap">
-                                    {{ form.address}}
+                                    {{ form.product}}
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <label for="{{ form.description.id_for_label }}">Description</label>
+                            <div class="col-md-6">
+                                <label for="{{ form.quantity.id_for_label }}">Quantity</label>
                                 <div class="form-control-wrap" >
-                                    {{ form.description }}
+                                    {{ form.quantity}}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.description.id_for_label }}">Description </label>
+                                <div class="form-control-wrap" >
+                                    {{ form.description  }}
                                 </div>
                             </div>
                         </div>
