@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     # REST API
     "rest_framework",
     "corsheaders",
-    "rest_framework.authtoken",
     #3rd part apps
     "crispy_forms",
     "crispy_bootstrap5",
