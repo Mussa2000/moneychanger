@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% load static%}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">All Banks</h3>
+                <div class="nk-block-des text-soft">
+                    <p>Banks</p>
+                </div>
+            </div><!-- .nk-block-head-content -->
+            <!-- .nk-block-head-content -->
+            <div class="nk-block-head-content">
+                <div class="toggle-wrap nk-block-tools-toggle">
+                    <div class="toggle-expand-content" data-content="pageMenu">
+                        <ul class="nk-block-tools g-3">
+                            <li class="nk-block-tools-opt"><a href="{%url 'bank-create' %}" class="btn btn-primary"><em class="icon ni ni-property-add"></em><span>New Bank</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div><!-- .nk-block-between -->
+    </div><!-- .nk-block-head -->
+    
+{% endblock%}
+
+{% block content%}
+<div class="nk-block nk-block-lg">
+    <div class="card card-bordered card-preview">
+        <div class="card-inner">
+            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Account Number</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in bank %}
+                    <tr>
+                        <td>{{ obj.name }}</td>
+                        <td>{{ obj.acc_number }}</td>
+                        <td class="nk-tb-col nk-tb-col-tools">
+                            <ul class="nk-tb-actions gx-1">
+                                <li>
+                                    <div class="drodown">
+                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <ul class="link-list-opt no-bdr">
+                                                <li><a href="{% url 'bank-details' obj.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
+                                                <li><a href="{% url 'bank-update' obj.pk %}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
+                                                <li><a href="{% url 'bank-delete' obj.pk %}" class="text-danger delete-item-btn"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>  
+                    {% endfor %}               
+                </tbody>
+            </table>
+        </div>
+    </div><!-- .card-preview -->
+</div> <!-- nk-block -->
+
+{% endblock %}

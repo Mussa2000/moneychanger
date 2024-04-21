@@ -1,0 +1,112 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Create Bank Form</h3>
+            </div><!-- .nk-block-head-content -->
+            <div class="nk-block-head-content">
+                <div class="toggle-wrap nk-block-tools-toggle">
+                    <div class="toggle-expand-content" data-content="pageMenu">
+                        <ul class="nk-block-tools g-3">
+                            <li class="nk-block-tools-opt"><a href="{% url 'bank-index' %}" class="btn btn-primary"><em
+                                        class="icon ni ni-curve-down-left"></em><span>Back</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- .nk-block-head-content  -->
+        </div> <!-- .nk-block-between-->
+    </div><!-- .nk-block-head -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="kyc-app">
+    <div class="card card-bordered">
+        <div class="nk-kycfm">
+        <!-- nk-kycfm-head -->
+        <div class="nk-kycfm-content">
+            <div class="nk-kycfm-note">
+           </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-4">
+                    <div class="col-12">
+                    <div class="form-group">
+                        {% if form.errors %}
+                        <ul class="errorlist">
+                            {% for field, errors in form.errors.items %}
+                            <li>
+                                {{ field }}:<ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% comment %} <div class="alert alert-pro alert-success bg-lighter">
+                            <div class="alert-text">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="{{ form.created_by.id_for_label }}">Bank Name: </label>
+                                        <strong class="text-info">{{ request.user.branch }}</strong>
+                                        <input type="hidden" id="{{ form.branch.id_for_label }}" name="{{ form.branch.html_name }}" value="{{ request.user.branch.pk }}">  
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.created_by.id_for_label }}">Manager: </label>
+                                        <strong class="text-info">{{ request.user.first_name }} {{ request.user.last_name }}</strong>
+                                        <input type="hidden" id="{{ form.created_by.id_for_label }}" name="{{ form.created_by.html_name }}" value="{{ request.user.pk }}">  
+                                    </div>
+                                </div>
+                            </div>
+                        </div> {% endcomment %}
+                        <div class="row my-2">
+                            <div class="col-md-6">
+                                <label for="{{ form.name.id_for_label }}">Bank Name</label>
+                                <div class="form-control-wrap">
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.acc_number.id_for_label }}">Account Number</label>
+                                <div class="form-control-wrap">
+                                    {{ form.acc_number}}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="{{ form.address.id_for_label }}">Address</label>
+                                <div class="form-control-wrap">
+                                    {{ form.address}}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="{{ form.description.id_for_label }}">Description</label>
+                                <div class="form-control-wrap" >
+                                    {{ form.description }}
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary" value="save">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- nk-kycfm-content -->
+        </div>
+        <!-- nk-kycfm -->
+    </div>
+    <!-- .card -->
+    </div>
+    <!-- nk-block -->
+</div>
+{% endblock %}
+
