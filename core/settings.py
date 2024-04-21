@@ -12,10 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from decouple import config
 from loguru import logger
 
-from approval_engine import apps_register
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6*qyx5x6o!f5&l#m9(qk(u4#n!k6t3^d@)xavi01y-lz^#_c-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG')
+DEBUG = False
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=list)
+ALLOWED_HOSTS = ['*']
 
 # Required for django sites
 SITE_ID = 1
@@ -48,18 +46,13 @@ INSTALLED_APPS = [
     #our apps
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
+    'receivables',
     # approval engine apps
-    *apps_register.apps_to_register, 
+
     # Authentication  
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
-    # Self Documentation
-    "django_extensions",
-    # REST API
-    "rest_framework",
-    "corsheaders",
-    #3rd part apps
     "crispy_forms",
     "crispy_bootstrap5",
     
@@ -106,23 +99,12 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-USE_MYSQL = config("USE_MYSQL", cast=bool)
-MYSQL_DB_NAME = config("MYSQL_DB_NAME")
-MYSQL_DB_USER = config("MYSQL_DB_USER")
-MYSQL_DB_PASSWORD = config("MYSQL_DB_PASSWORD")
-MYSQL_DB_HOST = config("MYSQL_DB_HOST")
-MYSQL_DB_PORT = config("MYSQL_DB_PORT")
+
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql"
-        if USE_MYSQL
-        else "django.db.backends.sqlite3",
-        "NAME": MYSQL_DB_NAME if USE_MYSQL else BASE_DIR / "db.sqlite3",
-        "USER": MYSQL_DB_USER if USE_MYSQL else None,
-        "PASSWORD": MYSQL_DB_PASSWORD if USE_MYSQL else None,
-        "HOST": MYSQL_DB_HOST if USE_MYSQL else None,
-        "PORT": MYSQL_DB_PORT if USE_MYSQL else None,
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
         # "OPTIONS": {"charset": "utf8mb4_general_ci", "use_unicode": True},
     }
 }
@@ -182,84 +164,11 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 LOGIN_REDIRECT_URL = 'dashboard'
-
-# Emails
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_USE_TLS = True
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT")
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-DEFAULT_FROM_EMAIL = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-
-# EMAIL_USE_SSL = True
-EMAIL_USE_TLS = config("EMAIL_USE_TLS")
-
-ADMINS = [
-    ("SuperCode", "gish@petalmafrica.com"),
-    ("Nyasha C", "nyashac@petalmafrica.com"),
-    ("Courage", "courage@petalmafrica.com"),
-]
-DEFAULT_SYSTEM_USER_EMAIL = "dev@oacey.com"
-
-# REST FRAMEWORK CONFIG 
+AUTH_USER_MODEL = 'accounts.CustomUser' 
 
 CORS_ALLOW_ALL_ORIGINS = True
-
-REST_FRAMEWORK = {
-    "COERCE_DECIMAL_TO_STRING": False,
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 500,
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
-        # "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ],
-}
 
 #MEDIA 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-if not DEBUG:
-    LOGGING = {
-        "version": 1,
-        "disable_existing_loggers": False,
-        "handlers": {
-            "file": {
-                "level": "DEBUG",
-                "class": "logging.FileHandler",
-                "filename": os.path.join(BASE_DIR, "debug.log"),
-            },
-            "console": {
-                "level": "DEBUG",
-                "class": "logging.StreamHandler",
-                "formatter": "simple"
-            },
-        },
-        "formatters": {
-            "simple": {
-                "format": "%(levelname)s %(message)s"
-            }
-        },
-        "loggers": {
-            "django": {
-                "handlers": ["file", "console"],
-                "level": "DEBUG",
-                "propagate": True,
-            },
-        },
-    }
-    SECURE_BROWSER_XSS_FILTER = True
-    X_FRAME_OPTIONS = "DENY"
-    USE_X_FORWARDED_PORT = True
-    USE_X_FORWARDED_HOST = True
-    SECURE_SSL_REDIRECT = config("SECURE_SSL_REDIRECT", cast=bool)
-    SECURE_HSTS_SECONDS = config("SECURE_HSTS_SECONDS", cast=int)
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = config("SECURE_HSTS_INCLUDE_SUBDOMAINS", cast=bool)
-    SECURE_HSTS_PRELOAD = config("SECURE_HSTS_PRELOAD", cast=bool)
-    SECURE_CONTENT_TYPE_NOSNIFF = config("SECURE_CONTENT_TYPE_NOSNIFF", cast=bool)
-    SESSION_COOKIE_SECURE = config("SESSION_COOKIE_SECURE", cast=bool)
-    CSRF_COOKIE_SECURE = config("CSRF_COOKIE_SECURE", cast=bool)
