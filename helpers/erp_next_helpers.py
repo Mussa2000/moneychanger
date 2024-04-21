@@ -7,7 +7,7 @@ def get_erp_next_api():
         "Cookie": "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
     }
     erp_next_api = ERPAPIHandler(
-        url="https://rapisopilotrun.frappe.cloud/", headers=headers
+        url="https://Accounts Receivablespilotrun.frappe.cloud/", headers=headers
     )
     return erp_next_api
 

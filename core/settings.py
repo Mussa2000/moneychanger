@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-6*qyx5x6o!f5&l#m9(qk(u4#n!k6t3^d@)xavi01y-lz^#_c-e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -158,7 +158,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
-    'rest_framework.authentication.TokenAuthentication',
     'accounts.backends.EmailBackend',
     # "rest_framework_jwt.authentication.JWTAuthenticationBackend"
 ]

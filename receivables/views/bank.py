@@ -22,8 +22,8 @@ from receivables.models.bank import Bank
 
 class BankListView(ListView):
     model = Bank
-    context_object_name = "Bank"
-    template_name = "Bank/index.html"
+    context_object_name = "bank"
+    template_name = "bank/index.html"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -13,7 +13,7 @@ logger = loguru.logger
 client = Client()
 
 ENDPOINT = 'https://appwrite.oacey.com:4443/v1'
-PROJECT_ID = 'rapiso'
+PROJECT_ID = 'Accounts Receivables'
 API_KEY = '__FILL__'
 
 (client
