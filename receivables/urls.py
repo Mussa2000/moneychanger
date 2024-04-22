@@ -45,7 +45,7 @@ urlpatterns = [
     path('transaction/delete/<int:pk>/', TransactionDeleteView.as_view(), name="transaction-delete"), 
     
     path('payment/index/',PaymentListView.as_view(), name="payment-index"), 
-    path('payment/create/', PaymentCreateView.as_view(), name="create-payment"),  
+    path('payment/create/<int:pk>/', PaymentCreateView.as_view(), name="create-payment"),  
     path('payment/update/<int:pk>/', PaymentUpdateView.as_view(), name="payment-update"), 
     path('payment/details/<int:pk>/', PaymentDetailsView.as_view(), name="payment-details"), 
     path('payment/delete/<int:pk>/', PaymentDeleteView.as_view(), name="payment-delete"), 

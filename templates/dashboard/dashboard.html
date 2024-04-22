@@ -91,6 +91,7 @@
                             <th>Quantity</th>
                             <th>Unit Cost</th>
                             <th>Total</th>
+                            <th>Amount Paid</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -104,10 +105,11 @@
                             <td>{{ obj.quantity }}</td>
                             <td>{{ obj.product.unit_cost }}</td>
                             <td>{{ obj.total }}</td>
+                            <td>{{ obj.amount_paid }}</td>
                             <td>{{ obj.status }}</td>
-                           {% if request.user.is_farmer %}   
+                            {% if request.user.is_farmer %}   
                                 <td>    
-                                    <li><a href="{% url 'create-payment' %}" class="btn btn-warning"><span>Make Payment</span> <em class="icon ni ni-arrow-long-right"></em></a></li>
+                                    <li><a href="{% url 'create-payment' obj.pk %}" class="btn btn-warning"><span>Make Payment</span> <em class="icon ni ni-arrow-long-right"></em></a></li>
                                 </td>
                             {% else %}
                                 <td class="nk-tb-col nk-tb-col-tools">

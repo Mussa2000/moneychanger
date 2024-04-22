@@ -39,6 +39,7 @@
                         <th>Quantity</th>
                         <th>Unit Cost</th>
                         <th>Total</th>
+                        <th>Paid Amount</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -52,6 +53,7 @@
                         <td>{{ obj.quantity }}</td>
                         <td>{{ obj.product.unit_cost }}</td>
                         <td>{{ obj.total }}</td>
+                        <td>{{ obj.amount_paid}}</td>
                         <td>{{ obj.status }}</td>
                         <td class="nk-tb-col nk-tb-col-tools">
                             <ul class="nk-tb-actions gx-1">

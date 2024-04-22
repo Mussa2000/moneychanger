@@ -16,6 +16,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from receivables.forms.payment import PaymentForm
 from receivables.models.payment import Payment
+from receivables.models.transaction import Transaction
 
 
 class PaymentListView(LoginRequiredMixin, ListView):
@@ -27,15 +28,27 @@ class PaymentListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         return context
 
+class PaymentCreateView(View):
+    def get(self, request, pk):
+        transaction = get_object_or_404(Transaction, pk=pk)
+        form = PaymentForm(initial={'transaction': transaction})
+        return render(request, "payment/create.html", {"transaction": transaction, "form": form})
+    
+    def post(self, request, pk):
+        transaction = get_object_or_404(Transaction, pk=pk)
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            payment = form.save(commit=False)
+            payment.save()
 
-class PaymentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = Payment
-    form_class = PaymentForm
-    template_name = "payment/create.html"
-    success_message = "Payment created successfully"
+            # transaction.amount_paid += payment.amount
+            # transaction.save()
 
-    def get_success_url(self):
-        return reverse("payment-index")
+            messages.success(request, 'Payment Placed Successfully')
+            return redirect('dashboard')
+        else:
+            messages.warning(request, form.errors)
+            return render(request, "payment/create.html", {"transaction": transaction, "form": form})
 
 
 class PaymentDetailsView(LoginRequiredMixin, DetailView):
