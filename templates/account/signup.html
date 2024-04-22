@@ -42,18 +42,18 @@
 
                                 <div class="nk-block-head">
                                     <div class="nk-block-between py-3 px-3 bg-light rounded-3">
-                                        <h5 class="nk-block-title mx-auto">Authentication</h5>
+                                        <h5 class="nk-block-title mx-auto">User Registration</h5>
                                         
                                     </div>
                                 </div><!-- .nk-block-head -->
-                                <form action="{% url 'account_login' %}" method="POST">
+                                <form method="POST">
                                     {% csrf_token %}
                                     {{ form | crispy }}
                                     <br/>
                                     <input type="submit" class="btn btn-white btn-dim btn-outline-light"/>
                                 </form>
                                 <br>
-                                <a href="{% url 'account_signup' %}">Create new account</a>
+                                <a href="{% url 'account_login' %}">Already have account login!</a>
 
                             </div><!-- .nk-block -->
                             <div class="nk-block nk-auth-footer">

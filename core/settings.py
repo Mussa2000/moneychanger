@@ -161,6 +161,7 @@ AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailBackend',
     # "rest_framework_jwt.authentication.JWTAuthenticationBackend"
 ]
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 
 LOGIN_REDIRECT_URL = 'dashboard'
 AUTH_USER_MODEL = 'accounts.CustomUser' 
