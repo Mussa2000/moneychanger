@@ -18,3 +18,16 @@ def update_transaction_amount_paid_on_delete(sender, instance, **kwargs):
     if transaction:
         transaction.amount_paid -= instance.amount
         transaction.save()
+        
+@receiver(post_save, sender=Payment)
+def update_transaction_status(sender, instance, **kwargs):
+    # Get the corresponding transaction for the payment
+    transaction = instance.transaction
+    if transaction:
+        total_amount = transaction.total()
+        if transaction.amount_paid >= total_amount:  # Check if amount paid is greater than or equal to the total amount
+            transaction.status = 'Paid'  # Update transaction status to 'Paid'
+        else:
+            transaction.status = 'Pending'  # Update transaction status to 'Pending' if amount paid is less than total amount
+        
+        transaction.save()

@@ -19,6 +19,10 @@ from django.core.exceptions import ValidationError
 from receivables.forms.bank import BankForm
 from receivables.models.bank import Bank
 from receivables.models.payment import Payment
+from receivables.models.transaction import Transaction
+from django.http import HttpResponse
+from django.views import View
+from openpyxl import Workbook
 
 
 class BankListView(ListView):
@@ -74,3 +78,30 @@ class BankDeleteView(View):
             
 
 
+class ExportBankTransactionsToExcelView(View):
+    def get(self, request, *args, **kwargs):
+        # Get the bank object
+        bank = get_object_or_404(Bank, pk=kwargs.get('pk'))
+        
+        # Get transactions related to the bank
+        payments = Payment.objects.filter(bank=bank)
+        
+        # Create a new workbook
+        wb = Workbook()
+        ws = wb.active
+        
+        # Add column headers
+        ws.append(['Farmer', 'Product', 'Transaction Date', 'Quantity', 'Unit Cost', 'Payment Date', 'Amount'])
+        
+        # Add transaction data
+        for obj in payments :
+            ws.append([obj.user.username, obj.transaction.product.name , obj.transaction.tra_date, obj.transaction.quantity, obj.transaction.product.unit_cost, obj.pay_date, obj.amount])
+        
+        # Create response
+        response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+        response['Content-Disposition'] = f'attachment; filename=transactions_{bank.name}.xlsx'
+        
+        # Save workbook to response
+        wb.save(response)
+        
+        return response

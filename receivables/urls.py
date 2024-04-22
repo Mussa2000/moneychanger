@@ -11,6 +11,7 @@ from receivables.views import (
     BankUpdateView,
     BankDetailsView,
     BankDeleteView,
+    ExportBankTransactionsToExcelView,
     
     ProductListView,
     ProductCreateView,
@@ -31,6 +32,7 @@ urlpatterns = [
     path('bank/update/<int:pk>/', BankUpdateView.as_view(), name="bank-update"), 
     path('bank/details/<int:pk>/', BankDetailsView.as_view(), name="bank-details"), 
     path('bank/delete/<int:pk>/', BankDeleteView.as_view(), name="bank-delete"), 
+    path('bank/export/payments/<int:pk>/', ExportBankTransactionsToExcelView.as_view(), name="export-bank-payments"), 
     
     path('product/index/', ProductListView.as_view(), name="product-index"), 
     path('product/create/', ProductCreateView.as_view(), name="product-create"),  

@@ -12,6 +12,8 @@ from receivables.views.bank import (
     BankUpdateView,
     BankDetailsView,
     BankDeleteView,
+    ExportBankTransactionsToExcelView,
+    
 )
 from receivables.views.product import (
     ProductListView,

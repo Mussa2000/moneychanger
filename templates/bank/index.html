@@ -53,6 +53,7 @@
                                                 <li><a href="{% url 'bank-details' obj.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
                                                 <li><a href="{% url 'bank-update' obj.pk %}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
                                                 <li><a href="{% url 'bank-delete' obj.pk %}" class="text-danger delete-item-btn"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                <li><a href="{% url 'export-bank-payments' obj.pk %}" class="text-success delete-item-btn"><em class="icon ni ni-download"></em><span>Export</span></a></li>
                                             </ul>
                                         </div>
                                     </div>
