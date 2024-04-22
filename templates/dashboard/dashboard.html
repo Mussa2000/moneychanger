@@ -105,22 +105,28 @@
                             <td>{{ obj.product.unit_cost }}</td>
                             <td>{{ obj.total }}</td>
                             <td>{{ obj.status }}</td>
-                            <td class="nk-tb-col nk-tb-col-tools">
-                                <ul class="nk-tb-actions gx-1">
-                                    <li>
-                                        <div class="drodown">
-                                            <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <ul class="link-list-opt no-bdr">
-                                                    <li><a href="{% url 'transaction-details' obj.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
-                                                    <li><a href="{% url 'transaction-update' obj.pk %}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
-                                                    <li><a href="{% url 'transaction-delete' obj.pk %}" class="text-danger delete-item-btn"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </td>
+                           {% if request.user.is_farmer %}   
+                                <td>    
+                                    <li><a href="{% url 'create-payment' %}" class="btn btn-warning"><span>Make Payment</span> <em class="icon ni ni-arrow-long-right"></em></a></li>
+                                </td>
+                            {% else %}
+                                <td class="nk-tb-col nk-tb-col-tools">
+                                        <ul class="nk-tb-actions gx-1">
+                                            <li>
+                                                <div class="drodown">
+                                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <ul class="link-list-opt no-bdr">
+                                                            <li><a href="{% url 'transaction-details' obj.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
+                                                            <li><a href="{% url 'transaction-update' obj.pk %}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
+                                                            <li><a href="{% url 'transaction-delete' obj.pk %}" class="text-danger delete-item-btn"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </td>
+                            {% endif %}
                         </tr>  
                         {% endfor %}               
                     </tbody>

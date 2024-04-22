@@ -61,3 +61,4 @@ class PaymentDeleteView(View):
         dep.delete()
         messages.success(request,f'{dep} deleted successfully')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    
