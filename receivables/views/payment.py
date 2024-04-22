@@ -21,7 +21,7 @@ from receivables.models.payment import Payment
 class PaymentListView(LoginRequiredMixin, ListView):
     model = Payment
     context_object_name = "payment"
-    template_name = "payment/list.html"
+    template_name = "payment/index.html"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
