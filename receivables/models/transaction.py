@@ -13,7 +13,7 @@ class Transaction(models.Model):
     tra_date = models.DateField()
     quantity= models.IntegerField(default =1)
     description = models.CharField(max_length=255)
-    amount_paid = models.FloatField(default=0.00, null=True, blank=True),
+    amount_paid = models.FloatField(null=True, blank=True)
     status = models.CharField(max_length=10, default='pending', choices=STATUS_CHOICES, null=True, blank=True)
     
     def __str__(self) -> str:

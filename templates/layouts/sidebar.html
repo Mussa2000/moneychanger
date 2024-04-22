@@ -22,30 +22,39 @@
                                 <span class="nk-menu-text">Dashboard</span>
                             </a>
                         </li><!-- .nk-menu-item -->
-                        <li class="nk-menu-item">
-                            <a href="{% url 'bank-index' %}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
-                                <span class="nk-menu-text">Bank</span>
-                            </a>
-                        </li>  
-                        <li class="nk-menu-item">
-                            <a href="{% url 'product-index' %}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
-                                <span class="nk-menu-text">Product</span>
-                            </a>
-                        </li>  
-                        <li class="nk-menu-item">
-                            <a href="{% url 'transaction-index' %}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
-                                <span class="nk-menu-text">Transaction</span>
-                            </a>
+                        {% if request.user.is_farmer %}
+                            <li class="nk-menu-item">
+                                <a href="{% url 'payment-index' %}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Payment</span>
+                                </a>
                         </li> 
-                        <li class="nk-menu-item">
-                            <a href="{% url 'payment-index' %}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
-                                <span class="nk-menu-text">Payment</span>
-                            </a>
-                        </li> 
+                        {% else %}
+                            <li class="nk-menu-item">
+                                <a href="{% url 'bank-index' %}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Bank</span>
+                                </a>
+                            </li>  
+                            <li class="nk-menu-item">
+                                <a href="{% url 'product-index' %}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Product</span>
+                                </a>
+                            </li>  
+                            <li class="nk-menu-item">
+                                <a href="{% url 'transaction-index' %}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Transaction</span>
+                                </a>
+                            </li> 
+                            <li class="nk-menu-item">
+                                <a href="{% url 'payment-index' %}" class="nk-menu-link">
+                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-text">Payment</span>
+                                </a>
+                            </li> 
+                        {% endif %}
                     </ul><!-- .nk-menu -->
                 </div><!-- .nk-sidebar-menu -->
             </div><!-- .nk-sidebar-content -->
