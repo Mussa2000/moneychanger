@@ -18,6 +18,7 @@ from django.core.exceptions import ValidationError
 
 from receivables.forms.bank import BankForm
 from receivables.models.bank import Bank
+from receivables.models.payment import Payment
 
 
 class BankListView(ListView):
@@ -44,6 +45,13 @@ class BankDetailsView(DetailView):
     model = Bank
     context_object_name = "bank"
     template_name = "bank/details.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bank_payments = Payment.objects.filter(bank=self.object)
+
+        context['bank_payments'] = bank_payments
+        return context
 
 
 class BankUpdateView(SuccessMessageMixin, UpdateView):

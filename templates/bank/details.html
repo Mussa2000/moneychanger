@@ -35,6 +35,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#tabItem5"><em class="icon ni ni-eye-alt"></em><span>Details</span></a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#tabItem6"><em class="icon ni ni-eye-alt"></em><span>Payments</span></a>
+                </li>
                 
             </ul>
             <div class="tab-content">
@@ -59,9 +62,33 @@
                         <span class="text-muted">{{ bank.description }}</span>
                     </div>
                 </div>
+                <div class="tab-pane" id="tabItem6">
+                    <table class="datatable-init-export nowrap table" data-export-title="Export">
+                        <thead>
+                            <tr>
+                                <th>Farmer</th>
+                                <th>Transaction</th>
+                                <th>Payment Date</th>
+                                <th>Type Of Payment</th>
+                                <th>Bank</th>
+                                <th>Amount Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in payment %}
+                            <tr>
+                                <td>{{ obj.user }}</td>
+                                <td>{{ obj.transaction }}</td>
+                                <td>{{ obj.pay_date }}</td>
+                                <td>{{ obj.payment_type }}</td>
+                                <td>{{ obj.bank }}</td>
+                                <td>{{ obj.amount }}</td>
+                            </tr>  
+                            {% endfor %}               
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
-            
         </div>
     </div>
 </div><!-- .nk-block -->
