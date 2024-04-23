@@ -15,7 +15,9 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from receivables.forms.province import ProvinceForm
+from receivables.models.payment import Payment
 from receivables.models.province import Province
+from receivables.models.transaction import Transaction
 
 
 class ProvinceListView(LoginRequiredMixin, ListView):
@@ -42,6 +44,15 @@ class ProvinceDetailsView(LoginRequiredMixin, DetailView):
     model = Province
     context_object_name = "province"
     template_name = "province/details.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        transactions = Transaction.objects.filter(user__province=self.object)
+        payments = Payment.objects.filter(user__province=self.object)
+
+        context['transactions'] = transactions
+        context['payments'] = payments
+        return context
 
 
 class ProvinceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

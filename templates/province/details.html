@@ -47,6 +47,32 @@
                         <span class="text-muted">{{ province.name }}</span>
                     </div>
                 </div>
+                <div class="tab-pane" id="tabItem6">
+                    <table class="datatable-init-export nowrap table" data-export-title="Export">
+                        <thead>
+                            <tr>
+                                <th>Farmer</th>
+                                <th>Transaction</th>
+                                <th>Payment Date</th>
+                                <th>Type Of Payment</th>
+                                <th>province</th>
+                                <th>Amount Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in payments %}
+                            <tr>
+                                <td>{{ obj.user }}</td>
+                                <td>{{ obj.transaction }}</td>
+                                <td>{{ obj.pay_date }}</td>
+                                <td>{{ obj.payment_type }}</td>
+                                <td>{{ obj.province }}</td>
+                                <td>{{ obj.amount }}</td>
+                            </tr>  
+                            {% endfor %}               
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

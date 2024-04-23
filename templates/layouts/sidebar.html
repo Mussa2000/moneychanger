@@ -25,20 +25,20 @@
                         {% if request.user.is_farmer %}
                             <li class="nk-menu-item">
                                 <a href="{% url 'payment-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
-                                    <span class="nk-menu-text">Payment</span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-coin"></em></span>
+                                    <span class="nk-menu-text">Payments</span>
                                 </a>
                         </li> 
                         {% else %}
                             <li class="nk-menu-item">
                                 <a href="{% url 'bank-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-coin-alt"></em></span>
                                     <span class="nk-menu-text">Bank</span>
                                 </a>
                             </li>  
                             <li class="nk-menu-item">
                                 <a href="{% url 'product-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-list-index-fill"></em></span>
                                     <span class="nk-menu-text">Product</span>
                                 </a>
                             </li>  
@@ -51,12 +51,12 @@
                             <li class="nk-menu-item">
                                 <a href="{% url 'payment-index' %}" class="nk-menu-link">
                                     <span class="nk-menu-icon"><em class="icon ni ni-coin"></em></span>
-                                    <span class="nk-menu-text">Payment</span>
+                                    <span class="nk-menu-text">Payments</span>
                                 </a>
                             </li> 
                             <li class="nk-menu-item">
                                 <a href="{% url 'province-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-user-list"></em></span>
+                                    <span class="nk-menu-icon"><em class="icon ni ni-masonry"></em></span>
                                     <span class="nk-menu-text">Province</span>
                                 </a>
                             </li> 
