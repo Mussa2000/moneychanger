@@ -68,7 +68,7 @@
             font-size: 1.125rem;
             line-height: 1;
             vertical-align: middle;
-            a{
+            a,.asterisk-on,a:hover,a.active{
                 color:$accent-color;
             }
         }
@@ -109,7 +109,7 @@
             padding-bottom: 0.5rem;
             color: $base-light;
             font-size: .9em;
-            border-bottom: 1px solid $border-color; 
+            border-bottom: 1px solid $border-color;
         }
         &-action {
             text-align: right;

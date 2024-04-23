@@ -33,7 +33,7 @@ $alert-dismissible-close-icon: $ni-cross;
             position: absolute;
             right: 0;
             padding: 1rem 1.25rem;
-            color: inherit;
+            color: currentColor;
             &:focus{
                 outline: none;
             }

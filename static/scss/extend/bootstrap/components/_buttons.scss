@@ -6,8 +6,8 @@
     display: inline-flex;
     align-items: center;
     &-xl {
-        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
-        line-height: $btn-line-height-lg;
+        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg,  $btn-border-radius-lg);
+        line-height: $btn-line-height-lg
     }
     &-xs{
         @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-border-radius-xs);
@@ -85,14 +85,14 @@
             }
         }
         .dot{
-            top: .35rem;
             position: absolute;
+            top: .35rem;
             right: .35rem;
             transform: translate(50%, -50%);
         }
         .badge{
-            top: .25rem;
             position: absolute;
+            top: .25rem;
             right: .25rem;
             transform: translate(50%, -50%);
             &-circle{

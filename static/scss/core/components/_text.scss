@@ -231,3 +231,16 @@ h6{
   font-style: italic;
   color: $base-light;
 }
+
+.title{
+  @if($dark_option==true) {
+    .is-dark &{
+      color: $light-400;
+    }
+  }
+  @if($dark_theme_option==true) {
+    .is-theme &{
+      color: $accent-light;
+    }
+  }
+}

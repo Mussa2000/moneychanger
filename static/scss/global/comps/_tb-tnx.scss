@@ -70,7 +70,7 @@
         }
     }
     &-btns {
-        .btn + .btn {
+    	.btn + .btn {
             margin-left: .5rem;
     	}
     	& + .dropdown {

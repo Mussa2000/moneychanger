@@ -1,69 +1,34 @@
 {% load static %}
 
-<div class="nk-sidebar nk-sidebar-fixed " data-content="sidebarMenu">
-    <div class="nk-sidebar-element nk-sidebar-head">
-        <div class="nk-sidebar-brand">
-            <a href="#" class="logo-link nk-sidebar-logo">
-                <h3 class="text-info" >Accounts Receivables</h3>
-            </a>
-        </div>
-        <div class="nk-menu-trigger me-n2">
-            <a href="#" class="nk-nav-toggle nk-quick-nav-icon d-xl-none" data-target="sidebarMenu"><em class="icon ni ni-arrow-left"></em></a>
-        </div>
-    </div><!-- .nk-sidebar-element -->
-    <div class="nk-sidebar-element">
-        <div class="nk-sidebar-body" data-simplebar>
-            <div class="nk-sidebar-content">
-                <div class="nk-sidebar-menu">
-                    <ul class="nk-menu">
+<div class="nk-sidebar-main is-light" style="position: fixed; left: 0; top: 0; bottom: 0; width: 250px; background-color: #fff; border-right: 1px solid #e5e5e5; overflow-y: auto;">
+    <div class="nk-sidebar-inner" data-simplebar>
+        <div class="nk-menu-content menu-active" data-content="navPharmacy">
+            <h5 class="title">Asset Guardian</h5>
+            <ul class="nk-menu">
+                <li class="nk-menu-item">
+                    <a href="html/pharmacy/index.html" class="nk-menu-link">
+                        <span class="nk-menu-icon"><em class="icon ni ni-dashboard-fill"></em></span>
+                        <span class="nk-menu-text">Dashboard</span>
+                    </a>
+                </li><!-- .nk-menu-item -->
+                <li class="nk-menu-item has-sub">
+                    <a href="#" class="nk-menu-link nk-menu-toggle">
+                        <span class="nk-menu-icon"><em class="icon ni ni-users-fill"></em></span>
+                        <span class="nk-menu-text">Customer</span>
+                    </a>
+                    <ul class="nk-menu-sub">
                         <li class="nk-menu-item">
-                            <a href="{%url 'dashboard' %}" class="nk-menu-link">
-                                <span class="nk-menu-icon"><em class="icon ni ni-growth"></em></span>
-                                <span class="nk-menu-text">Dashboard</span>
-                            </a>
-                        </li><!-- .nk-menu-item -->
-                        {% if request.user.is_farmer %}
-                            <li class="nk-menu-item">
-                                <a href="{% url 'payment-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-coin"></em></span>
-                                    <span class="nk-menu-text">Payments</span>
-                                </a>
-                        </li> 
-                        {% else %}
-                            <li class="nk-menu-item">
-                                <a href="{% url 'bank-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-coin-alt"></em></span>
-                                    <span class="nk-menu-text">Bank</span>
-                                </a>
-                            </li>  
-                            <li class="nk-menu-item">
-                                <a href="{% url 'product-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-list-index-fill"></em></span>
-                                    <span class="nk-menu-text">Product</span>
-                                </a>
-                            </li>  
-                            <li class="nk-menu-item">
-                                <a href="{% url 'transaction-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-money"></em></span>
-                                    <span class="nk-menu-text">Transaction</span>
-                                </a>
-                            </li> 
-                            <li class="nk-menu-item">
-                                <a href="{% url 'payment-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-coin"></em></span>
-                                    <span class="nk-menu-text">Payments</span>
-                                </a>
-                            </li> 
-                            <li class="nk-menu-item">
-                                <a href="{% url 'province-index' %}" class="nk-menu-link">
-                                    <span class="nk-menu-icon"><em class="icon ni ni-masonry"></em></span>
-                                    <span class="nk-menu-text">Province</span>
-                                </a>
-                            </li> 
-                        {% endif %}
-                    </ul><!-- .nk-menu -->
-                </div><!-- .nk-sidebar-menu -->
-            </div><!-- .nk-sidebar-content -->
-        </div><!-- .nk-sidebar-body -->
-    </div><!-- .nk-sidebar-element -->
+                            <a href="html/pharmacy/add-customer.html" class="nk-menu-link"><span class="nk-menu-text">Add Customer</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="html/pharmacy/customer.html" class="nk-menu-link"><span class="nk-menu-text">Customer List</span></a>
+                        </li>
+                        <li class="nk-menu-item">
+                            <a href="html/pharmacy/customer-ledger.html" class="nk-menu-link"><span class="nk-menu-text">Customer Ledger</span></a>
+                        </li>
+                    </ul><!-- .nk-menu-sub -->
+                </li><!-- .nk-menu-item -->
+            </ul><!-- .nk-menu -->
+        </div>
+    </div>
 </div>

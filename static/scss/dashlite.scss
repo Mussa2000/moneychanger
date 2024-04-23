@@ -27,7 +27,7 @@
 ////////////////////////// DO NOT REMOVE BELOW ///////////////////////
 
 // Included Global Variables and Functions
-@import "_dashlite_variables";
+@import "dashlite_variables";
 
 // Included Fonts
 /** 01. FONTS */
@@ -50,10 +50,6 @@
 ////// GLOBAL INCLUDED
 @import "global/style";
 
-//////  INDIVIDUL CONCEPTS 
-@import "crypto/style";
-@import "loan/style";
-
 //////  APPLICATONS - Common Uses
 @import "apps/asterisk"; 
 @import "apps/reply-comment"; 
@@ -66,7 +62,7 @@
 @import "apps/chats";  			// - Chats
 
 ///////  PREVIEW PURPOSE 
-@import "core/preview";			// Can be remove on real projoect
+@import "core/preview"; 		// Can be remove on real projoect
 
 ///////  UI/MODE OVERRIDE
 @import "core/mode-override";

@@ -165,11 +165,13 @@ $link-list-menu-icon-rtl: $ni-chevron-left !default;
     li.active > a, a.active {
         @extend .link-act-check;
     }
+    // @io-v150
     li.disabled > a, a.disabled {
         pointer-events: none;
         color: $base-light;
         opacity: 0.7;
     }
+    // @v1.0.1
     .opt-head {
         padding: .25rem 1.25rem;
         color: $base-light;
@@ -179,10 +181,12 @@ $link-list-menu-icon-rtl: $ni-chevron-left !default;
             font-weight: $fw-normal;
         }
     }
+    // @io-v130
     &.no-bdr + .link-check {
         margin-top: -0.75rem;
 
     }
+    // @io-v150
     &.ui-colored {
         li.active > a, a.active {
             color: $accent-color;

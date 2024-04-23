@@ -79,7 +79,7 @@
             }
             .nk-content-body > & {
                 &:first-child {
-                    padding-bottom: 1.75rem;
+                    padding-bottom: 1.25rem;
                 }
             }
             .nk-block-text{
@@ -139,6 +139,11 @@
             &-head{
                 &-lg{
                     padding-bottom: 2.5rem;
+                }
+                .nk-content-body > & {
+                    &:first-child {
+                        padding-bottom: 1.5rem;
+                    }
                 }
             }
             &-content{
@@ -205,6 +210,8 @@ $breaks: md;
     }
 }
 
+
+//@i v150
 .nk-block-subhead{
     padding-bottom: .5rem;
     border-bottom: 1px solid $border-color;

@@ -42,6 +42,10 @@
     overflow: auto;
 }
 
+.card-preview{
+    border: 1px solid $border-color;
+}
+
 .code-block{
     position: relative;
     border: 1px solid $border-color; 
@@ -53,11 +57,10 @@
         top: 12px;
         right: 12px;
     }
-    .card-preview + &{
+    .code-block + &,.card-preview + &{
         margin-top: 28px;
     }
     + .code-block {
-        margin-top: -($border-radius - 1);
         border-top-color: $border-light;
         border-radius: 0 0 $border-radius $border-radius;
     }
@@ -112,7 +115,6 @@
             position: relative;
             padding: 25px 20px;
             text-align: center;
-            border: 1px solid $border-color;
             .btn-clipboard{
                 position: absolute;
                 top: 0;
@@ -261,9 +263,6 @@
         letter-spacing: -0.01rem;
         font-family: $base-font-family;
         font-weight: $fw-medium;
-    }
-    .card-preview{
-        border: 1px solid $border-color;
     }
     .card-preview > .card-inner{
         padding: 1.25rem;

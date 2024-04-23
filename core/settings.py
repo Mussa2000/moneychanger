@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
-from loguru import logger
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
     #our apps
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
-    'receivables',
     # approval engine apps
 
     # Authentication  
@@ -72,6 +70,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # "allauth.account.middleware.AuthenticationMiddleware",  # Add this line
     # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
@@ -140,8 +139,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-# LOGGER 
-LOGGER = logger
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -159,7 +156,6 @@ AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
     'accounts.backends.EmailBackend',
-    # "rest_framework_jwt.authentication.JWTAuthenticationBackend"
 ]
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' 
 ACCOUNT_FORMS = {'signup': 'accounts.forms.user.CustomSignupForm'}

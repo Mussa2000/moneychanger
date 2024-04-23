@@ -1,12 +1,9 @@
 ////////////////////////////////////////////////////////
 ////////     CORE DASHLITE VARIABLES    ///// //////////
 ////////////////////////////////////////////////////////
-
+@use "sass:math";
 /////////    COLORS    ///////////
 //////////////////////////////////////
-
-@use "sass:math";
-
 $white:		#fff;
 $black: 	#000;
 
@@ -52,19 +49,19 @@ $base-light:  		$base-400;
 $base-dim:  		mix($base-color,$white, 8%);
 
 // Base/Default color @used for text
-$accent-100:        #e1eeff;
-$accent-200:        #cee3ff;
-$accent-300:        #a9cdff;
-$accent-400:        #6baafe;
-$accent-500:        #3a8dfe;
+$accent-100:        #e2f5f0;
+$accent-200:        #cfeee6;
+$accent-300:        #abe2d3;
+$accent-400:        #6fcdb3;
+$accent-500:        #3fbd9a;
 
-$accent-color:      #0971fe;
+$accent-color:      #0fac81;
 $accent-light:      $accent-300;
-$accent-dark:       #0b3175;
+$accent-dark:       #07523d;
 $accent-dim:  	    #e3e7fe;
 
 
-$body-bg:			$lighter;
+$body-bg:			$white;
 $body-color:		$base-text;
 
 $link-color:        		$accent-500;
@@ -157,7 +154,7 @@ $fx-sz-15:			15px;
 $fx-sz-16:			16px; 
 
 $gutter-width:           28px;
-$stretch-gap-x:          (4px + math.div($gutter-width,2));
+$stretch-gap-x:          (4px + math.div($gutter-width, 2));
 
 /////////    TYPTOGRAPHY    //////////
 //////////////////////////////////////
@@ -724,14 +721,10 @@ $logo-height-lg:                    60px;
 $logo-height-icon:                  33px;
 
 // Sidebar
-$sidebar-width-normal:              290px;
+$sidebar-width-normal:              340px;
+$sidebar-bar-width:                 81px;
 $sidebar-width-short:               81px;
 $sidebar-gap-x:                     24px;
-
-$sidebar-width-fat:                 400px;
-$sidebar-width-fat-tablet:          340px;
-$sidebar-gap-x-fat:                 32px;
-$sidebar-gap-x-fat-tablet:          16px;
 
 // Apps Sidebar
 $sidebar-width-apps:                 80px;
@@ -758,13 +751,12 @@ $sidebar-border-light-color:        $light;
 $sidebar-toogle-btn-color:			$base-500;
 
 // Content
-$content-gap-x:                     20px - math.div($gutter-width,2);
-$content-gap-x-sm:                  36px - math.div($gutter-width,2);
-$content-gap-y:                     24px;
+$content-gap-x:                     20px - math.div($gutter-width, 2);
+$content-gap-x-sm:                  36px - math.div($gutter-width, 2);
+$content-gap-y:                     20px;
+$content-gap-y-sm:                  24px;
 $content-sidebar-width:             280px;
 
-$content-sidebar-bg-color:			$white;
-$content-sidebar-border-color:		$border-light;
 
 // // Content
 
@@ -790,7 +782,7 @@ $header-toogle-btn-lh:				$btn-line-height-sm;
 $header-toogle-btn-icon-width:		$btn-line-height-sm + $btn-padding-y-sm*2;
 
 $header-col-width-small:            120px;
-$header-col-width-safe:             math.div($header-col-width-small,2);
+$header-col-width-safe:             math.div($header-col-width-small, 2);
 $header-col-width:                  calc(50% - #{$header-col-width-safe});
 
 //Footer
@@ -811,7 +803,7 @@ $aside-content-body-height-calc:    ($content-gap-y + 8 + $header-height);
 
 
 $menu-icon-width:                   36px;
-$menu-icon-width-sm:                32px;
+$menu-icon-width-sm:                28px;
 
 
 //////  CONFIGURATION VARIABLE  @io-v120  //////

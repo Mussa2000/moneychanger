@@ -12,6 +12,7 @@
         .text-center & {
             justify-content: center;
         }
+        //@i-v120
         @if($dark_theme_option==true) {
             a:hover {
                 .is-theme & {
@@ -118,7 +119,7 @@
 }
 
 
-// ASide WG
+// ASide WG V1.1
 ///////////////////////
 .aside-wg{
     + .aside-wg{

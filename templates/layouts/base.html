@@ -12,7 +12,7 @@
     <!-- Fav Icon  -->
     {% comment %} <link rel="shortcut icon" href="{% static 'images/af_logo.jpg' %}"> {% endcomment %}
     <!-- Page Title  -->
-    <title>Acc Receivables</title>
+    <title>Asset Guardian</title>
     <!-- StyleSheets  -->
     <link rel="stylesheet" href="{% static 'assets/css/dashlite.css?ver=3.1.1' %}'">
     <link id="skin-default" rel="stylesheet" href="{% static 'assets/css/theme.css?ver=3.1.1' %}'">
@@ -34,7 +34,6 @@
                 <!-- main header @s -->
 
                 {% include 'layouts/header.html' %}
-               
                 <!-- main header @e -->
                 <!-- content @s -->
                 <div class="nk-content nk-content-fluid">
@@ -48,10 +47,11 @@
                             {% endblock%}
 
                             {% block content %}
+                                <!-- content @s -->
 
-                                {% comment %} your content here {% endcomment %}
+                                    {% comment %} content here {% endcomment %}
 
-
+                                <!-- content @e -->
                             {% endblock%}
                         </div>
                     </div>

@@ -11,11 +11,15 @@
     //class names
     _body_theme = 'nio-theme',
     _menu = 'nk-menu',
+    _menu_switch = 'nk-menu-switch',
+    _menu_content = 'nk-menu-content',
+    _menu_active = 'menu-active',
     _mobile_nav = 'mobile-menu',
     _header = 'nk-header',
     _header_menu = 'nk-header-menu',
     _sidebar = 'nk-sidebar',
     _sidebar_mob = 'nk-sidebar-mobile',
+    _app_sidebar = 'nk-apps-sidebar',
     //breakpoints
     _break = NioApp.Break;
   function extend(obj, ext) {
@@ -26,6 +30,7 @@
   }
   // ClassInit @v1.0
   NioApp.ClassBody = function () {
+    NioApp.AddInBody(_app_sidebar);
     NioApp.AddInBody(_sidebar);
   };
 
@@ -112,6 +117,14 @@
         self.closest("li").addClass('active current-page').parents().closest("li").addClass("active current-page");
         self.closest("li").children('.nk-menu-sub').css('display', 'block');
         self.parents().closest("li").children('.nk-menu-sub').css('display', 'block');
+        this.scrollIntoView({
+          block: "start"
+        });
+        $('.nk-menu-switch').parent().removeClass('active');
+        $('.' + _menu_content).removeClass(_menu_active);
+        var _closest_content = self.closest('.' + _menu_content).data('content');
+        self.closest('.' + _menu_content).addClass(_menu_active);
+        $('[data-target=' + _closest_content + ']').parent().addClass('active');
       } else {
         self.closest("li").removeClass('active current-page').parents().closest("li:not(.current-page)").removeClass("active");
       }
@@ -199,8 +212,9 @@
           currentTarget = $(toggleCurrent).data('target'),
           $contentCurrent = $("[data-content=\"".concat(currentTarget, "\"]")),
           $dpd = $('.datepicker-dropdown'),
-          $tpc = $('.ui-timepicker-container');
-        if (!$toggleCurrent.is(e.target) && $toggleCurrent.has(e.target).length === 0 && !$contentCurrent.is(e.target) && $contentCurrent.has(e.target).length === 0 && $(e.target).closest('.select2-container').length === 0 && !$dpd.is(e.target) && $dpd.has(e.target).length === 0 && !$tpc.is(e.target) && $tpc.has(e.target).length === 0) {
+          $tpc = $('.ui-timepicker-container'),
+          $mdl = $('.modal');
+        if (!$toggleCurrent.is(e.target) && $toggleCurrent.has(e.target).length === 0 && !$contentCurrent.is(e.target) && $contentCurrent.has(e.target).length === 0 && $(e.target).closest('.select2-container').length === 0 && !$dpd.is(e.target) && $dpd.has(e.target).length === 0 && !$tpc.is(e.target) && $tpc.has(e.target).length === 0 && !$mdl.is(e.target) && $mdl.has(e.target).length === 0) {
           NioApp.Toggle.removed($toggleCurrent.data('target'), attr);
           toggleCurrent = false;
         }
@@ -278,9 +292,25 @@
       }
     });
     $win.on('resize', function () {
-      if (NioApp.Win.width < _break.xl || NioApp.Win.width < toggleBreak) {
+      if ((NioApp.Win.width < _break.xl || NioApp.Win.width < toggleBreak) && !NioApp.State.isMobile) {
         NioApp.Toggle.removed($toggle.data('target'), attr);
       }
+    });
+  };
+
+  // Menu Switch
+  NioApp.menuSwitch = function () {
+    var $toggle = $('.' + _menu_switch),
+      $content = $('.' + _menu_content);
+    $toggle.on('click', function (e) {
+      var $self = $(this),
+        _target = $self.data('target'),
+        $dContent = $('[data-content=' + _target + ']');
+      $toggle.parent().removeClass('active');
+      $self.parent().addClass('active');
+      $content.removeClass(_menu_active);
+      $dContent.addClass(_menu_active);
+      e.preventDefault();
     });
   };
 
@@ -850,6 +880,7 @@
     NioApp.CurrentLink();
     NioApp.LinkOff('.is-disable');
     NioApp.ClassNavMenu();
+    NioApp.menuSwitch();
     NioApp.SetHW('[data-height]', 'height');
     NioApp.SetHW('[data-width]', 'width');
     NioApp.NumberSpinner();
@@ -873,12 +904,10 @@
     NioApp.BS.tooltip('.btn-tooltip', {
       placement: 'top'
     });
-    NioApp.BS.tooltip('[data-toggle="tooltip"]');
     NioApp.BS.tooltip('[data-bs-toggle="tooltip"]');
     NioApp.BS.tooltip('.tipinfo,.nk-menu-tooltip', {
       placement: 'right'
     });
-    NioApp.BS.popover('[data-toggle="popover"]');
     NioApp.BS.popover('[data-bs-toggle="popover"]');
     NioApp.BS.progress('[data-progress]');
     NioApp.BS.fileinput('.form-file-input');

@@ -613,9 +613,7 @@ $chat-meta-sap: $ni-dot !default;
     position: relative;
     display: flex;
     overflow: hidden;
-    min-height: calc(100vh - (#{$header-height} + 64px));
-    max-height: calc(100vh - (#{$header-height} + 64px));
-    background: $white;
+    // align-items: flex-start; 
     &-blank{
         display: flex;
         align-items: center;
@@ -627,21 +625,18 @@ $chat-meta-sap: $ni-dot !default;
             margin-bottom: 1.5rem;
         }
     }
-    &-boxed{
-        border:1px solid $border-color;
-        border-radius: $border-radius;
-        min-height: calc(100vh - (#{$header-height} + 64px + 64px));
-        max-height: calc(100vh - (#{$header-height} + 64px + 64px));
-    }
     &-aside{
         background: $white;
         width: 100%;
         overflow: hidden;
-        max-height: 100%;
+        max-height: calc(100vh - (#{$header-height} + 96px));
         position: relative;
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
+        border: 1px solid $border-light;
+        border-radius: 4px;
+        padding-bottom: 1.25rem;
         &-head{
             display: flex;
             align-items: center;
@@ -717,6 +712,7 @@ $chat-meta-sap: $ni-dot !default;
         opacity: 0;
         pointer-events: none;
         z-index: 5;
+        border: 1px solid $border-light;
         &.show-chat{
             opacity: 1;
             pointer-events: auto;
@@ -847,14 +843,6 @@ $chat-meta-sap: $ni-dot !default;
 
 @include media-breakpoint-down(sm){
     .nk-chat{
-        border: none;
-        border-radius: 0;
-        min-height: calc(100vh - (#{$header-height} + 85px));
-        max-height: calc(100vh - (#{$header-height} + 85px));
-        &-boxed{
-            border:1px solid $border-color;
-            border-radius: $border-radius;
-        }
         &-head{
             padding: 0.75rem 1.25rem;
             &-user{
@@ -881,6 +869,9 @@ $chat-meta-sap: $ni-dot !default;
                     padding: .375rem;
                 } 
             }
+        }
+        &-aside{
+            max-height: calc(100vh - (#{$header-height} + 108px));
         }
     }
 }
@@ -914,12 +905,15 @@ $chat-meta-sap: $ni-dot !default;
     .nk-chat{
         &-aside{
             width: $chat-aside-width;
-            border-right: 1px solid $border-light;
+            margin-right: 1.5rem;
+            max-height: calc(100vh - (#{$header-height} + 112px));
         }
         &-body{
-            position: static;
+            position: relative;
             opacity: 1;
             pointer-events: auto;
+            max-height: calc(100vh - (#{$header-height} + 112px));
+            border-radius: 4px;
             &-close{
                 display: none;
             }
@@ -929,8 +923,8 @@ $chat-meta-sap: $ni-dot !default;
 @media (max-width:859px){
     .nk-chat{
         &-body{
+            position: fixed;
             &.show-chat{
-                position: fixed;
                 z-index: 2999;
             }
         }
@@ -945,7 +939,6 @@ $chat-meta-sap: $ni-dot !default;
     .nk-chat{
         &-aside{
             width: $chat-aside-width + 25px;
-            border-right: 1px solid $border-light;
         }
     }
 }
@@ -974,39 +967,20 @@ $chat-meta-sap: $ni-dot !default;
         }
     }
 }
-@include media-breakpoint-up(xxl){
+@include media-breakpoint-up(xl){
     .nk-chat{
-        &-boxed{
-            min-height: calc(100vh - (#{$header-height} + 64px + 112px));
-            max-height: calc(100vh - (#{$header-height} + 64px + 112px));
-            .nk-chat-body{
-                &.profile-shown{
-                    padding-right: 0;
-                }
-            }
-        }
-        &-aside{
-            width: $chat-aside-width-xl;
-        }
-        &-body{
-            &.profile-shown{
-                padding-right: $chat-profile-width-xl;
-            }
-        }
-        &-profile{
-            width: $chat-profile-width-xl;
+        &-profile {
             border-left: 1px solid $border-light;
         }
     }
 }
-
-@include media-breakpoint-down(xxl){
-    .profile-shown{
-        .nk-chat-profile-toggle{
-            right: 262px;
-            .has-apps-sidebar & {
-                right: -18px;
-            }
+@include media-breakpoint-up(xxl){
+    .nk-chat{
+        &-aside{
+            width: $chat-aside-width-xl;
+        }
+        &-profile{
+            width: $chat-profile-width-xl;
         }
     }
 }

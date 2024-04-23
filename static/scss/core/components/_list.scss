@@ -121,21 +121,6 @@ $list-step-done-icon: $ni-check-circle-cut !default;
                 color: $accent-color;
             }
         }
-        li{
-            position: relative;
-            padding-left: 30px;
-            padding-bottom: .5rem;
-            display: flex;
-            align-items: center;
-        }
-        .icon{
-            font-size: 1rem;
-            position: absolute;
-            left: 0;
-        }
-        span{
-            line-height: 1.5rem;
-        }
     }
     &-category {
         a {
@@ -150,23 +135,6 @@ $list-step-done-icon: $ni-check-circle-cut !default;
                 margin:0 .25rem;
                 font-size: 1.25rem;
             }
-        }
-    }
-    &-styled{
-        margin-bottom: 1rem;
-    }
-    &-item{
-        position: relative;
-        padding: .25rem 1.5rem;
-        color: $base-500;
-        &::before{
-            position: absolute;
-            font-family: $nk-dashlite-font;
-            content: $ni-dot;
-            font-size: 1.125rem;
-            left: 0;
-            color: $base-500;
-            line-height: 1.25rem;
         }
     }
 }

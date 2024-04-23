@@ -36,8 +36,6 @@ $accordion-s3-icon: $ni-minus !default;
 $accordion-s3-icon-collapsed: $ni-plus !default;
 
 .accordion {
-    border-radius: $border-radius;
-    border: 1px solid $border-color;
     background: $accordion-bg;
     &-heading {
         padding-bottom: 1.5rem;
@@ -47,7 +45,10 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
         padding: 0;
     }
     &-item {
-        border: none;
+        border-bottom: 0 !important;
+        &:last-of-type{
+            border-bottom: 1px solid $border-color !important;
+        }
         &:not(:last-child){
             .accordion-head {
                 border-bottom: 1px solid $border-color;
@@ -116,10 +117,14 @@ $accordion-s3-icon-collapsed: $ni-plus !default;
         }
     }
 }
-
+.accordion-s2, .accordion-s3{
+    .accordion-item{
+        border: 0 !important;
+    }
+}
 //acc S2
 .accordion-s2{
-    border: none;  
+    border: none;
     .accordion-icon {
         right: 0;
         &:before{

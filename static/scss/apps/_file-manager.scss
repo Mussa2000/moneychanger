@@ -1,4 +1,4 @@
-$fmg-aside-width :          260px;
+$fmg-aside-width :          265px;
 $fmg-aside-width-small :    220px;
 $fmg-file-icon-width-xs :    24px;
 $fmg-file-icon-width-sm :    32px;
@@ -9,31 +9,29 @@ $file-desc-sap:           $ni-dot !default;
 /// Layout for FMG
 .nk-fmg{
     position: relative;
-    background-color: $white;
-    min-height: calc(100vh - (#{$header-height} + 64px));
-    background-color: rgba($lighter,.6);
     &-aside{
         position: fixed;
         width: $fmg-aside-width;
         overflow: hidden;
         height: 100%;
         max-height: 100%;
+        border: 1px solid $border-light;
         background: $white;
         flex-shrink: 0;
-        z-index: 99;
-        left: 0;
+        z-index: 799;
         transform: translateX(-100%);
-        border-right: 1px solid $border-light;
-        top: $header-height;
+        left: 0;
+        top: 0;
         transition: transform .4s linear;
-        min-height: calc(100vh - #{$header-height});
-        max-height: calc(100vh - #{$header-height});
+        min-height: 100vh;
+        max-height: 100vh;
         overflow-y: auto;
-        + .toggle-overlay{
-            z-index: 90;
-        }
+        // + .toggle-overlay{
+        //     z-index: 90;
+        // }
         &.content-active {
             transform: none;
+            z-index: 901; //@io-200
         }
         .simplebar-content{
             height: 100%;
@@ -45,14 +43,15 @@ $file-desc-sap:           $ni-dot !default;
         }
         &-top{
             margin-bottom: auto;
-            margin-bottom: 30px;
         }
+    }
+    &-actions{
+        padding: 1.25rem 1rem 0;
     }
     &-menu{
         padding: 1rem;
         li{
             margin: 2px 0;
-            
         }
         &-item{
             position: relative;
@@ -143,8 +142,10 @@ $file-desc-sap:           $ni-dot !default;
         display: flex;
         flex-direction: column;
         max-height: 100%;
+        border-radius: 4px;
+        background-color: $white;
+        border: 1px solid $border-color;
         flex-grow: 1;
-        flex-shrink: 0;
         &-head{
             display: flex;
             align-items: center;
@@ -152,11 +153,9 @@ $file-desc-sap:           $ni-dot !default;
             flex-wrap: wrap;
             padding: .75rem 1.25rem;
             border-bottom: 1px solid $border-color;
-            background-color: $white;
+            position: sticky;
+            top: $header-height;
             z-index: 9;
-            position: relative;
-            top: 0;
-            border-top-right-radius: $border-radius;
         }
         &-content{
             padding:1.125rem 1.25rem;
@@ -185,7 +184,7 @@ $file-desc-sap:           $ni-dot !default;
         }
     }
     &-switch{
-        background-color: transparent;
+        background-color: $light;
         border-top: 1px solid $border-light;
         > div{
             width: 100%;
@@ -223,28 +222,20 @@ $file-desc-sap:           $ni-dot !default;
                 padding-bottom: 1.25rem;
             }
         }
-        &-aside-top{
-            margin-bottom: 100px;
-        }
     }
 }
 @include media-breakpoint-up(lg){
     .nk-fmg{
-        padding-left: $fmg-aside-width;
+        display: flex;
         &-aside {
-            transform: none;
+            transform: translateX(0);
             transition: none;
             width: $fmg-aside-width;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-top-left-radius: $border-radius;
-            border-bottom-left-radius: $border-radius;
-            min-height: 100%;
-            max-height: 100%;
-            &-top{
-                flex-grow: 0;
-            }
+            position: static;
+            margin-right: 1.5rem;
+            min-height: auto;
+            max-height: none;
+            border-radius: 4px;
         }
         &-body{
             &-head{
@@ -259,24 +250,19 @@ $file-desc-sap:           $ni-dot !default;
 }
 @include media-breakpoint-up(xl){
     .nk-fmg{
-        padding-left: $fmg-aside-width-small;
         &-filter.toggle-expand-content {
             display: block !important;
-        }
-        &-aside{
-            width: $fmg-aside-width-small;
         }
     }
 }
 
-@media (min-width: 992px) and (max-width: 1360px) {
-    .nk-fmg{
-        padding-left: $fmg-aside-width-small;
-        &-aside {
-            width: $fmg-aside-width-small;
-        }
-    }
-}
+// @media (min-width: 992px) and (max-width: 1360px) {
+//     .nk-fmg{
+//         &-aside {
+//             width: $fmg-aside-width-small;
+//         }
+//     }
+// }
 
 @include media-breakpoint-between(sm,lg){
     .nk-fmg{
@@ -286,6 +272,9 @@ $file-desc-sap:           $ni-dot !default;
         &-body-head, &-body-content, &-status, &-switch .dropdown-toggle {
             padding-left: 2.25rem;
             padding-right: 2.25rem;
+        }
+        &-actions{
+            padding: 1.25rem 1.75rem 0;
         }
         &-menu {
             padding: 1rem 1.75rem;
@@ -310,7 +299,7 @@ $file-desc-sap:           $ni-dot !default;
         }
     }
     &-icon {
-        margin-right: 8px;
+        margin-right: 6px;
         flex-shrink: 0;
         &-link {
             display: block;
@@ -339,7 +328,7 @@ $file-desc-sap:           $ni-dot !default;
         position: relative;
         line-height: 1.4;
         &-text {
-            padding-right: 1.5rem;
+            padding-right: 1.375rem;
             display: inline-block;
             .title {
                 transition: color .3s;
@@ -361,7 +350,7 @@ $file-desc-sap:           $ni-dot !default;
         .asterisk{
             position: absolute;
             display: inline-flex;
-            margin-left: .5rem;
+            margin-left: 6px;
             transition: .3s opacity;
             margin-top: -1px;
             top: 50%;
@@ -609,11 +598,6 @@ $file-desc-sap:           $ni-dot !default;
                     }
                 }
             } 
-            &:not(:last-child){
-                > div{
-                    border-bottom: 1px solid $border-color;
-                }
-            } 
             .custom-checkbox{
                 margin-right: 1rem;
             }
@@ -690,8 +674,8 @@ $file-desc-sap:           $ni-dot !default;
             position: relative;
             margin: 8px;
             background: $white;
-            border-radius: $border-radius;
             border: 1px solid $border-color;
+            border-radius: $border-radius;
             .nk-file-members{
                 display: none;
             }
@@ -765,7 +749,7 @@ $file-desc-sap:           $ni-dot !default;
             > div {
                 display: block;
                 width: 100%;
-                padding-right: 2.5rem;
+                padding-right: 2rem;
             }
             &-desc {
                 padding: .25rem .125rem 0;
@@ -834,14 +818,20 @@ $file-desc-sap:           $ni-dot !default;
         }
         &-group {
             .nk-file{
-                width: calc(100% - 16px);
+                width: calc(50% - 16px);
             }
         }
     }
 }
 
-@media (min-width:660px){
+
+@include media-breakpoint-up(xl){
     .nk-files-view{
+        &-grid {
+            .nk-file{
+                width: calc(33.33% - 16px);
+            }
+        }
         &-group {
             .nk-file{
                 width: calc(50% - 16px);
@@ -849,8 +839,7 @@ $file-desc-sap:           $ni-dot !default;
         }
     }
 }
-
-@include media-breakpoint-up(xl){
+@media (min-width: 1440px){
     .nk-files-view{
         &-grid {
             .nk-file{
@@ -859,7 +848,7 @@ $file-desc-sap:           $ni-dot !default;
         }
         &-group {
             .nk-file{
-                width: calc(50% - 16px);
+                width: calc(33.33% - 16px);
             }
         }
     }
@@ -874,7 +863,7 @@ $file-desc-sap:           $ni-dot !default;
         }
         &-group {
             .nk-file{
-                width: calc(33.33% - 16px);
+                width: calc(25% - 16px);
             }
         }
     }
@@ -889,7 +878,7 @@ $file-desc-sap:           $ni-dot !default;
         }
         &-group {
             .nk-file{
-                width: calc(25% - 16px);
+                width: calc(20% - 16px);
             }
         }
     }
@@ -915,15 +904,6 @@ $file-desc-sap:           $ni-dot !default;
                 margin-right: 0.75rem;
             }
         } 
-    }
-}
-@media (max-width:359px){
-    .nk-files-view{
-        &-grid {
-            .nk-file{
-                width: 100%;
-            }
-        }
     }
 }
 

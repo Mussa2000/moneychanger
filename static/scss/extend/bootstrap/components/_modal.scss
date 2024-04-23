@@ -100,6 +100,7 @@
     }
 }
 
+
 @include media-breakpoint-up(sm){
     .modal-dialog{
         min-height: subtract(100%, $modal-dialog-margin-y-sm-up * 2);

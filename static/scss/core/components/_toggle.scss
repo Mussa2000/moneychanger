@@ -32,7 +32,7 @@
         z-index: 999;
         min-width: 260px;
         max-width: calc(100% - 40px);
-        transition: transform 650ms ease,;
+        transition: transform 650ms ease;
         &-left{
             left: 0;
             transform: translateX(-100%);
@@ -65,6 +65,7 @@
         } 
     }
 }
+
 .inactive-text{
     .toggle-expand &, .toggle-opt & {
         display: block;
