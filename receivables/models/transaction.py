@@ -1,6 +1,4 @@
 from django.db import models
-
-from accounts.models.user import CustomUser
 from receivables.models.product import Product
 
 class Transaction(models.Model):
@@ -8,7 +6,7 @@ class Transaction(models.Model):
         ('pending', 'Pending'),
         ('paid', 'Paid'),
     ]
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey('accounts.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
     tra_date = models.DateField()
     quantity= models.IntegerField(default =1)

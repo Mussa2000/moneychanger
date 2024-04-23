@@ -35,6 +35,18 @@
                                     <div class="analytic-au">
                                         <div class="analytic-data-group analytic-au-group">
                                             <div >
+                                                <div class="title h2">Provinces</div>
+                                                <div class="title text-primary">{{province_count }} </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xxl-3">
+                                <div class="nk-order-ovwg-data sell" style="margin-bottom: 20px;">
+                                    <div class="analytic-au">
+                                        <div class="analytic-data-group analytic-au-group">
+                                            <div >
                                                 <div class="title h2">Total Banks</div>
                                                 <div class="title text-primary">{{ bank_count}}</div> 
                                             </div>
@@ -103,9 +115,9 @@
                             <td>{{ obj.tra_date }}</td>
                             <td>{{ obj.product }}</td>
                             <td>{{ obj.quantity }}</td>
-                            <td>{{ obj.product.unit_cost }}</td>
-                            <td>{{ obj.total }}</td>
-                            <td>{{ obj.amount_paid }}</td>
+                            <td>$ {{ obj.product.unit_cost|floatformat:2 }}</td>
+                            <td>$ {{ obj.total|floatformat:2 }}</td>
+                            <td>$ {{ obj.amount_paid|floatformat:2 }}</td>
                             <td>
                                 {% if obj.status == "pending" %}
                                 <span class="text-warning">{{ obj.status }}</span>
@@ -133,8 +145,34 @@
                         {% endfor %}               
                     </tbody>
                 </table>
-                
             </div>
+        </div><!-- .card-preview -->
+        <div class="card card-bordered card-preview">
+            <div class="card-inner">
+                <div class="row gy-12 mx-auto">
+                    <table class="datatable-init-export nowrap table" data-export-title="Export">
+                        <thead>
+                            <tr>
+                                <th>Province</th>
+                                <th>Number Of Farmers</th>
+                                <th>Total Amount</th>
+                                <th>Partially Paid</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for obj in province_stats %}
+                            <tr>
+                                <td>{{ obj.province__name }}</td> 
+                                <td>{{ obj.num_farmers }}</td>  
+                                <td>$ {{ obj.total_amount|floatformat:2 }}</td> 
+                                <td>$ {{ obj.partially_paid|floatformat:2 }}</td>
+                            </tr>  
+                            {% endfor %}               
+                        </tbody>
+                    </table>
+                    
+                </div><!-- .card-preview -->
+            </div> <!-- nk-block -->
         </div><!-- .card-preview -->
     </div> <!-- nk-block -->
     

@@ -6,8 +6,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from accounts.models.user import CustomUser
+from dashboard.helpers.province_stats import ProvinceStats
 from receivables.models.bank import Bank
 from receivables.models.payment import Payment
+from receivables.models.province import Province
 from receivables.models.transaction import Transaction
 from django.db.models import Sum
 
@@ -20,9 +22,10 @@ class DashboardListView(LoginRequiredMixin,TemplateView):
         user = self.request.user
         farmers_count = CustomUser.objects.filter(is_farmer=True).count() or 0
         bank_count = Bank.objects.count() or 0
-        paid_amount = Transaction.objects.filter(status='paid').aggregate(total_paid_amount=Sum('amount_paid'))['total_paid_amount'] or 0
-        partially_paid_amount= Transaction.objects.filter(status='pending', amount_paid__gt=0).aggregate(total_partially_paid_amount=Sum('amount_paid'))['total_partially_paid_amount'] or 0
-
+        province_count = Province.objects.count() or 0
+        paid_amount = Transaction.objects.filter(status='paid').aggregate(total_paid_amount=Sum('amount_paid'))['total_paid_amount'] or 0.00
+        partially_paid_amount= Transaction.objects.filter(status='pending', amount_paid__gt=0).aggregate(total_partially_paid_amount=Sum('amount_paid'))['total_partially_paid_amount'] or 0.00
+        province_stats = ProvinceStats.get_stats()
 
         if user.is_farmer:
             transactions = Transaction.objects.filter(user=user)
@@ -34,5 +37,7 @@ class DashboardListView(LoginRequiredMixin,TemplateView):
         context['bank_count'] = bank_count 
         context['paid_amount'] = paid_amount 
         context['partially_paid_amount'] = partially_paid_amount 
+        context['province_count'] = province_count
+        context['province_stats'] =  province_stats
         return context
     

@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models.user import CustomUser
 from receivables.models import Transaction
 from receivables.models.bank import Bank
 
@@ -8,7 +7,7 @@ class Payment(models.Model):
         ('Cash', 'Cash'),
         ('Bank', 'Bank'),
     ]
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey('accounts.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
     transaction = models.ForeignKey(Transaction, on_delete=models.CASCADE, null=True, blank=True)
     bank = models.ForeignKey(Bank, on_delete=models.CASCADE, null=True, blank=True)
     pay_date = models.DateField()
