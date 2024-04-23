@@ -26,6 +26,11 @@ class DashboardListView(LoginRequiredMixin,TemplateView):
         paid_amount = Transaction.objects.filter(status='paid').aggregate(total_paid_amount=Sum('amount_paid'))['total_paid_amount'] or 0.00
         partially_paid_amount= Transaction.objects.filter(status='pending', amount_paid__gt=0).aggregate(total_partially_paid_amount=Sum('amount_paid'))['total_partially_paid_amount'] or 0.00
         province_stats = ProvinceStats.get_stats()
+        
+        #is farmer stats
+        farmer_paid_amount = Transaction.objects.filter(user=user, status='paid').aggregate(total_paid_amount=Sum('amount_paid'))['total_paid_amount'] or 0.00
+        farmer_partially_paid_amount = Transaction.objects.filter(user=user, status='pending', amount_paid__gt=0).aggregate(total_partially_paid_amount=Sum('amount_paid'))['total_partially_paid_amount'] or 0.00
+        farmer_invoice_count = Transaction.objects.filter(user=user).count()
 
         if user.is_farmer:
             transactions = Transaction.objects.filter(user=user)
@@ -39,5 +44,9 @@ class DashboardListView(LoginRequiredMixin,TemplateView):
         context['partially_paid_amount'] = partially_paid_amount 
         context['province_count'] = province_count
         context['province_stats'] =  province_stats
+        
+        context['farmer_paid_amount'] = farmer_paid_amount 
+        context['farmer_partially_paid_amount'] = farmer_partially_paid_amount
+        context['farmer_invoice_count'] = farmer_invoice_count 
         return context
     
