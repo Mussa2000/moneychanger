@@ -25,6 +25,8 @@
 
     {% block content%}
     <div class="nk-block nk-block-lg">
+        {% if request.user.is_farmer %}
+
         <div class="card card-bordered card-preview">
             <div class="card-inner">
                 <div class="row gy-12 mx-auto">
@@ -127,20 +129,7 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if request.user.is_farmer %}   
                                 <a href="{% url 'create-payment' obj.pk %}" class="btn btn-warning"><span>Make Payment</span> <em class="icon ni ni-arrow-long-right"></em></a>
-                                {% else %}
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                    <div class="dropdown-menu dropdown-menu-end">
-                                        <ul class="link-list-opt no-bdr">
-                                            <li><a href="{% url 'transaction-details' obj.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
-                                            <li><a href="{% url 'transaction-update' obj.pk %}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
-                                            <li><a href="{% url 'transaction-delete' obj.pk %}" class="text-danger delete-item-btn"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                {% endif %}
                             </td>
                         </tr>  
                         {% endfor %}               
@@ -148,34 +137,155 @@
                 </table>
             </div>
         </div><!-- .card-preview -->
-        <div class="card card-bordered card-preview">
-            <div class="card-inner">
-                <div class="row gy-12 mx-auto">
-                    <h4>Invoice stats per province</h4>
+        {% else %}
+            <div class="card card-bordered card-preview">
+                <div class="card-inner">
+                    <div class="row gy-12 mx-auto">
+                        <div class="col-xxl-12">
+                            <div class="row g-12">
+                                <div class="col-sm-3 col-xxl-3">
+                                    <div class="nk-order-ovwg-data sell" style="margin-bottom: 20px;">
+                                        <div class="analytic-au">
+                                            <div class="analytic-data-group analytic-au-group">
+                                                <div >
+                                                    <div class="title h2">Provinces</div>
+                                                    <div class="title text-primary">{{province_count }} </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xxl-3">
+                                    <div class="nk-order-ovwg-data sell" style="margin-bottom: 20px;">
+                                        <div class="analytic-au">
+                                            <div class="analytic-data-group analytic-au-group">
+                                                <div >
+                                                    <div class="title h2">Total Banks</div>
+                                                    <div class="title text-primary">{{ bank_count}}</div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xxl-3">
+                                    <div class="nk-order-ovwg-data sell" style="margin-bottom: 20px;">
+                                        <div class="analytic-au">
+                                            <div class="analytic-data-group analytic-au-group">
+                                                <div >
+                                                    <div class="title h2">Number of Farmers</div>
+                                                    <div class="title text-primary">{{farmers_count }} </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xxl-3">
+                                    <div class="nk-order-ovwg-data sell" style="margin-bottom: 20px;">
+                                        <div class="analytic-au">
+                                            <div class="analytic-data-group analytic-au-group">
+                                                <div >
+                                                    <div class="title h2">Paid Amount</div>
+                                                    <div class="title text-primary">$ {{paid_amount}} </div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-xxl-3">
+                                    <div class="nk-order-ovwg-data sell" style="margin-bottom: 20px;">
+                                        <div class="analytic-au">
+                                            <div class="analytic-data-group analytic-au-group">
+                                                <div >
+                                                    <div class="title h2">Partially paid</div>
+                                                    <div class="title text-primary">$ {{partially_paid_amount}}</div> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h4> All Invoices</h4>
                     <table class="datatable-init-export nowrap table" data-export-title="Export">
                         <thead>
                             <tr>
-                                <th>Province</th>
-                                <th>Number Of Farmers</th>
-                                <th>Total Amount</th>
-                                <th>Partially Paid</th>
+                                <th>Farmer</th>
+                                <th>Tra Date</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Cost</th>
+                                <th>Total</th>
+                                <th>Amount Paid</th>
+                                <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for obj in province_stats %}
+                            {% for obj in transactions %}
                             <tr>
-                                <td>{{ obj.province__name }}</td> 
-                                <td>{{ obj.num_farmers }}</td>  
-                                <td>$ {{ obj.total_amount|floatformat:2 }}</td> 
-                                <td>$ {{ obj.partially_paid|floatformat:2 }}</td>
+                                <td>{{ obj.user }}</td>
+                                <td>{{ obj.tra_date }}</td>
+                                <td>{{ obj.product }}</td>
+                                <td>{{ obj.quantity }}</td>
+                                <td>$ {{ obj.product.unit_cost|floatformat:2 }}</td>
+                                <td>$ {{ obj.total|floatformat:2 }}</td>
+                                <td>$ {{ obj.amount_paid|floatformat:2 }}</td>
+                                <td>
+                                    {% if obj.status == "pending" %}
+                                    <span class="text-warning">{{ obj.status }}</span>
+                                    {% else %}
+                                    <span class="text-success">{{ obj.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="dropdown">
+                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <ul class="link-list-opt no-bdr">
+                                                <li><a href="{% url 'transaction-details' obj.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
+                                                <li><a href="{% url 'transaction-update' obj.pk %}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
+                                                <li><a href="{% url 'transaction-delete' obj.pk %}" class="text-danger delete-item-btn"><em class="icon ni ni-trash"></em><span>Delete</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </td>
                             </tr>  
                             {% endfor %}               
                         </tbody>
                     </table>
-                    
-                </div><!-- .card-preview -->
-            </div> <!-- nk-block -->
-        </div><!-- .card-preview -->
-    </div> <!-- nk-block -->
+                </div>
+            </div><!-- .card-preview -->
+            <div class="card card-bordered card-preview">
+                <div class="card-inner">
+                    <div class="row gy-12 mx-auto">
+                        <h4>Invoice stats per province</h4>
+                        <table class="datatable-init-export nowrap table" data-export-title="Export">
+                            <thead>
+                                <tr>
+                                    <th>Province</th>
+                                    <th>Number Of Farmers</th>
+                                    <th>Total Amount</th>
+                                    <th>Partially Paid</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for obj in province_stats %}
+                                <tr>
+                                    <td>{{ obj.province__name }}</td> 
+                                    <td>{{ obj.num_farmers }}</td>  
+                                    <td>$ {{ obj.total_amount|floatformat:2 }}</td> 
+                                    <td>$ {{ obj.partially_paid|floatformat:2 }}</td>
+                                </tr>  
+                                {% endfor %}               
+                            </tbody>
+                        </table>
+                        
+                    </div><!-- .card-preview -->
+                </div> <!-- nk-block -->
+            </div><!-- .card-preview -->
+        </div> <!-- nk-block -->
+        {% endif %}
     
     {% endblock %}
