@@ -13,3 +13,7 @@ from receivables.models.product import (
 from receivables.models.payment import (
     Payment
 )
+
+from receivables.models.province import (
+    Province
+)

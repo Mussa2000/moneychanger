@@ -31,3 +31,12 @@ from receivables.views.payment import (
     PaymentDeleteView,
 
 )
+
+from receivables.views.province import (
+    ProvinceListView,
+    ProvinceCreateView,
+    ProvinceUpdateView,
+    ProvinceDetailsView,
+    ProvinceDeleteView,
+)
+

@@ -172,3 +172,10 @@ CORS_ALLOW_ALL_ORIGINS = True
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
+CORS_ORIGIN_WHITELIST = [
+    'https://3488-41-175-77-163.ngrok-free.app',
+]
+
+#origina
+CSRF_TRUSTED_ORIGINS = ['https://3488-41-175-77-163.ngrok-free.app']
+

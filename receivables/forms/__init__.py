@@ -13,3 +13,7 @@ from receivables.forms.payment import(
 from receivables.forms.transaction import(
     TransactionForm
 )
+
+from receivables.forms.province import(
+    ProvinceForm
+)

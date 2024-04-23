@@ -24,6 +24,12 @@ from receivables.views import (
     PaymentUpdateView,
     PaymentDetailsView,
     PaymentDeleteView,
+    
+    ProvinceListView,
+    ProvinceCreateView,
+    ProvinceUpdateView,
+    ProvinceDetailsView,
+    ProvinceDeleteView,
 )
 
 urlpatterns = [
@@ -51,5 +57,12 @@ urlpatterns = [
     path('payment/update/<int:pk>/', PaymentUpdateView.as_view(), name="payment-update"), 
     path('payment/details/<int:pk>/', PaymentDetailsView.as_view(), name="payment-details"), 
     path('payment/delete/<int:pk>/', PaymentDeleteView.as_view(), name="payment-delete"), 
+    
+    path('province/index/', ProvinceListView.as_view(), name="province-index"), 
+    path('province/create/', ProvinceCreateView.as_view(), name="create-province"),  
+    path('province/update/<int:pk>/', ProvinceUpdateView.as_view(), name="province-update"), 
+    path('province/details/<int:pk>/', ProvinceDetailsView.as_view(), name="province-details"), 
+    path('province/delete/<int:pk>/', ProvinceDeleteView.as_view(), name="province-delete"), 
+    
     
 ]
