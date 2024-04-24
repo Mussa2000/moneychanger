@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     #our apps
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
+    'shield',
     # approval engine apps
 
     # Authentication  

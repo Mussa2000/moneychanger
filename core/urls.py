@@ -24,7 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('', include('dashboard.urls')),
-    # path('receivables/', include('receivables.urls')),
+    path('shield/', include('shield.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
