@@ -45,44 +45,17 @@ $skin_menu_active_color:        $skin_accent;
 /// SKIN OVERRIDER
 ////////////////////////
 
-///// Sidebar Style
-.nk-sidebar {
-    &-head {
-        .is-dark & {
-            border-color: $skin_sidebar_bdr_dark;
-        }
-        .is-theme & {
-            border-color: $skin_sidebar_bdr_theme;
-        }
+///// Header Style
+.nk-header {
+    background: $skin_header_bg;
+    border-bottom-color: $skin_header_bdr;
+    &.is-dark:not([class*=bg-]) {
+        background: $skin_header_bg_dark;
     }
-    &-bar {
-        &.is-dark{
-            background: $skin_sidebar_bg_dark;
-            border-right-color: $skin_sidebar_bdr_dark;
-            + .is-dark{
-                background: lighten($skin_sidebar_bg_dark,2%);
-            }
-        }
-        &.is-theme{
-            background: $skin_sidebar_bg_theme;
-            border-right-color: $skin_sidebar_bdr_theme;
-            + .is-theme{
-                background: lighten($skin_sidebar_bg_theme,2%);
-            }
-        }
-    }
-    &-main {
-        &.is-dark{
-            background: $skin_sidebar_bg_dark;
-            border-right-color: $skin_sidebar_bdr_dark;
-        }
-        &.is-theme{
-            background: $skin_sidebar_bg_theme;
-            border-right-color: $skin_sidebar_bdr_theme;
-        }
+    &.is-theme:not([class*=bg-]) {
+        background: $skin_header_bg_theme;
     }
 }
-
 
 ///// .is-dark style for sidebar and header
 .is-dark {
@@ -101,17 +74,21 @@ $skin_menu_active_color:        $skin_accent;
     .nk-menu-link:hover .nk-menu-icon, .nk-menu-item.active > .nk-menu-link .nk-menu-icon, .nk-menu-item.current-menu > .nk-menu-link .nk-menu-icon {
         color: lighten($skin_accent, 10%);
     }
-    .apps-menu .active > .nk-menu-link{
-        background-color: darken($darker,3%);
+
+    .nk-news-icon .icon {
+        color: $skin_accent;
+    }
+    .nk-news-text .icon {
+        color: $skin_base_light;
+    }
+    .nk-news-text p span {
+        color: rgba($skin_base_light, .9);
     }
     .user-name, .nk-news-text p {
         color: lighten($skin_base_light, 5%);
     }
     .nk-quick-nav-icon {
         color: lighten($skin_base_light, 10%);
-    }
-    .title{
-        color: $light-alt;
     }
 }
 
@@ -127,20 +104,17 @@ $skin_menu_active_color:        $skin_accent;
         color: lighten($skin_accent, 30%);
         background: lighten($skin_sidebar_bg_theme, 10%);
     }
-    .apps-menu .active > .nk-menu-link{
-        background-color: darken($accent-dark,10%);
+    .nk-news-icon .icon {
+        color: lighten($skin_accent, 15%)
     }
-    .nk-quick-nav-icon, .overline-title {
+    .nk-news-text .icon, .nk-quick-nav-icon, .overline-title {
         color: $skin_accent_light;
     }
-    .nk-menu-heading .overline-title {
+    .nk-news-text p span, .nk-menu-heading .overline-title {
         color: rgba($skin_accent_light, .8);
     }
-    .user-name {
+    .user-name, .nk-news-text p {
         color: lighten($skin_accent_light, 5%);
-    }
-    .title{
-        color: $accent-light;
     }
 }
 
@@ -153,6 +127,8 @@ $skin_menu_active_color:        $skin_accent;
 .bg-primary,
 .icon-circle,
 .noUi-connect,
+.nk-kycfm-label::after,
+.plan-item-card:after,
 .nk-msg-menu-item a:after,
 .ui-shady .nk-msg-item.active:after, .ui-shady .nk-msg-item.current:after, 
 .ui-softy .nk-msg-item.active:after, .ui-softy .nk-msg-item.current:after {
@@ -164,12 +140,13 @@ $skin_menu_active_color:        $skin_accent;
 .card.is-dark {
     background: $skin_accent_dark;
 }
-.is-dark .nk-wg7-title, .is-dark .nk-wg7-note {
-    color: $skin_accent_light;
-}
 .user-avatar, [class^="user-avatar"]:not([class*="-group"]) {
     background: lighten($skin_accent, 10%);
 }
+.nk-news-item:hover .nk-news-text .icon {
+    color: lighten($skin_accent, 10%);
+}
+
 
 .nk-menu-link:hover, 
 .nk-menu-link:hover .nk-menu-icon, 
@@ -178,7 +155,6 @@ $skin_menu_active_color:        $skin_accent;
 .nk-menu-link:hover .count, 
 .nk-menu-sub .nk-menu-link:hover,
 .nk-menu-sub .active > .nk-menu-link,
-.nk-menu-sm .nk-menu-link:hover,
 
 .nk-menu-main .nk-menu-link:hover, 
 .nk-menu-main .nk-menu-link:focus, 
@@ -224,28 +200,29 @@ $skin_menu_active_color:        $skin_accent;
 .form-clip,
 .form-text-hint,
 .search-submit:hover,
+.nk-news-icon .icon,
+.nk-refwg-name .title,
+.nk-iv-wg1-info, .nk-wg4-note span,
+.nk-iv-scheme-item .amount-ex,
+.nk-kycfm-control:checked ~ .nk-kycfm-label .label-icon,
 .attach-item .icon,
 .attach-download:hover span,
-.invoice-desc .title,
-.invoice-bills .table th,
-.invoice-contact ul .icon,
 .nk-reply-meta-info .whom,
 .nk-msg-tags li > span .icon,
 .nk-msg-menu-item a:hover,
 .nk-msg-menu-item.active a,
 .user-balance,
 .user-avatar[class*="-primary-dim"],
-.dropzone .dz-message-text span, a,
+.nk-order-ovwg-data.sell .amount, 
+.nk-order-ovwg-data.sell .title .icon,
+.nk-wg-action-content p strong, a,
+.dropzone .dz-message-text span,
 .nk-switch-icon.active, 
 .link-list-plain a .icon,
 .chat-upload-option a,
 .is-unread .chat-context .status,
 .add-opt:hover .sub-text, .add-opt:hover .icon,
-.icon[class*="bg-primary-dim"],
-.nk-tb-list .tb-asterisk a, 
-.nk-tb-list .tb-asterisk .asterisk-on, 
-.nk-tb-list .tb-asterisk a:hover, 
-.nk-tb-list .tb-asterisk a.active  {
+.icon[class*="bg-primary-dim"]  {
     color: $skin_accent;
 }
 a:hover {
@@ -279,7 +256,8 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     background-color: mix($skin_accent, $white, 10%);
     border-color: mix($skin_accent, $white, 40%);
 }
-.alert-pro.alert-primary, .bg-primary, 
+.alert-pro.alert-primary, .bg-primary,
+.plan-control:checked + .plan-item-card,
 .form-control:focus,
 .form-control.focus,
 .form-file-input:focus ~ .form-file-label,
@@ -289,13 +267,18 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 {
     border-color: $skin_accent;
 }
-.bg-outline-primary {
+.nk-order-ovwg-data.sell, .bg-outline-primary {
     border-color: mix($skin_accent, $white, 40%);
 }
 .dropdown-menu-s1 {
     border-top-color: $skin_accent;   
 }
+.nk-iv-wg2-amount.ui-v2 {
+    border-bottom-color: $skin_accent;   
+}
+
 .page-item.active .page-link, 
+.plan-control:checked + .plan-item-card .plan-label,
 .custom-control-input:checked ~ .custom-control-label::before,
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before
 {
@@ -323,9 +306,15 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     background: $skin_accent;
     color: $white;
 }
-.icon-avatar {
+.icon-avatar, .nk-iv-scheme-icon.is-running {
     color: $skin_accent;
     background-color: mix($skin_accent, $white, 15%);
+}
+.is-dark .nk-wgw-icon {
+    background: mix($skin_accent, $white, 80%);
+}
+.is-dark .nk-iv-wg2-title .title {
+    color: $skin_accent_light;
 }
 .is-theme .nk-quick-nav-icon:before {
     background-color: darken($skin_accent_dark, 10%);
@@ -473,9 +462,13 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
     background: $white;
     color: $skin_base_text;
 }
-.nk-menu-badge {
+.nk-menu-badge, .nk-menu-main .nk-menu-sub .nk-menu-badge {
     color: mix($skin_accent, $white, 70%);
     background-color: mix($skin_accent, $white, 10%);
+}
+.is-theme .nk-sidebar-footer,.nk-apps-sidebar.is-theme,.is-theme .nk-sidebar-profile-fixed{
+    background: $skin_sidebar_bg_theme;
+    border-color: $skin_sidebar_bdr_theme;
 }
 .is-theme .nk-menu-footer .nk-menu-link,.is-theme .sub-text,.is-theme .lead-text span {
     color: $skin_accent_light;

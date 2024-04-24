@@ -613,7 +613,11 @@ $chat-meta-sap: $ni-dot !default;
     position: relative;
     display: flex;
     overflow: hidden;
-    // align-items: flex-start; 
+    border:1px solid $border-color;
+    border-radius: $border-radius;
+    min-height: calc(100vh - (#{$header-height} + 64px + 64px));
+    max-height: calc(100vh - (#{$header-height} + 64px + 64px));
+    background: $white;
     &-blank{
         display: flex;
         align-items: center;
@@ -629,14 +633,13 @@ $chat-meta-sap: $ni-dot !default;
         background: $white;
         width: 100%;
         overflow: hidden;
-        max-height: calc(100vh - (#{$header-height} + 96px));
+        max-height: 100%;
         position: relative;
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
-        border: 1px solid $border-light;
-        border-radius: 4px;
-        padding-bottom: 1.25rem;
+        border-top-left-radius: ($border-radius - 1);
+        border-bottom-left-radius: ($border-radius - 1);
         &-head{
             display: flex;
             align-items: center;
@@ -712,7 +715,6 @@ $chat-meta-sap: $ni-dot !default;
         opacity: 0;
         pointer-events: none;
         z-index: 5;
-        border: 1px solid $border-light;
         &.show-chat{
             opacity: 1;
             pointer-events: auto;
@@ -843,6 +845,11 @@ $chat-meta-sap: $ni-dot !default;
 
 @include media-breakpoint-down(sm){
     .nk-chat{
+        border: none;
+        border-radius: $border-radius;
+        min-height: calc(100vh - (#{$header-height} + 85px));
+        max-height: calc(100vh - (#{$header-height} + 85px));
+        margin: -24px -18px;
         &-head{
             padding: 0.75rem 1.25rem;
             &-user{
@@ -869,9 +876,6 @@ $chat-meta-sap: $ni-dot !default;
                     padding: .375rem;
                 } 
             }
-        }
-        &-aside{
-            max-height: calc(100vh - (#{$header-height} + 108px));
         }
     }
 }
@@ -905,15 +909,12 @@ $chat-meta-sap: $ni-dot !default;
     .nk-chat{
         &-aside{
             width: $chat-aside-width;
-            margin-right: 1.5rem;
-            max-height: calc(100vh - (#{$header-height} + 112px));
+            border-right: 1px solid $border-light;
         }
         &-body{
-            position: relative;
+            position: static;
             opacity: 1;
             pointer-events: auto;
-            max-height: calc(100vh - (#{$header-height} + 112px));
-            border-radius: 4px;
             &-close{
                 display: none;
             }
@@ -923,8 +924,8 @@ $chat-meta-sap: $ni-dot !default;
 @media (max-width:859px){
     .nk-chat{
         &-body{
-            position: fixed;
             &.show-chat{
+                position: fixed;
                 z-index: 2999;
             }
         }
@@ -939,11 +940,14 @@ $chat-meta-sap: $ni-dot !default;
     .nk-chat{
         &-aside{
             width: $chat-aside-width + 25px;
+            border-right: 1px solid $border-light;
         }
     }
 }
 @include media-breakpoint-up(lg){
     .nk-chat{
+        min-height: calc(100vh - (#{$header-height} + 64px + 72px));
+        max-height: calc(100vh - (#{$header-height} + 64px + 72px));
         &-aside-panel, &-aside-head, &-aside-search {
             padding-left: $chat-aside-gap-x-desk;
             padding-right: $chat-aside-gap-x-desk;
@@ -969,6 +973,11 @@ $chat-meta-sap: $ni-dot !default;
 }
 @include media-breakpoint-up(xl){
     .nk-chat{
+        &-body{
+            &.profile-shown{
+                padding-right: $chat-profile-width;
+            }
+        }
         &-profile {
             border-left: 1px solid $border-light;
         }
@@ -978,6 +987,11 @@ $chat-meta-sap: $ni-dot !default;
     .nk-chat{
         &-aside{
             width: $chat-aside-width-xl;
+        }
+        &-body{
+            &.profile-shown{
+                padding-right: $chat-profile-width-xl;
+            }
         }
         &-profile{
             width: $chat-profile-width-xl;

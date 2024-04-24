@@ -6,8 +6,8 @@
     display: inline-flex;
     align-items: center;
     &-xl {
-        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg,  $btn-border-radius-lg);
-        line-height: $btn-line-height-lg
+        @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $btn-border-radius-lg);
+        line-height: $btn-line-height-lg;
     }
     &-xs{
         @include button-size($btn-padding-y-xs, $btn-padding-x-xs, $btn-font-size-xs, $btn-border-radius-xs);
@@ -21,7 +21,7 @@
     > span{
         display: inline-block;
         white-space: nowrap;
-        &:only-child{
+        &:only-child(){
             width: 100%;
         }
     }

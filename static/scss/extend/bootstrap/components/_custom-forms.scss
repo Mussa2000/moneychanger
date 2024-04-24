@@ -139,8 +139,7 @@
         &-label{
             font-size: $checkbox-radio-switch-font-size;
             line-height: $checkbox-radio-switch-line-height;
-            padding-top: math.div($checkbox-radio-switch-size - $checkbox-radio-switch-line-height , 2);
-            &::before,&::after {
+            padding-top: math.div($checkbox-radio-switch-size - $checkbox-radio-switch-line-height , 2);    &::before,&::after {
                 top: 0;
             }
             &:after{
@@ -549,7 +548,6 @@
       }
     }
   }
-// custom-switch
 .custom-switch {
     padding-left: $switch-width + $checkbox-radio-switch-text-gap;
     .custom-control-label {
@@ -577,8 +575,8 @@
     }
     .custom-control-input:checked ~ .custom-control-label {
       &::after {
-        background-color: $custom-control-indicator-bg;
-        transform: translateX($custom-switch-width - $custom-control-indicator-size);
+          background-color: $custom-control-indicator-bg;
+          transform: translateX($custom-switch-width - $custom-control-indicator-size);
       }
     }
     &.custom-control-sm{
@@ -607,12 +605,12 @@
         padding-left: $switch-width-lg + $checkbox-radio-switch-text-gap-lg;
         .custom-control-label {
             &::before {
-              left: -($switch-width-lg + $checkbox-radio-switch-text-gap-lg);
+                left: -($switch-width-lg + $checkbox-radio-switch-text-gap-lg);
               width: $switch-width-lg;
               border-radius: $switch-indicator-border-radius-lg;
             }
             &::after {
-              top: math.div($checkbox-radio-switch-size-lg - $switch-indicator-size-lg , 2);
+              top: math.div($checkbox-radio-switch-size-lg - $switch-indicator-size-lg ,2);
               left: add(-($switch-width-lg + $checkbox-radio-switch-text-gap-lg), $switch-border-calc-1-5x);
               width: $switch-indicator-size-lg;
               height: $switch-indicator-size-lg;
@@ -675,15 +673,17 @@
         }
     }
 }
-  
-
+.custom-control-label::before,
+.custom-file-label,
+.form-select {
+    transition: $custom-forms-transition;
+}
 label{
     cursor: pointer;
     input[type="radio"]:checked ~ &{
         cursor: default;
     }
 }
-
 
 //validation
 
@@ -726,6 +726,7 @@ label{
         }
     }
 }
+
 
 // 
 .form-file {

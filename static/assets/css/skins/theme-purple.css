@@ -5,33 +5,15 @@
  * Author: Softnio
  * Author URI: http://themeforest.net/user/softnio
 **/
-.is-dark .nk-sidebar-head {
-  border-color: #1c2f50;
+.nk-header {
+  background: #f5f6fa;
+  border-bottom-color: #e5e9f2;
 }
-.is-theme .nk-sidebar-head {
-  border-color: #4a2b91;
-}
-.nk-sidebar-bar.is-dark {
+.nk-header.is-dark:not([class*=bg-]) {
   background: #0f192a;
-  border-right-color: #1c2f50;
 }
-.nk-sidebar-bar.is-dark + .is-dark {
-  background: #121d32;
-}
-.nk-sidebar-bar.is-theme {
+.nk-header.is-theme:not([class*=bg-]) {
   background: #36206a;
-  border-right-color: #4a2b91;
-}
-.nk-sidebar-bar.is-theme + .is-theme {
-  background: #3a2272;
-}
-.nk-sidebar-main.is-dark {
-  background: #0f192a;
-  border-right-color: #1c2f50;
-}
-.nk-sidebar-main.is-theme {
-  background: #36206a;
-  border-right-color: #4a2b91;
 }
 
 .is-dark .nk-menu-link {
@@ -49,17 +31,20 @@
 .is-dark .nk-menu-link:hover .nk-menu-icon, .is-dark .nk-menu-item.active > .nk-menu-link .nk-menu-icon, .is-dark .nk-menu-item.current-menu > .nk-menu-link .nk-menu-icon {
   color: #a882ff;
 }
-.is-dark .apps-menu .active > .nk-menu-link {
-  background-color: #0b121f;
+.is-dark .nk-news-icon .icon {
+  color: #854fff;
+}
+.is-dark .nk-news-text .icon {
+  color: #8094ae;
+}
+.is-dark .nk-news-text p span {
+  color: rgba(128, 148, 174, 0.9);
 }
 .is-dark .user-name, .is-dark .nk-news-text p {
   color: #90a1b8;
 }
 .is-dark .nk-quick-nav-icon {
   color: #9faec2;
-}
-.is-dark .title {
-  color: #e5e9f2;
 }
 
 .is-theme .nk-menu-link {
@@ -72,20 +57,17 @@
   color: #efe8ff;
   background: #4a2b91;
 }
-.is-theme .apps-menu .active > .nk-menu-link {
-  background-color: #26164b;
+.is-theme .nk-news-icon .icon {
+  color: #ba9cff;
 }
-.is-theme .nk-quick-nav-icon, .is-theme .overline-title {
+.is-theme .nk-news-text .icon, .is-theme .nk-quick-nav-icon, .is-theme .overline-title {
   color: #d4c2ff;
 }
-.is-theme .nk-menu-heading .overline-title {
+.is-theme .nk-news-text p span, .is-theme .nk-menu-heading .overline-title {
   color: rgba(212, 194, 255, 0.8);
 }
-.is-theme .user-name {
+.is-theme .user-name, .is-theme .nk-news-text p {
   color: #e6dcff;
-}
-.is-theme .title {
-  color: #d4c2ff;
 }
 
 .card-tools-nav li a:before,
@@ -95,6 +77,8 @@
 .bg-primary,
 .icon-circle,
 .noUi-connect,
+.nk-kycfm-label::after,
+.plan-item-card:after,
 .nk-msg-menu-item a:after,
 .ui-shady .nk-msg-item.active:after, .ui-shady .nk-msg-item.current:after,
 .ui-softy .nk-msg-item.active:after, .ui-softy .nk-msg-item.current:after {
@@ -109,12 +93,12 @@
   background: #3a2272;
 }
 
-.is-dark .nk-wg7-title, .is-dark .nk-wg7-note {
-  color: #d4c2ff;
-}
-
 .user-avatar, [class^=user-avatar]:not([class*=-group]) {
   background: #a882ff;
+}
+
+.nk-news-item:hover .nk-news-text .icon {
+  color: #a882ff;
 }
 
 .nk-menu-link:hover,
@@ -124,7 +108,6 @@
 .nk-menu-link:hover .count,
 .nk-menu-sub .nk-menu-link:hover,
 .nk-menu-sub .active > .nk-menu-link,
-.nk-menu-sm .nk-menu-link:hover,
 .nk-menu-main .nk-menu-link:hover,
 .nk-menu-main .nk-menu-link:focus,
 .nk-menu-main .nk-menu-item.active > .nk-menu-link,
@@ -166,28 +149,29 @@
 .form-clip,
 .form-text-hint,
 .search-submit:hover,
+.nk-news-icon .icon,
+.nk-refwg-name .title,
+.nk-iv-wg1-info, .nk-wg4-note span,
+.nk-iv-scheme-item .amount-ex,
+.nk-kycfm-control:checked ~ .nk-kycfm-label .label-icon,
 .attach-item .icon,
 .attach-download:hover span,
-.invoice-desc .title,
-.invoice-bills .table th,
-.invoice-contact ul .icon,
 .nk-reply-meta-info .whom,
 .nk-msg-tags li > span .icon,
 .nk-msg-menu-item a:hover,
 .nk-msg-menu-item.active a,
 .user-balance,
 .user-avatar[class*=-primary-dim],
-.dropzone .dz-message-text span, a,
+.nk-order-ovwg-data.sell .amount,
+.nk-order-ovwg-data.sell .title .icon,
+.nk-wg-action-content p strong, a,
+.dropzone .dz-message-text span,
 .nk-switch-icon.active,
 .link-list-plain a .icon,
 .chat-upload-option a,
 .is-unread .chat-context .status,
 .add-opt:hover .sub-text, .add-opt:hover .icon,
-.icon[class*=bg-primary-dim],
-.nk-tb-list .tb-asterisk a,
-.nk-tb-list .tb-asterisk .asterisk-on,
-.nk-tb-list .tb-asterisk a:hover,
-.nk-tb-list .tb-asterisk a.active {
+.icon[class*=bg-primary-dim] {
   color: #854fff;
 }
 
@@ -233,6 +217,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 }
 
 .alert-pro.alert-primary, .bg-primary,
+.plan-control:checked + .plan-item-card,
 .form-control:focus,
 .form-control.focus,
 .form-file-input:focus ~ .form-file-label,
@@ -242,7 +227,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
   border-color: #854fff;
 }
 
-.bg-outline-primary {
+.nk-order-ovwg-data.sell, .bg-outline-primary {
   border-color: #ceb9ff;
 }
 
@@ -250,7 +235,12 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
   border-top-color: #854fff;
 }
 
+.nk-iv-wg2-amount.ui-v2 {
+  border-bottom-color: #854fff;
+}
+
 .page-item.active .page-link,
+.plan-control:checked + .plan-item-card .plan-label,
 .custom-control-input:checked ~ .custom-control-label::before,
 .custom-control-input:not(:disabled):active ~ .custom-control-label::before {
   background-color: #854fff;
@@ -269,7 +259,7 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
 }
 
 .bg-primary.badge-dot {
-  background: transparent;
+  background: transparent !important;
 }
 
 .nk-error-head {
@@ -283,9 +273,17 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
   color: #ffffff;
 }
 
-.icon-avatar {
+.icon-avatar, .nk-iv-scheme-icon.is-running {
   color: #854fff;
   background-color: #ede5ff;
+}
+
+.is-dark .nk-wgw-icon {
+  background: #9d72ff;
+}
+
+.is-dark .nk-iv-wg2-title .title {
+  color: #d4c2ff;
 }
 
 .is-theme .nk-quick-nav-icon:before {
@@ -440,9 +438,14 @@ a.bg-primary:hover, a.bg-primary:focus, button.bg-primary:hover, button.bg-prima
   color: #526484;
 }
 
-.nk-menu-badge {
+.nk-menu-badge, .nk-menu-main .nk-menu-sub .nk-menu-badge {
   color: #aa84ff;
   background-color: #f3edff;
+}
+
+.is-theme .nk-sidebar-footer, .nk-apps-sidebar.is-theme, .is-theme .nk-sidebar-profile-fixed {
+  background: #36206a;
+  border-color: #4a2b91;
 }
 
 .is-theme .nk-menu-footer .nk-menu-link, .is-theme .sub-text, .is-theme .lead-text span {

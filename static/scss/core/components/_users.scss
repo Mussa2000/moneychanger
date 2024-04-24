@@ -69,7 +69,7 @@
     }
 }
 
-// Multiple Avatar @i-v160
+// Multiple Avatar
 .user-avatar-multiple{
     background-color: transparent !important;
     .user-avatar{
@@ -189,7 +189,6 @@ $avatar-adj-colors: (
         .user-info {
             color: $base-light;
         }
-        
         &-menu{
             position: absolute;
             right: 1rem;
@@ -343,7 +342,7 @@ $avatar-adj-colors: (
     }
 }
 
-// user card md @i v150
+// user card md
 ///////////////////////
 .user-card-md{
     .lead-text{
@@ -394,7 +393,7 @@ $avatar-adj-colors: (
     }
 }
 
-// User Contact @v1.1
+// User Contact
 ///////////////////////
 .user-contacts{
     li{
@@ -413,7 +412,7 @@ $avatar-adj-colors: (
     }
 }
 
-// User Avatar Group @i-v150
+// User Avatar Group
 ///////////////////////
 .user-avatar-group{
     display: flex;

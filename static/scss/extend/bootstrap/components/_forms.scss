@@ -81,7 +81,7 @@
             @include font-size($input-font-size);
             .form-control-lg ~ &{
                 top: $input-padding-y-lg;
-                padding: 0 math.div($input-padding-x , 2.65);
+                padding: 0 math.div($input-padding-x, 2.65);
                 @include font-size($input-font-size-lg);
             }
             .form-control-sm ~ &{
@@ -101,7 +101,7 @@
                 @include font-size($input-font-size-xl);
                 line-height: $input-line-height-xl;
                 top: $input-padding-y-xl;
-                padding: 0 math.div($input-padding-x-xl , 2.5);
+                padding: 0 math.div($input-padding-x-xl ,2.5);
                 left: math.div($input-padding-x-xl , 1.5);
             }
             .focused .form-control-xl ~ &,
@@ -240,7 +240,7 @@
         -webkit-appearance: none;
     }
     &-multiple{
-        .js-select2{
+        .form-select{
             padding-top: 0.375rem;
             padding-bottom: 0.875rem;
             option{
@@ -292,7 +292,7 @@ textarea{
 
 // validation
 
-.custom-file-input,.form-control,.input-group,.js-select2,.form-select{
+.form-file-input,.form-control,.input-group,.js-select2,.form-select{
     ~ .error, ~ .invalid{
         color: $field-error-color;
         font-size: $fx-sz-11;
@@ -349,9 +349,6 @@ textarea{
             background-color: transparent;
         }
     }
-}
-.form-select[multiple], .form-select[size]:not([size="1"]){
-    height: 122px;
 }
 .form-inline {
     display: flex;

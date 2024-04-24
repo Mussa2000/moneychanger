@@ -1,9 +1,11 @@
 ////////////////////////////////////////////////////////
 ////////     CORE DASHLITE VARIABLES    ///// //////////
 ////////////////////////////////////////////////////////
-@use "sass:math";
+
 /////////    COLORS    ///////////
 //////////////////////////////////////
+@use "sass:math";
+
 $white:		#fff;
 $black: 	#000;
 
@@ -49,19 +51,19 @@ $base-light:  		$base-400;
 $base-dim:  		mix($base-color,$white, 8%);
 
 // Base/Default color @used for text
-$accent-100:        #e2f5f0;
-$accent-200:        #cfeee6;
-$accent-300:        #abe2d3;
-$accent-400:        #6fcdb3;
-$accent-500:        #3fbd9a;
+$accent-100:  		#eff1ff;
+$accent-200:  		#e3e7fe;
+$accent-300:  		#c4cefe;
+$accent-400:  		#9cabff;
+$accent-500:  		#798bff;
 
-$accent-color:      #0fac81;
-$accent-light:      $accent-300;
-$accent-dark:       #07523d;
+$accent-color:  	#6576ff;
+$accent-light:  	$accent-300;
+$accent-dark:  		#2c3782;
 $accent-dim:  	    #e3e7fe;
 
 
-$body-bg:			$white;
+$body-bg:			$lighter;
 $body-color:		$base-text;
 
 $link-color:        		$accent-500;
@@ -154,7 +156,7 @@ $fx-sz-15:			15px;
 $fx-sz-16:			16px; 
 
 $gutter-width:           28px;
-$stretch-gap-x:          (4px + math.div($gutter-width, 2));
+$stretch-gap-x:          (4px + math.div($gutter-width , 2));
 
 /////////    TYPTOGRAPHY    //////////
 //////////////////////////////////////
@@ -721,10 +723,16 @@ $logo-height-lg:                    60px;
 $logo-height-icon:                  33px;
 
 // Sidebar
-$sidebar-width-normal:              340px;
-$sidebar-bar-width:                 81px;
+$sidebar-width-normal:              290px;
 $sidebar-width-short:               81px;
 $sidebar-gap-x:                     24px;
+
+$sidebar-width-fat:                 400px;
+$sidebar-width-fat-tablet:          340px;
+$sidebar-gap-x-fat:                 32px;
+$sidebar-gap-x-fat-tablet:          16px;
+$sidebar-fat-transition-name:       ease;
+$sidebar-fat-transition-duration:   450ms;
 
 // Apps Sidebar
 $sidebar-width-apps:                 80px;
@@ -734,29 +742,29 @@ $sidebar-apps-transition-duration:   450ms;
 
 $sidebar-transition-name:           ease;
 $sidebar-transition-duration:       450ms;
-$sidebar-overlay:                   rgba($darker,.4); //v120
+$sidebar-overlay:                   rgba($darker,.4); 
 
 $sidebar-bg-color:					$lighter;
 $sidebar-border-color:              $light-200;
 
 $sidebar-bg-dark-color:			    $darker;
 $sidebar-border-dark-color:         lighten($sidebar-bg-dark-color, 10%);
-//@i-v120 -s-
 $sidebar-bg-theme-color:			darken($accent-dark,2%);
 $sidebar-border-theme-color:		lighten($sidebar-bg-theme-color, 10%);
-//@i-v120 -e-
+
 $sidebar-bg-light-color:            $white;
 $sidebar-border-light-color:        $light;
 
 $sidebar-toogle-btn-color:			$base-500;
 
 // Content
-$content-gap-x:                     20px - math.div($gutter-width, 2);
-$content-gap-x-sm:                  36px - math.div($gutter-width, 2);
-$content-gap-y:                     20px;
-$content-gap-y-sm:                  24px;
+$content-gap-x:                     20px - math.div($gutter-width , 2);
+$content-gap-x-sm:                  36px - math.div($gutter-width , 2);
+$content-gap-y:                     24px;
 $content-sidebar-width:             280px;
 
+$content-sidebar-bg-color:			$white;
+$content-sidebar-border-color:		$border-light;
 
 // // Content
 
@@ -770,7 +778,7 @@ $header-min-width:                  $min-body-width;
 
 $header-bg-color:                   $lighter;
 $header-bg-dark-color:              $darker;
-$header-bg-theme-color:             darken($accent-dark,2%); //@i-v120 
+$header-bg-theme-color:             darken($accent-dark,2%); 
 $header-border-bottom:				$border-light;
 $header-border-dark-bottom:		    lighten($header-bg-dark-color, 10%);
 $header-border-theme-bottom:		lighten($header-bg-theme-color, 10%);
@@ -782,7 +790,7 @@ $header-toogle-btn-lh:				$btn-line-height-sm;
 $header-toogle-btn-icon-width:		$btn-line-height-sm + $btn-padding-y-sm*2;
 
 $header-col-width-small:            120px;
-$header-col-width-safe:             math.div($header-col-width-small, 2);
+$header-col-width-safe:             math.div($header-col-width-small , 2);
 $header-col-width:                  calc(50% - #{$header-col-width-safe});
 
 //Footer
@@ -803,10 +811,10 @@ $aside-content-body-height-calc:    ($content-gap-y + 8 + $header-height);
 
 
 $menu-icon-width:                   36px;
-$menu-icon-width-sm:                28px;
+$menu-icon-width-sm:                32px;
 
 
-//////  CONFIGURATION VARIABLE  @io-v120  //////
+//////  CONFIGURATION VARIABLE //////
 $dark_option:           true;
 $dark_theme_option:     true;
 $gd_analytic:           true;

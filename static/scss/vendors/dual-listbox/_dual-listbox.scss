@@ -32,7 +32,7 @@
       display: flex;
       flex-direction: column;
       margin: 10px;
-      padding: 10px 10px 0;;
+      padding: 10px 10px 0;
   }
 
   .dual-listbox__button {
@@ -74,7 +74,6 @@
     }
   }
 }
-
 @include media-breakpoint-between(sm,lg){
   .dual-listbox{
     .dual-listbox__container{

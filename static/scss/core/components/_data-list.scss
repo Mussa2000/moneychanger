@@ -24,7 +24,6 @@
             cursor: pointer;
         }
         &:hover{
-            // background-color: $lighter;
             .data-label{
                 color: $base-text;
             }
@@ -106,7 +105,6 @@
     }
 }
 
-// @i v150
 .data-list-s2{
     &:not(:first-child){
         margin-top: 1rem;
@@ -182,7 +180,6 @@
     padding-bottom: .75rem;
 }
 
-//@i v150
 .is-medium .data-item{
     padding-top: 1.125rem;
     padding-bottom: 1.125rem;

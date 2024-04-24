@@ -8,15 +8,9 @@
         //class names
         _body_theme = 'nio-theme',
         _menu = 'nk-menu',
-        _menu_switch = 'nk-menu-switch',
-        _menu_content = 'nk-menu-content',
-        _menu_active = 'menu-active',
         _mobile_nav = 'mobile-menu',
         _header = 'nk-header',
         _header_menu = 'nk-header-menu',
-        _sidebar = 'nk-sidebar',
-        _sidebar_mob = 'nk-sidebar-mobile',
-        _app_sidebar = 'nk-apps-sidebar',
         //breakpoints
         _break = NioApp.Break;
 
@@ -24,19 +18,12 @@
         Object.keys(ext).forEach(function (key) { obj[key] = ext[key]; });
         return obj;
     }
-    // ClassInit @v1.0
-    NioApp.ClassBody = function () {
-        NioApp.AddInBody(_app_sidebar);
-        NioApp.AddInBody(_sidebar);
-    };
 
     // ClassInit @v1.0
     NioApp.ClassNavMenu = function () {
         NioApp.BreakClass('.' + _header_menu, _break.lg, { timeOut: 0 });
-        NioApp.BreakClass('.' + _sidebar, _break.lg, { timeOut: 0, classAdd: _sidebar_mob });
         $win.on('resize', function () {
             NioApp.BreakClass('.' + _header_menu, _break.lg);
-            NioApp.BreakClass('.' + _sidebar, _break.lg, { classAdd: _sidebar_mob });
         });
     };
 
@@ -97,17 +84,10 @@
                 self.closest("li").addClass('active current-page').parents().closest("li").addClass("active current-page");
                 self.closest("li").children('.nk-menu-sub').css('display', 'block');
                 self.parents().closest("li").children('.nk-menu-sub').css('display', 'block');
-                this.scrollIntoView({ block: "start"});
-                $('.nk-menu-switch').parent().removeClass('active');
-                $('.' + _menu_content).removeClass(_menu_active);
-                var _closest_content = self.closest('.' + _menu_content).data('content');
-                self.closest('.' + _menu_content).addClass(_menu_active)
-                $('[data-target=' + _closest_content + ']').parent().addClass('active');
             } else {
                 self.closest("li").removeClass('active current-page').parents().closest("li:not(.current-page)").removeClass("active");
             }
         });
-
     };
 
     // PasswordSwitch @v1.0
@@ -211,7 +191,7 @@
             attr = (opt) ? extend(def, opt) : def;
 
         $(imenu).on('click', function (e) {
-            if ((NioApp.Win.width < _break.lg) || ($(this).parents().hasClass(_sidebar))) {
+            if (NioApp.Win.width < _break.lg) {
                 NioApp.Toggle.dropMenu($(this), attr);
             }
             e.preventDefault();
@@ -221,9 +201,9 @@
     // Show Menu @v1.0
     NioApp.TGL.showmenu = function (elm, opt) {
         var toggle = (elm) ? elm : '.nk-nav-toggle', $toggle = $(toggle), $contentD = $('[data-content]'),
-            toggleBreak = $contentD.hasClass(_header_menu) ? _break.lg : _break.xl,
-            toggleOlay = _sidebar + '-overlay', toggleClose = { profile: true, menu: false },
-            def = { active: 'toggle-active', content: _sidebar + '-active', body: 'nav-shown', overlay: toggleOlay, break: toggleBreak, close: toggleClose },
+            toggleBreak = ($contentD.hasClass(_header_menu)) ? _break.lg : _break.xl,
+            toggleOlay = _header + '-overlay', toggleClose = { profile: true, menu: false },
+            def = { active: 'toggle-active', content: _header + '-active', body: 'nav-shown', overlay: toggleOlay, break: toggleBreak, close: toggleClose },
             attr = (opt) ? extend(def, opt) : def;
 
         $toggle.on('click', function (e) {
@@ -241,20 +221,6 @@
             if((NioApp.Win.width < _break.xl || NioApp.Win.width < toggleBreak) && !NioApp.State.isMobile){ 
                 NioApp.Toggle.removed($toggle.data('target'), attr);
             }
-        });
-    };
-
-    // Menu Switch
-    NioApp.menuSwitch = function () {
-        var $toggle = $('.' + _menu_switch), $content = $('.' + _menu_content);
-        $toggle.on('click', function (e) {
-            var $self = $(this),
-                _target = $self.data('target'), $dContent = $('[data-content=' + _target + ']');
-            $toggle.parent().removeClass('active');
-            $self.parent().addClass('active');
-            $content.removeClass(_menu_active);
-            $dContent.addClass(_menu_active);
-            e.preventDefault();
         });
     };
 
@@ -444,7 +410,7 @@
                         searchPlaceholder: "Type in to Search",
                         lengthMenu: "<span class='d-none d-sm-inline-block'>Show</span><div class='form-control-select'> _MENU_ </div>",
                         info: "_START_ -_END_ of _TOTAL_",
-                        infoEmpty: "0",
+                        infoEmpty: "",
                         infoFiltered: "( Total _MAX_  )",
                         paginate: {
                             "first": "First",
@@ -525,7 +491,7 @@
                 modal.find('[href="' + tg_tab + '"]').tab('show');
             } else if (modal) {
                 var tabdef = modal.find('.nk-nav.nav-tabs');
-                var link = $(tabdef[0]).find('[data-bs-toggle="tab"]');
+                var link = $(tabdef[0]).find('[data-toggle="tab"]');
                 $(link[0]).tab('show');
             }
         });
@@ -784,12 +750,10 @@
 
     // Extra @v1.1
     NioApp.OtherInit = function () {
-        NioApp.ClassBody();
         NioApp.PassSwitch();
         NioApp.CurrentLink();
         NioApp.LinkOff('.is-disable');
         NioApp.ClassNavMenu();
-        NioApp.menuSwitch();
         NioApp.SetHW('[data-height]', 'height');
         NioApp.SetHW('[data-width]', 'width');
         NioApp.NumberSpinner();
@@ -811,8 +775,10 @@
         NioApp.BS.menutip('a.nk-menu-link');
         NioApp.BS.tooltip('.nk-tooltip');
         NioApp.BS.tooltip('.btn-tooltip', { placement: 'top' });
+        NioApp.BS.tooltip('[data-toggle="tooltip"]');
         NioApp.BS.tooltip('[data-bs-toggle="tooltip"]');
         NioApp.BS.tooltip('.tipinfo,.nk-menu-tooltip', { placement: 'right' });
+        NioApp.BS.popover('[data-toggle="popover"]');
         NioApp.BS.popover('[data-bs-toggle="popover"]');
         NioApp.BS.progress('[data-progress]');
         NioApp.BS.fileinput('.form-file-input');
