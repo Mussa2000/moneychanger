@@ -15,49 +15,50 @@ from django.views.generic import TemplateView
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
-from assets.forms.asset import AssetForm
-from assets.models.asset import Asset
+
+from shield.forms.folder import FolderForm
+from shield.models.folder import Folder
 
 
-class AssetListView(ListView):
-    model = Asset
-    context_object_name = "asset"
-    template_name = "asset/index.html"
+class FolderListView(ListView):
+    model = Folder
+    context_object_name = "folder"
+    template_name = "folder/index.html"
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
-class AssetCreateView(SuccessMessageMixin, CreateView):
-    model = Asset
-    form_class = AssetForm
-    template_name = "asset/create.html"
-    success_message = "asset created successfully"
+class FolderCreateView(SuccessMessageMixin, CreateView):
+    model = Folder
+    form_class = FolderForm
+    template_name = "folder/create.html"
+    success_message = "folder created successfully"
 
     def get_success_url(self):
-        return reverse("asset-index")
+        return reverse("folder-index")
 
-class AssetDetailsView(DetailView):
-    model = Asset
-    context_object_name = "asset"
-    template_name = "asset/details.html"
+class FolderDetailsView(DetailView):
+    model = Folder
+    context_object_name = "folder"
+    template_name = "folder/details.html"
 
 
-class AssetUpdateView(SuccessMessageMixin, UpdateView):
-    model = Asset
-    context_object_name = "asset"
-    template_name = "asset/update.html"
-    form_class = AssetForm
-    success_message = "asset updated successfully"
+class FolderUpdateView(SuccessMessageMixin, UpdateView):
+    model = Folder
+    context_object_name = "folder"
+    template_name = "folder/update.html"
+    form_class = FolderForm
+    success_message = "folder updated successfully"
 
     def get_success_url(self):
-        return reverse("asset-index")
+        return reverse("folder-index")
 
 
-class AssetDeleteView(View):
+class FolderDeleteView(View):
     def get(self, request, **kwargs):
-        obj = get_object_or_404(Asset, pk=kwargs.get('pk'))
+        obj = get_object_or_404(Folder, pk=kwargs.get('pk'))
         obj.delete()
         messages.success(request,f'{obj} deleted successfully')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
