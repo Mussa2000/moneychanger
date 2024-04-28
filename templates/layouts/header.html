@@ -27,22 +27,14 @@
                             </div>
                             <ul class="nk-menu nk-menu-main ui-s2">
                                 <li class="nk-menu-item has-sub">
-                                    <a href="#" class="nk-menu-link nk-menu-toggle">
-                                        <span class="nk-menu-text">Dashboards</span>
+                                    <a href="{% url 'dashboard' %}" class="nk-menu-link">
+                                        <span class="nk-menu-text">Home</span>
                                     </a>
-                                    <ul class="nk-menu-sub">
-                                        <li class="nk-menu-item">
-                                            <a href="html/index.html" class="nk-menu-link">
-                                                <span class="nk-menu-text">Default Dashboard</span>
-                                            </a>
-                                        </li><!-- .nk-menu-item -->
-                                        <li class="nk-menu-item">
-                                            <a href="html/invest/index.html" class="nk-menu-link" target="_blank">
-                                                <span class="nk-menu-text">Investment Panel</span>
-                                                <span class="nk-menu-badge">HOT</span>
-                                            </a>
-                                        </li><!-- .nk-menu-item -->
-                                    </ul><!-- .nk-menu-sub -->
+                                </li><!-- .nk-menu-item -->
+                                <li class="nk-menu-item has-sub">
+                                    <a href="{% url 'folder-index' %}" class="nk-menu-link">
+                                        <span class="nk-menu-text">Folders</span>
+                                    </a>
                                 </li><!-- .nk-menu-item -->
                             </ul><!-- .nk-menu -->
                         </div><!-- .nk-header-menu -->

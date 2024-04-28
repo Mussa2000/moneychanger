@@ -7,13 +7,13 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Update Bank</h3>
+                <h3 class="nk-block-title page-title">Create New Folder</h3>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li class="nk-block-tools-opt"><a href="{% url 'bank-index' %}" class="btn btn-primary"><em
+                            <li class="nk-block-tools-opt"><a href="{% url 'folder-index' %}" class="btn btn-primary"><em
                                         class="icon ni ni-curve-down-left"></em><span>Back</span></a></li>
                         </ul>
                     </div>
@@ -25,13 +25,10 @@
 {% endblock %}
 
 {% block content %}
-<div class="kyc-app">
-    <div class="card card-bordered">
-        <div class="nk-kycfm">
-        <!-- nk-kycfm-head -->
-        <div class="nk-kycfm-content">
-            <div class="nk-kycfm-note">
-           </div>
+<div class="card card-bordered card-preview">
+    <div class="card-inner">
+        <div class="preview-block">
+            <span class="preview-title-lg overline-title">Default Preview</span>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row g-4">
@@ -51,46 +48,28 @@
                         </ul>
                         {% endif %}
                         <div class="row my-2">
-                            <div class="col-md-6">
-                                <label for="{{ form.name.id_for_label }}">Bank Name</label>
+                            <div class="col-md-12">
+                                <label for="{{ form.name.id_for_label }}">Folder Name</label>
                                 <div class="form-control-wrap">
                                     {{ form.name }}
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <label for="{{ form.acc_number.id_for_label }}">Account Number</label>
-                                <div class="form-control-wrap">
-                                    {{ form.acc_number}}
-                                </div>
-                            </div>
                             <div class="col-md-12">
-                                <label for="{{ form.address.id_for_label }}">Address</label>
+                                <label for="{{ form.users.id_for_label }}">Authorised Users</label>
                                 <div class="form-control-wrap">
-                                    {{ form.address}}
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="{{ form.description.id_for_label }}">Description</label>
-                                <div class="form-control-wrap" >
-                                    {{ form.description }}
+                                    {{ form.users }}
                                 </div>
                             </div>
                         </div>
                     <div class="col-12">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-lg btn-primary" value="save">Update</button>
+                            <button type="submit" class="btn btn-lg btn-primary" value="save">Create new folder</button>
                         </div>
                     </div>
                 </div>
             </form>
         </div>
-        <!-- nk-kycfm-content -->
-        </div>
-        <!-- nk-kycfm -->
     </div>
-    <!-- .card -->
-    </div>
-    <!-- nk-block -->
-</div>
+</div><!-- .card-preview -->
 {% endblock %}
 
