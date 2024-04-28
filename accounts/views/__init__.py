@@ -5,5 +5,6 @@ from accounts.views.user import (
     UserDetailView,
     UserDeleteView,
     
-    register_user
+    register_user,
+    reset_password
 )

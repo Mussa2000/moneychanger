@@ -8,7 +8,8 @@ from accounts.views import(
     UserUpdateView,
     UserDetailView,
     UserDeleteView,
-    register_user
+    register_user,
+    reset_password
 )
 
 
@@ -16,6 +17,7 @@ urlpatterns = [
     path("", include("allauth.urls")),
     path('user/index/',UserListView.as_view(), name="user-index"), 
     path('user/create/', register_user, name="user-create"),  
+    path('user/password-reset/', reset_password, name="reset-password"),  
     path('user/update/<int:pk>/', UserUpdateView.as_view(), name="user-update"), 
     path('user/details/<int:pk>/', UserDetailView.as_view(), name="user-details"), 
     path('user/delete/<int:pk>/',UserDeleteView.as_view(), name="user-delete"), 

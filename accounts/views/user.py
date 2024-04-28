@@ -74,3 +74,25 @@ class UserUpdateView(UpdateView):
             form.add_error('username', 'A user with that username already exists.')
             return self.form_invalid(form)
         return super().form_valid(form)
+    
+def reset_password(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if new_password != confirm_password:
+            messages.error(request, 'Passwords do not match.')
+            return redirect('reset-password')
+
+        try:
+            user = CustomUser.objects.get(username=username)
+            user.set_password(new_password)
+            user.save()
+            messages.success(request, 'Password reset successfully.')
+            return redirect('account_login')
+        except CustomUser.DoesNotExist:
+            messages.error(request, 'User does not exist.')
+            return redirect('reset-password')
+    else:
+        return render(request, 'registration/reset.html')
