@@ -5,7 +5,7 @@ from shield.models.folder import Folder
 
 
 class Document(BaseModel):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     path = models.FileField(upload_to='documents/')
