@@ -1,3 +1,3 @@
-# from accounts.forms import (
-#     CustomSignupForm
-# )
+from accounts.forms.user import (
+    CustomUserCreationForm
+)

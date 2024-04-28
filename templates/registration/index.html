@@ -1,88 +1,64 @@
 {% extends 'layouts/base.html' %}
-{% load static%}
+{% load crispy_forms_tags %}
+{% load static %}
 
 {% block navigation %}
 <div class="nk-content-body">
     <div class="nk-block-head nk-block-head-sm">
-        <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+        <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Users <a href="{%url 'register-user' %}"  ><em class="icon ni ni-plus-circle-fill"></em></a></h3>
-                <div class="nk-block-des text-soft">
-                    <p>All System Users</p>
-                </div>
+                <h3 class="nk-block-title page-title">All users</h3>
             </div><!-- .nk-block-head-content -->
             <div class="nk-block-head-content">
                 <div class="toggle-wrap nk-block-tools-toggle">
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            <li class="nk-block-tools-opt"><a href="{%url 'register-user' %}" class="btn btn-primary"><em class="icon ni ni-user"></em><span>Create User</span></a></li>
-                         </ul>
+                            <li class="nk-block-tools-opt"><a href="{% url 'user-create' %}" class="btn btn-outline-dark"><em
+                                    ></em><span>Create New user</span></a></li>
+                        </ul>
                     </div>
                 </div>
-            </div><!-- .nk-block-head-content -->
-        </div><!-- .nk-block-between -->
+            </div> <!-- .nk-block-head-content  -->
+        </div> <!-- .nk-block-between-->
     </div><!-- .nk-block-head -->
-{% endblock%}
-
-{% block content%}
-<div class="nk-block nk-block-lg">
-    <div class="card card-bordered card-preview">
-        <div class="card-inner">
-            <table class="datatable-init-export nowrap table" data-export-title="Export">
-             
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for user in object_list %}
-                    <tr>
-                        <td>{{user.username}}</td>
-                        <td>{{user.email}}</td>
-                        <td class="nk-tb-col nk-tb-col-tools">
-                            <ul class="nk-tb-actions gx-1">
-                                <li>
-                                    <div class="drodown">
-                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <ul class="link-list-opt no-bdr">
-                                                <li><a href="{% url 'update-user' user.pk%}"><em class="icon ni ni-edit"></em><span>Update</span></a></li>
-                                                <li> <span class="preview-item text-danger" data-bs-toggle="modal" data-bs-target="#modalAlert{{user.pk}}"><span>&nbsp;&nbsp;&nbsp;<em class="icon ni ni-trash-alt"></em> &nbsp;&nbsp;&nbsp;&nbsp;Delete</span></span></li>                           
-                                             </ul>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>  
-                    <div class="modal fade" tabindex="-1" id="modalAlert{{user.pk}}">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-body modal-body-lg text-center">
-                                    <div class="nk-modal">
-                                        <em class="nk-modal-icon icon icon-circle icon-circle-xxl ni ni-cross bg-danger"></em>
-                                        <h4 class="nk-modal-title">Delete {{ user }} </h4><div class="nk-modal-text"><p class="lead">Are You Sure You Want To Delete This User?</p>
-                                    </div>
-                                    <div class="nk-modal-action mt-5">
-                                        <form method="POST" action='{% url 'delete-user' user.pk %}'>
-                                            {% csrf_token %}
-                                            <button type='submit' class="btn btn-lg btn-mw btn-danger" >Delete</button>
-                                            <a href="#" class="btn btn-lg btn-mw btn-light" data-bs-dismiss="modal">Cancel</a>
-                                        </div>
-                                    </div>
-                                </div><!-- .modal-body -->
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}               
-                </tbody>
-                   
-            </table>
-        </div>
-    </div><!-- .card-preview -->
-</div> <!-- nk-block -->
-
+</div>
 {% endblock %}
+
+{% block content %}
+<div class="nk-block nk-block-lg">
+    <div class="nk-block-head">
+        <div class="nk-block-head-content">
+            <h4 class="nk-block-title">user List</h4>
+        </div>
+    </div>
+    <div class="card card-bordered card-preview">
+        <table class="table table-tranx is-compact">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obj in user %}
+                <tr>
+                    <td>{{obj.username}}</td>
+                    <td>{{obj.email}}</td>
+                    <td class="nk-tb-col nk-tb-col-tools">
+                        <ul class="nk-block-tools g-3">
+                            {% comment %} <li class="nk-block-tools-opt"><a href="{% url 'user-update' obj.pk %}" class="btn btn-outline-warning"><em
+                                    ></em><span>Update</span></a></li> {% endcomment %}
+                            <li class="nk-block-tools-opt"><a href="{% url 'user-details' obj.pk %}" class="btn btn-outline-success"><em
+                                    ></em><span>Details</span></a></li>
+                            <li class="nk-block-tools-opt"><a href="{% url 'user-delete' obj.pk %}" class="btn btn-outline-danger"><em
+                                    ></em><span>Delete</span></a></li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}  
+            </tbody>
+        </table>
+    </div><!-- .card-preview -->
+{% endblock %}
+
