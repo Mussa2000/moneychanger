@@ -19,11 +19,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 
 from shield.forms.document import DocumentForm
+from shield.models.alert import Alert
 from shield.models.document import Document
 from shield.models.folder import Folder
 from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
-
+from django.utils import timezone
+from datetime import timedelta
 
 class DocumentListView(ListView):
     model = Document
@@ -96,10 +98,16 @@ class DocumentDownloadView(View):
 
         # Check if the user has permission to download the document
         if request.user not in document.folder.users.all():
-            messages.warning(request,f'You are not authorized to download this document')
+            messages.warning(request, 'You are not authorized to download this document')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         try:
+            # Log the download action
+            download_time = timezone.now() + timedelta(hours=2)
+            action_message = f"Document '{document.name}' was downloaded by user '{request.user.username}' at {download_time}."
+            Alert.objects.create(user=request.user, name="Document Download", message=action_message)
+
+            # Return the file response
             file_path = document.path.path
             response = FileResponse(open(file_path, 'rb'), as_attachment=True)
             return response
