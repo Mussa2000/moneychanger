@@ -4,6 +4,7 @@ from shield.views.folder import (
     FolderUpdateView,
     FolderDetailsView,
     FolderDeleteView,
+    
 )
 
 from shield.views.document import (
@@ -12,4 +13,5 @@ from shield.views.document import (
     DocumentUpdateView,
     DocumentDetailsView,
     DocumentDeleteView,
+    DocumentDownloadView,
 )

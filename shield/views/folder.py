@@ -17,6 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 
 from shield.forms.folder import FolderForm
+from shield.models.document import Document
 from shield.models.folder import Folder
 
 
@@ -43,6 +44,13 @@ class FolderDetailsView(DetailView):
     model = Folder
     context_object_name = "folder"
     template_name = "folder/details.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        documents = Document.objects.filter(folder = self.object)
+        
+        context['documents'] = documents
+        return context
 
 
 class FolderUpdateView(SuccessMessageMixin, UpdateView):
