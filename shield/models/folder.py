@@ -9,3 +9,7 @@ class Folder(BaseModel):
 
     def __str__(self):
         return self.name
+    
+    def authorized_count(self):
+        count = self.users.count()
+        return count

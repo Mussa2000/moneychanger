@@ -44,7 +44,7 @@
                 {% for obj in folder %}
                 <tr>
                     <td>{{obj.name}}</td>
-                    <td>{{obj.count}}</td>
+                    <td>{{obj.authorized_count}} user/s</td>
                     <td class="nk-tb-col nk-tb-col-tools">
                         <ul class="nk-block-tools g-3">
                             <li class="nk-block-tools-opt"><a href="{% url 'folder-update' obj.pk %}" class="btn btn-outline-warning"><em
