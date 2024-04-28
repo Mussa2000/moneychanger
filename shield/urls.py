@@ -11,7 +11,10 @@ from shield.views import(
     DocumentUpdateView,
     DocumentDetailsView,
     DocumentDeleteView,
-    DocumentDownloadView
+    DocumentDownloadView,
+    
+    AlertListView,
+    AlertDetailsView,
 )
 
 urlpatterns = [
@@ -27,5 +30,8 @@ urlpatterns = [
     path('document/details/<int:pk>/', DocumentDetailsView.as_view(), name="document-details"), 
     path('document/delete/<int:pk>/', DocumentDeleteView.as_view(), name="document-delete"), 
     path('document/download/<int:pk>/', DocumentDownloadView.as_view(), name="document-download"), 
+    
+    path('alerts/index/',AlertListView.as_view(), name="alert-index"), 
+    path('alerts/details/<int:pk>/', AlertDetailsView.as_view(), name="alert-details"), 
 
 ]

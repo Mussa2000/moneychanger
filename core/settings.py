@@ -71,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'shield.middleware.action_logger.ActionLoggerMiddleware',
     # "allauth.account.middleware.AuthenticationMiddleware",  # Add this line
     # "whitenoise.middleware.WhiteNoiseMiddleware",
 ]

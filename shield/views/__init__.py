@@ -15,3 +15,8 @@ from shield.views.document import (
     DocumentDeleteView,
     DocumentDownloadView,
 )
+
+from shield.views.alerts import (
+    AlertListView,
+    AlertDetailsView,
+)
