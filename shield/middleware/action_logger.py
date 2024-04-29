@@ -1,13 +1,13 @@
-# action_logger.py
+import threading
 
-from django.utils.deprecation import MiddlewareMixin
+# Define a thread-local variable to store the request object
+_thread_locals = threading.local()
 
-from shield.models.alert import Alert
+class RequestMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
 
-class ActionLoggerMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        # Log every action, including views and downloads
-        user = request.user
-        if user.is_authenticated:
-            action_message = f"User '{user.username}' accessed URL: {request.path}"
-            Alert.objects.create(user=user, name="User Action", message=action_message)
+    def __call__(self, request):
+        _thread_locals.request = request
+        response = self.get_response(request)
+        return response

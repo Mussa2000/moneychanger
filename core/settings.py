@@ -173,9 +173,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 CORS_ORIGIN_WHITELIST = [
-    'https://9484-41-175-77-163.ngrok-free.app',
+    'https://df99-41-175-79-249.ngrok-free.app',
 ]
 
 #origina
-CSRF_TRUSTED_ORIGINS = ['https://9484-41-175-77-163.ngrok-free.app']
+CSRF_TRUSTED_ORIGINS = ['https://df99-41-175-79-249.ngrok-free.app']
 

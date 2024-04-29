@@ -17,6 +17,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 
 from shield.forms.folder import FolderForm
+from shield.helpers.action_logger import log_action
 from shield.models.document import Document
 from shield.models.folder import Folder
 
@@ -38,6 +39,7 @@ class FolderCreateView(SuccessMessageMixin, CreateView):
     success_message = "folder created successfully"
 
     def get_success_url(self):
+        log_action(self.request.user, "Folder Creation", str(self.object.name))
         return reverse("folder-index")
 
 class FolderDetailsView(DetailView):
@@ -47,6 +49,7 @@ class FolderDetailsView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        log_action(self.request.user, "Viewed folder details", str(self.object.name))
         documents = Document.objects.filter(folder = self.object)
         
         context['documents'] = documents
@@ -61,6 +64,7 @@ class FolderUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "folder updated successfully"
 
     def get_success_url(self):
+        log_action(self.request.user, "Folder Update", str(self.object.name))
         return reverse("folder-index")
 
 
@@ -68,6 +72,7 @@ class FolderDeleteView(View):
     def get(self, request, **kwargs):
         obj = get_object_or_404(Folder, pk=kwargs.get('pk'))
         obj.delete()
+        log_action(request.user, "Document Deletion", str(self.object.name))
         messages.success(request,f'{obj} deleted successfully')
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
             

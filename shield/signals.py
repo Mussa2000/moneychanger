@@ -3,11 +3,12 @@
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-
 from shield.models.folder import Folder
 from .models import Alert, Document
 from django.utils import timezone
 from datetime import timedelta
+
+
 
 @receiver(user_logged_in)
 def log_user_login(sender, request, user, **kwargs):
@@ -25,7 +26,10 @@ def log_user_logout(sender, request, user, **kwargs):
 def log_document_creation_update(sender, instance, created, **kwargs):
     created_time = timezone.now() + timedelta(hours=2)
     if created:
-        action_message = f"Document '{instance.name}' was created by user '{instance.created_by.username} at {created_time}'."
+        if instance.created_by:
+                action_message = f"Document '{instance.name}' was created by user '{instance.created_by.username}' on {created_time}."
+        else:
+            action_message = f"Document '{instance.name}' was created on {created_time}."
         Alert.objects.create(user=instance.created_by, name="Document Creation", message=action_message)
     else:
         action_message = f"Document '{instance.name}' was updated by user '{instance.created_by.username} at {created_time}'."
@@ -33,9 +37,14 @@ def log_document_creation_update(sender, instance, created, **kwargs):
 
 @receiver(post_delete, sender=Document)
 def log_document_deletion(sender, instance, **kwargs):
+    request = kwargs.get("request")
+    print("log_document_deletion", request)
     deleted_time = timezone.now() + timedelta(hours=2)
-    action_message = f"Document '{instance.name}' was deleted by user '{instance.created_by.username} at {deleted_time}'."
-    Alert.objects.create(user=instance.created_by, name="Document Deletion", message=action_message)
+    if request and request.user:
+        action_message = f"Document '{instance.name}' was deleted by user '{request.user.username} at {deleted_time}'."
+    else:
+        action_message = f"Document '{instance.name}' was deleted on {deleted_time}."
+    Alert.objects.create(user=request.user, name="Document Deletion", message=action_message)
 
 
 @receiver(post_save, sender=Folder)

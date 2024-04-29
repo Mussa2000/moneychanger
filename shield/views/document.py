@@ -19,6 +19,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ValidationError
 
 from shield.forms.document import DocumentForm
+from shield.helpers.action_logger import log_action
 from shield.models.alert import Alert
 from shield.models.document import Document
 from shield.models.folder import Folder
@@ -26,6 +27,10 @@ from django.http import FileResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from datetime import timedelta
+from django.dispatch import Signal
+
+# Define a custom signal
+request_user = Signal()
 
 class DocumentListView(ListView):
     model = Document
@@ -51,7 +56,8 @@ class DocumentCreateView(SuccessMessageMixin, View):
             document.save()
 
             if document:
-                messages.success(request,'Document Successfully')
+                log_action(request.user, "Document Creation", str(document.name))
+                messages.success(request,'Document added successfully')
                 return redirect('folder-details', pk = folder.pk )
             else:
                 messages.warning(request,'Error placing bid')
@@ -60,13 +66,10 @@ class DocumentCreateView(SuccessMessageMixin, View):
             messages.warning(request, form.errors)
             return render(request, "document/create.html", {"folder": folder, "form": form})
 
-
-
 class DocumentDetailsView(DetailView):
     model = Document
     context_object_name = "document"
     template_name = "document/details.html"
-
 
 class DocumentUpdateView(SuccessMessageMixin, UpdateView):
     model = Document
@@ -76,6 +79,7 @@ class DocumentUpdateView(SuccessMessageMixin, UpdateView):
     success_message = "document updated successfully"
 
     def get_success_url(self):
+        log_action(self.request.user, "Document Update", str(self.object.name))
         return reverse("document-index")
 
 
@@ -84,10 +88,10 @@ class DocumentDeleteView(View):
         obj = get_object_or_404(Document, pk=kwargs.get('pk'))
         if request.user not in obj.folder.users.all():
             messages.warning(request,f'You are not authorized to delete this document')
-            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))      
         else:
             obj.delete()
+            log_action(request.user, "Document Deletion", str(obj.name))
             messages.success(request,f'{obj} deleted successfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -102,12 +106,7 @@ class DocumentDownloadView(View):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         try:
-            # Log the download action
-            download_time = timezone.now() + timedelta(hours=2)
-            action_message = f"Document '{document.name}' was downloaded by user '{request.user.username}' at {download_time}."
-            Alert.objects.create(user=request.user, name="Document Download", message=action_message)
-
-            # Return the file response
+            log_action(request.user, "Document Download", str(document.name))
             file_path = document.path.path
             response = FileResponse(open(file_path, 'rb'), as_attachment=True)
             return response
