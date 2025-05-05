@@ -224,6 +224,89 @@
             amountInput.addEventListener("input", updateExchangeInfo);
         });
     </script>
-    
+
+    <br>
+    <div class="text-center" style="color: green;">
+        <h3 style="color: green;">Forex News</h3>
+    </div>
+    <br>
+    <div class="row gy-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Currency Exchange</h5>
+                    <p class="text-muted">
+                        Authorized forex transactions with real-time rates approved by the Reserve Bank of Zimbabwe
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Rate Monitoring</h5>
+                    <p class="text-muted">
+                        Live tracking of interbank and bureau de change rates with historical data analysis
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Transaction Reporting</h5>
+                    <p class="text-muted">
+                        Secure platform for authorized dealers to report all forex transactions as required by law
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <footer class="bg-success text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <img src="{% static 'images/zimcot.png' %}" alt="Government of Zimbabwe Logo" class="mb-2" style="max-width: 100px;">
+                    <p>Official Forex Bureau Platform of the Government of Zimbabwe</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Exchange Rates</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Become an Authorized Dealer</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Resources</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Resources</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Reserve Bank of Zimbabwe</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Ministry of Finance</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Financial Intelligence Unit</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Exchange Control Regulations</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Download Forms</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact Us</h5>
+                    <p>Reserve Bank of Zimbabwe, Harare</p>
+                    <p>+263 78 099 2320</p>
+                    <p><a href="mailto:forexbureau@zim.gov.zw" class="text-white text-decoration-none">forexbureau@zim.gov.zw</a></p>
+                    <p>Mon-Fri: 8:00 AM - 4:30 PM</p>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <p class="mb-0">&copy; 2025 Government of Zimbabwe - Forex Bureau Platform. All rights reserved.</p>
+                <p class="mb-0">
+                    <a href="#" class="text-white text-decoration-none">Privacy Policy</a> | 
+                    <a href="#" class="text-white text-decoration-none">Terms of Service</a> | 
+                    <a href="#" class="text-white text-decoration-none">Accessibility</a>
+                </p>
+            </div>
+        </div>
+    </footer>
         
     {% endblock %}
