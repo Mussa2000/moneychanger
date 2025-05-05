@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Currency, ExchangeSource, ExchangeRate
+from .models import Currency, ExchangeSource, ExchangeRate, Transaction
 
 class CurrencyForm(ModelForm):
     class Meta:
@@ -34,5 +34,16 @@ class ExchangeRateForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ExchangeRateForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class TransactionForm(ModelForm):
+    class Meta:
+        model = Transaction
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super(TransactionForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'

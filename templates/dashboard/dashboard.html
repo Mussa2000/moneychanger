@@ -111,5 +111,119 @@
             </div>
         </div>
     </div>
+    <br>
+    <div class="text-center" style="color: green;">
+        <h3 style="color: green;">Forex Transactions</h3>
+    </div>
+    <br>
+    <div class="card p-4 shadow-sm">
+        <div class="mb-4 d-flex justify-content-between">
+            <button type="button" class="btn btn-success transaction-tab" data-type="Buy">Buy Currency</button>
+            <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Sell">Sell Currency</button>
+            <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Transfer">Transfer Funds</button>
+        </div>
+        
     
+        <form method="post" id="transaction-form" action="{% url 'create_transaction' %}">
+            {% csrf_token %}
+            <input type="hidden" name="transaction_type" id="transaction-type" value="Buy">
+
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label>From Currency</label>
+                    <select class="form-select" id="from-currency" name="base_currency">
+                        {% for currency in currencies %}
+                            <option value="{{ currency.id }}">{{ currency.name }} ({{ currency.code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>To Currency</label>
+                    <select class="form-select" id="to-currency" name="target_currency">
+                        {% for currency in currencies %}
+                            <option value="{{ currency.id }}">{{ currency.name }} ({{ currency.code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+    
+                <div class="col-12">
+                    <label>Amount</label>
+                    <input type="number" step="any" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+                </div>
+    
+                <div class="col-12">
+                    <label>Exchange Rate</label>
+                    <input type="text" class="form-control" id="exchange-rate-display" disabled value="1 USD = 0.0000 ZWL">
+                    <input type="hidden" id="exchange-rate" name="rate_id">
+                </div>
+    
+                <div class="col-12">
+                    <label>You Will Receive</label>
+                    <input type="text" class="form-control" id="received-amount" readonly value="0.00">
+                </div>
+    
+                <div class="col-12">
+                    <button type="submit" class="btn btn-success w-100">Proceed to Transaction</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const fromCurrency = document.getElementById("from-currency");
+            const toCurrency = document.getElementById("to-currency");
+            const amountInput = document.getElementById("amount");
+            const exchangeRateDisplay = document.getElementById("exchange-rate-display");
+            const receivedAmount = document.getElementById("received-amount");
+            const rateIdField = document.getElementById("exchange-rate");
+            const transactionTypeInput = document.getElementById("transaction-type");
+    
+            // Handle transaction type tab selection
+            document.querySelectorAll(".transaction-tab").forEach(btn => {
+                btn.addEventListener("click", function () {
+                    const type = this.dataset.type;
+                    transactionTypeInput.value = type;
+    
+                    // Update button styles
+                    document.querySelectorAll(".transaction-tab").forEach(b => {
+                        b.classList.remove("btn-success");
+                        b.classList.add("btn-outline-secondary");
+                    });
+                    this.classList.add("btn-success");
+                    this.classList.remove("btn-outline-secondary");
+                });
+            });
+    
+            function updateExchangeInfo() {
+                const baseId = fromCurrency.value;
+                const targetId = toCurrency.value;
+    
+                if (baseId && targetId && baseId !== targetId) {
+                    fetch(`/api/exchange-rate/?base=${baseId}&target=${targetId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                exchangeRateDisplay.value = `1 ${data.base_code} = ${data.rate} ${data.target_code}`;
+                                rateIdField.value = data.rate_id;
+    
+                                const amount = parseFloat(amountInput.value);
+                                if (!isNaN(amount)) {
+                                    receivedAmount.value = (amount * data.rate).toFixed(2) + ` ${data.target_code}`;
+                                }
+                            } else {
+                                exchangeRateDisplay.value = "Rate not available";
+                                receivedAmount.value = "0.00";
+                            }
+                        });
+                }
+            }
+    
+            fromCurrency.addEventListener("change", updateExchangeInfo);
+            toCurrency.addEventListener("change", updateExchangeInfo);
+            amountInput.addEventListener("input", updateExchangeInfo);
+        });
+    </script>
+    
+        
     {% endblock %}

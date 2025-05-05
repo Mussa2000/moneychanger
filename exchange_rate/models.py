@@ -42,3 +42,29 @@ class ExchangeRate(models.Model):
 
     def __str__(self):
         return f"{self.date} | 1 {self.base_currency.code} = {self.rate} {self.target_currency.code} ({self.source})"
+
+
+class Transaction(models.Model):
+    """
+    Represents a currency exchange transaction.
+    """
+    TRANSACTION_TYPE_CHOICES = [
+        ('Buy', 'Buy'),
+        ('Sell', 'Sell'),
+        ('Transfer', 'Transfer'),
+    ]
+
+    transaction_type = models.CharField(
+        max_length=10,
+        choices=TRANSACTION_TYPE_CHOICES,
+        default='Buy'
+    )
+    base_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='base_transactions')
+    target_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='target_transactions')
+    amount = models.DecimalField(max_digits=20, decimal_places=2) 
+    rate = models.ForeignKey(ExchangeRate, on_delete=models.SET_NULL, null=True)
+    received_amount = models.DecimalField(max_digits=20, decimal_places=2) 
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.created_at} | {self.amount} {self.base_currency.code} -> {self.rate} {self.target_currency.code} ({self.rate})"
