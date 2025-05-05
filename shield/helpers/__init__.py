@@ -1,1 +1,0 @@
-from shield.helpers.action_logger import log_action

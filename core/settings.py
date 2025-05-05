@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     #our apps
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
-    'shield',
+    'exchange_rate.apps.ExchangeRateConfig',
     # approval engine apps
 
     # Authentication  

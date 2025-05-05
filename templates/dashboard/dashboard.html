@@ -15,7 +15,7 @@
                 <a href="#" class="btn btn-icon btn-trigger toggle-expand me-n1" data-target="pageMenu"><em class="icon ni ni-more-v"></em></a>
                 <div class="toggle-expand-content" data-content="pageMenu">
                     <ul class="nk-block-tools g-3">
-                        <li class="nk-block-tools-opt"><a href="{% url 'folder-create' %}" class="btn btn-outline-dark"><em class="icon ni ni-reports"></em><span>Create new folder</span></a></li>
+                        {% comment %} <li class="nk-block-tools-opt"><a href="{% url 'folder-create' %}" class="btn btn-outline-dark"><em class="icon ni ni-reports"></em><span>Create new folder</span></a></li> {% endcomment %}
                     </ul>
                 </div>
             </div>
@@ -26,103 +26,5 @@
 
 
     {% block content%}
-    <div class="nk-block nk-block-lg">
-            <div class="card card-bordered card-preview">
-                <div class="card-inner">
-                    <div class="row g-gs">
-                        <div class="col-md-4">
-                            <div class="card card-bordered card-full">
-                                <div class="card-inner">
-                                    <div class="card-title-group align-start mb-0">
-                                        <div class="card-title">
-                                            <h6 class="subtitle">Folder Count</h6>
-                                        </div>
-                                        <div class="card-tools">
-                                            <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" title="Total Balance in Account"></em>
-                                        </div>
-                                    </div>
-                                    <div class="card-amount">
-                                        <span class="amount"> {{folder_count}}</span>
-                                    </div>
-                                </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-                        <div class="col-md-4">
-                            <div class="card card-bordered card-full">
-                                <div class="card-inner">
-                                    <div class="card-title-group align-start mb-0">
-                                        <div class="card-title">
-                                            <h6 class="subtitle">Users Count</h6>
-                                        </div>
-                                        <div class="card-tools">
-                                            <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" title="Total Balance in Account"></em>
-                                        </div>
-                                    </div>
-                                    <div class="card-amount">
-                                        <span class="amount"> {{user_count}}</span>
-                                    </div>
-                                </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-                        <div class="col-md-4">
-                            <div class="card card-bordered  card-full">
-                                <div class="card-inner">
-                                    <div class="card-title-group align-start mb-0">
-                                        <div class="card-title">
-                                            <h6 class="subtitle">Alert Count</h6>
-                                        </div>
-                                        <div class="card-tools">
-                                            <em class="card-hint icon ni ni-help-fill" data-bs-toggle="tooltip" data-bs-placement="left" title="Total Balance in Account"></em>
-                                        </div>
-                                    </div>
-                                    <div class="card-amount">
-                                        <span class="amount"> {{alert_count}}</span>
-                                    </div>
-                                </div>
-                            </div><!-- .card -->
-                        </div><!-- .col -->
-                    </div>
-                </div>
-            </div><!-- .card-preview -->
-            <div class="card card-bordered card-preview">
-                <div class="card-inner">
-                    <div class="row gy-12 mx-auto">
-                        <h4>Folders</h4>
-                        <div class="toggle-expand-content expanded" data-content="quick-access">
-                            <div class="nk-files nk-files-view-grid">
-                                <div class="nk-files-list" style="display: flex; flex-wrap: wrap;">
-                                    {% for folder in folders %}
-                                    <div class="nk-file-item nk-file" style="margin-right: 10px;">
-                                        <div class="nk-file-info">
-                                            <a href="{% url 'folder-details' folder.pk %}" class="nk-file-link">
-                                                <div class="nk-file-title">
-                                                    <div class="nk-file-icon">
-                                                        <span class="nk-file-icon-type">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 72 72">
-                                                                <g>
-                                                                    <rect x="32" y="16" width="28" height="15" rx="2.5" ry="2.5" style="fill:#f29611" />
-                                                                    <path d="M59.7778,61H12.2222A6.4215,6.4215,0,0,1,6,54.3962V17.6038A6.4215,6.4215,0,0,1,12.2222,11H30.6977a4.6714,4.6714,0,0,1,4.1128,2.5644L38,24H59.7778A5.91,5.91,0,0,1,66,30V54.3962A6.4215,6.4215,0,0,1,59.7778,61Z" style="fill:#ffb32c" />
-                                                                    <path d="M8.015,59c2.169,2.3827,4.6976,2.0161,6.195,2H58.7806a6.2768,6.2768,0,0,0,5.2061-2Z" style="fill:#f2a222" />
-                                                                </g>
-                                                            </svg>
-                                                        </span>
-                                                    </div>
-                                                    <div class="nk-file-name">
-                                                        <div class="nk-file-name-text">
-                                                            <span class="title">{{folder.name}}</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div> <!-- nk-block -->
-            </div><!-- .card-preview -->
-        </div> <!-- nk-block -->
+
     {% endblock %}
