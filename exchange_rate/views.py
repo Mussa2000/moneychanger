@@ -8,8 +8,8 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Currency, ExchangeSource, ExchangeRate
-from .forms import CurrencyForm, ExchangeSourceForm, ExchangeRateForm
+from .models import Currency, ExchangeSource, ExchangeRate, UserExchangeRate
+from .forms import CurrencyForm, ExchangeSourceForm, ExchangeRateForm, UserExchangeRateForm
 
 # ------------------ Currency ------------------
 
@@ -112,6 +112,51 @@ class ExchangeRateUpdateView(SuccessMessageMixin, UpdateView):
 class ExchangeRateDeleteView(View):
     def get(self, request, **kwargs):
         obj = get_object_or_404(ExchangeRate, pk=kwargs.get("pk"))
+        obj.delete()
+        messages.success(request, f"{obj} deleted successfully")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+# ------------------ User Exchange Rate ------------------
+
+class UserExchangeRateListView(LoginRequiredMixin, ListView):
+    model = UserExchangeRate
+    context_object_name = "user_rates"
+    template_name = "user_rate/index.html"
+
+    def get_queryset(self):
+        return UserExchangeRate.objects.filter(user=self.request.user)
+
+
+class UserExchangeRateCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = UserExchangeRate
+    form_class = UserExchangeRateForm
+    template_name = "user_rate/create.html"
+    success_message = "User exchange rate created successfully"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("user-rate-index")
+
+
+class UserExchangeRateUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = UserExchangeRate
+    form_class = UserExchangeRateForm
+    template_name = "user_rate/update.html"
+    success_message = "User exchange rate updated successfully"
+
+    def get_queryset(self):
+        return UserExchangeRate.objects.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse("user-rate-index")
+
+
+class UserExchangeRateDeleteView(LoginRequiredMixin, View):
+    def get(self, request, **kwargs):
+        obj = get_object_or_404(UserExchangeRate, pk=kwargs.get("pk"), user=request.user)
         obj.delete()
         messages.success(request, f"{obj} deleted successfully")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

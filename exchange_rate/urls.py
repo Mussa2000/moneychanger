@@ -19,4 +19,10 @@ urlpatterns = [
     path('rates/create/', views.ExchangeRateCreateView.as_view(), name='rate-create'),
     path('rates/<int:pk>/edit/', views.ExchangeRateUpdateView.as_view(), name='rate-edit'),
     path('rates/<int:pk>/delete/', views.ExchangeRateDeleteView.as_view(), name='rate-delete'),
+    
+    # User Exchange Rate URLs
+    path('user/rates/', views.UserExchangeRateListView.as_view(), name='user-rate-index'),
+    path('user/rates/create/', views.UserExchangeRateCreateView.as_view(), name='user-rate-create'),
+    path('user/rates/<int:pk>/edit/', views.UserExchangeRateUpdateView.as_view(), name='user-rate-edit'),
+    path('user/rates/<int:pk>/delete/', views.UserExchangeRateDeleteView.as_view(), name='user-rate-delete'),
 ]

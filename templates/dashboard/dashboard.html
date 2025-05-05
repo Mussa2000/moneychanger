@@ -122,8 +122,6 @@
             <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Sell">Sell Currency</button>
             <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Transfer">Transfer Funds</button>
         </div>
-        
-    
         <form method="post" id="transaction-form" action="{% url 'create_transaction' %}">
             {% csrf_token %}
             <input type="hidden" name="transaction_type" id="transaction-type" value="Buy">
@@ -224,6 +222,17 @@
             amountInput.addEventListener("input", updateExchangeInfo);
         });
     </script>
+
+
+
+
+
+
+
+
+
+
+
 
     <br>
     <div class="text-center" style="color: green;">

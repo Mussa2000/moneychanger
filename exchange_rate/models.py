@@ -1,5 +1,7 @@
 from django.db import models
 
+from accounts.models.user import CustomUser
+
 class Currency(models.Model):
     """
     Represents a currency like USD, ZWL, EUR, etc.
@@ -42,6 +44,17 @@ class ExchangeRate(models.Model):
 
     def __str__(self):
         return f"{self.date} | 1 {self.base_currency.code} = {self.rate} {self.target_currency.code} ({self.source})"
+
+class UserExchangeRate(models.Model):
+    """
+    Stores exchange rate data between two currencies from a specific source on a specific date.
+    """
+    base_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='user_base_rates')
+    target_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='user_target_rates')
+    rate = models.DecimalField(max_digits=20, decimal_places=6)  # e.g., 15500.00
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 
 class Transaction(models.Model):

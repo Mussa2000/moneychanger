@@ -1,0 +1,88 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Update Exchange Rate</h3>
+            </div><!-- .nk-block-head-content -->
+            <div class="nk-block-head-content">
+                <div class="toggle-wrap nk-block-tools-toggle">
+                    <div class="toggle-expand-content" data-content="pageMenu">
+                        <ul class="nk-block-tools g-3">
+                            <li class="nk-block-tools-opt"><a href="{% url 'user-rate-index' %}" class="btn btn-primary"><em
+                                        class="icon ni ni-curve-down-left"></em><span>Back</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- .nk-block-head-content  -->
+        </div> <!-- .nk-block-between-->
+    </div><!-- .nk-block-head -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card card-bordered card-preview">
+    <div class="card-inner">
+        <div class="preview-block">
+            <span class="preview-title-lg overline-title">Update Exchange Rate</span>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-4">
+                    <div class="col-12">
+                    <div class="form-group">
+                        {% if form.errors %}
+                        <ul class="errorlist">
+                            {% for field, errors in form.errors.items %}
+                            <li>
+                                {{ field }}:<ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <div class="row my-2">
+                            <div class="col-md-4">
+                                <label for="{{ form.base_currency.id_for_label }}">Base Currency</label>
+                                <div class="form-control-wrap">
+                                    {{ form.base_currency }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.target_currency.id_for_label }}">Target Currency</label>
+                                <div class="form-control-wrap">
+                                    {{ form.target_currency }}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="{{ form.rate.id_for_label }}">Rate</label>
+                                <div class="form-control-wrap">
+                                    {{ form.rate }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-6">
+                                <label for="{{ form.date.id_for_label }}">Date</label>
+                                <div class="form-control-wrap">
+                                    {{ form.date }}
+                                </div>
+                            </div>
+                        </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary" value="save">Update Exchange Rate</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- .card-preview -->
+{% endblock %}
