@@ -25,4 +25,7 @@ urlpatterns = [
     path('user/rates/create/', views.UserExchangeRateCreateView.as_view(), name='user-rate-create'),
     path('user/rates/<int:pk>/edit/', views.UserExchangeRateUpdateView.as_view(), name='user-rate-edit'),
     path('user/rates/<int:pk>/delete/', views.UserExchangeRateDeleteView.as_view(), name='user-rate-delete'),
+    
+    # Transaction URLs
+    path('transactions/list/', views.TransactionListView.as_view(), name='transaction-index'),
 ]

@@ -8,7 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Currency, ExchangeSource, ExchangeRate, UserExchangeRate
+from .models import Currency, ExchangeSource, ExchangeRate, Transaction, UserExchangeRate
 from .forms import CurrencyForm, ExchangeSourceForm, ExchangeRateForm, UserExchangeRateForm
 
 # ------------------ Currency ------------------
@@ -160,3 +160,11 @@ class UserExchangeRateDeleteView(LoginRequiredMixin, View):
         obj.delete()
         messages.success(request, f"{obj} deleted successfully")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+    
+    # ------------------ Transaction ------------------
+
+class TransactionListView(ListView):
+    model = Transaction
+    context_object_name = "transactions"
+    template_name = "transaction/index.html"
+    ordering = ['-created_at']
