@@ -4,6 +4,7 @@ class Currency(models.Model):
     """
     Represents a currency like USD, ZWL, EUR, etc.
     """
+    country = models.CharField(max_length=100, null=True, blank=True)             # e.g., 'United States', 'Zimbabwe'
     code = models.CharField(max_length=10, unique=True)  # e.g., 'USD', 'ZWL'
     name = models.CharField(max_length=50)               # e.g., 'United States Dollar'
 

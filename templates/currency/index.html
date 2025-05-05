@@ -1,0 +1,64 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">All Currencies</h3>
+            </div><!-- .nk-block-head-content -->
+            <div class="nk-block-head-content">
+                <div class="toggle-wrap nk-block-tools-toggle">
+                    <div class="toggle-expand-content" data-content="pageMenu">
+                        <ul class="nk-block-tools g-3">
+                            <li class="nk-block-tools-opt"><a href="{% url 'currency-create' %}" class="btn btn-outline-dark"><em
+                                    ></em><span>Create New Currency</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- .nk-block-head-content  -->
+        </div> <!-- .nk-block-between-->
+    </div><!-- .nk-block-head -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="nk-block nk-block-lg">
+    <div class="nk-block-head">
+        <div class="nk-block-head-content">
+            <h4 class="nk-block-title">Currency List</h4>
+        </div>
+    </div>
+    <div class="card card-bordered card-preview">
+        <table class="table table-tranx is-compact">
+            <thead>
+                <tr>
+                    <th>Country</th>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for currency in currencies %}
+                <tr>
+                    <td>{{ currency.country }}</td>
+                    <td>{{ currency.code }}</td>
+                    <td>{{ currency.name }}</td>
+                    <td class="nk-tb-col nk-tb-col-tools">
+                        <ul class="nk-block-tools g-3">
+                            <li class="nk-block-tools-opt"><a href="{% url 'currency-edit' currency.pk %}" class="btn btn-outline-warning"><em
+                                    ></em><span>Update</span></a></li>
+                            <li class="nk-block-tools-opt"><a href="{% url 'currency-delete' currency.pk %}" class="btn btn-outline-danger"><em
+                                    ></em><span>Delete</span></a></li>
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}  
+            </tbody>
+        </table>
+    </div><!-- .card-preview -->
+</div>
+{% endblock %}
