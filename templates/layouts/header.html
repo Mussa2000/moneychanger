@@ -1,24 +1,28 @@
 {% load static%}
 
             <!-- main header @s -->
-            <div class="nk-header nk-header-fluid is-theme">
+            <div class="nk-header nk-header-fluid bg-white">
                 <div class="container-xl wide-xl">
                     <div class="nk-header-wrap">
                         <div class="nk-menu-trigger me-sm-2 d-lg-none">
                             <a href="{% url 'dashboard' %}" class="nk-nav-toggle nk-quick-nav-icon" data-target="headerNav"><em class="icon ni ni-menu"></em></a>
                         </div>
-                        <div class="nk-header-brand">
-                            <a href="{% url 'dashboard' %}" class="logo-link">
-                                <img class="logo-light logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/logo2x.png' %} 2x" alt="logo">
-                                <img class="logo-dark logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/logo-dark2x.png' %} 2x" alt="logo-dark">
+                        <div class="nk-header-brand d-flex align-items-center">
+                            <a href="{% url 'dashboard' %}" class="logo-link me-3">
+                                <img class="logo-light logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/zimcot.png' %} 2x" alt="logo">
+                                <img class="logo-dark logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/zimcot.png' %} 2x" alt="logo-dark">
                             </a>
+                            <div class="nk-header-brand-text">
+                                <h5 class="mb-0" style="color: green;">Government Of Zimbabwe Forex Bureau</h5>
+                                <p class="mb-0">Forex Bureau Platform</p>
+                            </div>
                         </div><!-- .nk-header-brand -->
                         <div class="nk-header-menu" data-content="headerNav">
                             <div class="nk-header-mobile">
                                 <div class="nk-header-brand">
                                     <a href="{% url 'dashboard' %}" class="logo-link">
-                                        <img class="logo-light logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/logo2x.png' %} 2x" alt="logo">
-                                        <img class="logo-dark logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/logo-dark2x.png' %} 2x" alt="logo-dark">
+                                        <img class="logo-light logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/zimcot.png' %} 2x" alt="logo">
+                                        <img class="logo-dark logo-img" src="{% static 'images/zimcot.png' %}" srcset="{% static 'images/zimcot.png' %} 2x" alt="logo-dark">
                                     </a>
                                 </div>
                                 <div class="nk-menu-trigger me-n2">
