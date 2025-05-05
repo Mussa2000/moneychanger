@@ -9,6 +9,8 @@ from accounts.models.user import CustomUser
 from dashboard.helpers.province_stats import ProvinceStats
 from django.db.models import Sum
 
+from exchange_rate.models import ExchangeRate
+
 
 class DashboardListView(LoginRequiredMixin,TemplateView):   
     login_url = reverse_lazy('account_login')
@@ -16,8 +18,8 @@ class DashboardListView(LoginRequiredMixin,TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        user = self.request.user
-
+        
+        context['exchange_rates'] = ExchangeRate.objects.all()
 
         return context
     

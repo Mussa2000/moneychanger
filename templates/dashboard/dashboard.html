@@ -27,5 +27,89 @@
 
 
     {% block content%}
+    <br>
+    <br>
+    <div class="text-center" style="color: green;">
+        <h3 style="color: green;">Today's Exchange Rates</h3>
+    </div>
+    <br>
+    <div class="nk-block">
+        <div class="row gy-gs">
+            <div class="row g-gs">
+                {% for rate in exchange_rates %}
+                    <div class="col-md-6 col-lg-3">
+                        <div class="card card-bordered text-center">
+                            <div class="card-inner">
+                                <h6 class="text-success">{{ rate.base_currency.code }}/{{ rate.target_currency.code }}</h6>
+                                <h2 class="text-primary">1 : {{ rate.rate|floatformat:2 }}</h2>
+            
+                                {% if rate.change %}
+                                    {% if rate.change > 0 %}
+                                        <span class="text-success">{{ rate.change|floatformat:2 }} ({{ rate.change_percent|floatformat:2 }}%)</span>
+                                    {% elif rate.change < 0 %}
+                                        <span class="text-danger">{{ rate.change|floatformat:2 }} ({{ rate.change_percent|floatformat:2 }}%)</span>
+                                    {% else %}
+                                        <span class="text-muted">No change</span>
+                                    {% endif %}
+                                {% else %}
+                                    <span class="text-muted">--</span>
+                                {% endif %}
+            
+                                <p class="small text-muted mt-1">Last Updated: {{ rate.created_at|time:"H:i A" }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div><!-- .row -->
+    </div><!-- .nk-block -->
 
+    <br>
+    <div class="text-center" style="color: green;">
+        <h3 style="color: green;">Our Services</h3>
+    </div>
+    <br>
+    <div class="row gy-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Currency Exchange</h5>
+                    <p class="text-muted">
+                        Authorized forex transactions with real-time rates approved by the Reserve Bank of Zimbabwe
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Rate Monitoring</h5>
+                    <p class="text-muted">
+                        Live tracking of interbank and bureau de change rates with historical data analysis
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Transaction Reporting</h5>
+                    <p class="text-muted">
+                        Secure platform for authorized dealers to report all forex transactions as required by law
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-lg-12">
+            <div class="card shadow-sm border-0 h-100 text-center p-4">
+                <div class="card-body">
+                    <h5 class="text-success fw-bold mb-2">Compliance</h5>
+                    <p class="text-muted">
+                        Tools to ensure all forex transactions comply with Zimbabwean financial regulations
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     {% endblock %}

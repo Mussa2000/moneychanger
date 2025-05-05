@@ -7,6 +7,7 @@ class Currency(models.Model):
     country = models.CharField(max_length=100, null=True, blank=True)             # e.g., 'United States', 'Zimbabwe'
     code = models.CharField(max_length=10, unique=True)  # e.g., 'USD', 'ZWL'
     name = models.CharField(max_length=50)               # e.g., 'United States Dollar'
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} ({self.code})"
@@ -18,6 +19,7 @@ class ExchangeSource(models.Model):
     """
     name = models.CharField(max_length=100, unique=True)   # e.g., 'RBZ', 'Parallel Market'
     description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -32,6 +34,7 @@ class ExchangeRate(models.Model):
     rate = models.DecimalField(max_digits=20, decimal_places=6)  # e.g., 15500.00
     source = models.ForeignKey(ExchangeSource, on_delete=models.SET_NULL, null=True)
     date = models.DateField()
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         unique_together = ('base_currency', 'target_currency', 'source', 'date')
