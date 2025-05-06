@@ -119,8 +119,8 @@
     <div class="card p-4 shadow-sm">
         <div class="mb-4 d-flex justify-content-between">
             <button type="button" class="btn btn-success transaction-tab" data-type="Buy">Buy Currency</button>
-            <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Sell">Sell Currency</button>
-            <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Transfer">Transfer Funds</button>
+            <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Sell" onclick="window.location.href='{% url 'user-rate-index' %}'">Sell Currency</button>
+            <button type="button" class="btn btn-outline-secondary transaction-tab" data-type="Transfer" onclick="window.location.href='{% url 'proposal-index' %}'">Transfer Funds</button>
         </div>
         
         <form method="post" id="transaction-form" action="{% url 'create_exchange_proposal' %}">
