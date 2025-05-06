@@ -8,7 +8,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import Currency, ExchangeSource, ExchangeRate, Transaction, UserExchangeRate
+from .models import Currency, ExchangeAgreement, ExchangeProposal, ExchangeSource, ExchangeRate, Transaction, UserExchangeRate
 from .forms import CurrencyForm, ExchangeSourceForm, ExchangeRateForm, UserExchangeRateForm
 
 # ------------------ Currency ------------------
@@ -168,3 +168,9 @@ class TransactionListView(ListView):
     context_object_name = "transactions"
     template_name = "transaction/index.html"
     ordering = ['-created_at']
+    
+class ExchangeProposalListView(ListView):
+    model = ExchangeAgreement
+    context_object_name = "proposals"
+    template_name = "proposal/index.html"
+    ordering = ['-id']

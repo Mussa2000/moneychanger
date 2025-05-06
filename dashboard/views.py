@@ -172,3 +172,53 @@ def get_seller_rates(request):
     ]
 
     return JsonResponse({'success': True, 'rates': data})
+
+
+# views.py
+
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+from django.utils import timezone
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def accept_proposal_view(request, pk):
+    agreement = get_object_or_404(ExchangeAgreement, pk=pk)
+
+    if request.method == 'POST':
+        if agreement.status != 'Pending':
+            messages.error(request, 'This agreement has already been processed.')
+            return redirect('dashboard')
+
+        # Mark proposal as accepted
+        agreement.status = 'Accepted'
+        agreement.responded_at = timezone.now()
+        agreement.save()
+
+        messages.success(request, 'agreement accepted successfully.')
+        return redirect('proposal-index')
+
+    messages.success(request, 'An error occured.')
+    return redirect('proposal-index')
+
+
+@login_required
+def reject_proposal_view(request, pk):
+    agreement = get_object_or_404(ExchangeAgreement, pk=pk)
+
+    if request.method == 'POST':
+        if agreement.status != 'Pending':
+            messages.error(request, 'This agreement has already been processed.')
+            return redirect('dashboard')
+
+        # Mark proposal as rejected
+        agreement.status = 'Rejected'
+        agreement.responded_at = timezone.now()
+        agreement.save()
+
+
+        messages.success(request, 'agreement rejected successfully.')
+        return redirect('proposal-index')
+
+    messages.success(request, 'An error occured.')
+    return redirect('proposal-index')
