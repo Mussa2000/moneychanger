@@ -98,6 +98,7 @@
                     <th>Target Currency</th>
                     <th>Rate</th>
                     <th>Amount</th>
+                    <th>Total</th>
                     <th>Status</th>
                     <th>Created</th>
                 </tr>
@@ -109,8 +110,9 @@
                     <td>{{ p.seller_rate.user.username }}</td>
                     <td>{{ p.seller_rate.base_currency.code }}</td>
                     <td>{{ p.seller_rate.target_currency.code }}</td>
-                    <td>{{ p.proposed_rate }}</td>
-                    <td>{{ p.amount }}</td>
+                    <td>1 as To ${{ p.proposed_rate|floatformat:2 }}</td>
+                    <td>$ {{ p.amount|floatformat:2 }}</td>
+                    <td>$ {{ p.total|floatformat:2 }}</td>
                     <td>{{ p.status }}</td>
                     <td>{{ p.created_at|date:"Y-m-d H:i" }}</td>
                 </tr>
@@ -130,6 +132,7 @@
                     <th>Base</th>
                     <th>Target</th>
                     <th>Amount</th>
+                    <th>Rate</th>
                     <th>Received</th>
                     <th>Date</th>
                 </tr>
@@ -142,8 +145,9 @@
                     <td>{{ t.transaction_type }}</td>
                     <td>{{ t.base_currency.code }}</td>
                     <td>{{ t.target_currency.code }}</td>
-                    <td>{{ t.amount }}</td>
-                    <td>{{ t.received_amount }}</td>
+                    <td>$ {{ t.amount|floatformat:2 }}</td>
+                    <td>1 as To ${{ t.rate.proposed_rate|floatformat:2 }}</td>
+                    <td>$ {{ t.received_amount|floatformat:2 }}</td>
                     <td>{{ t.created_at|date:"Y-m-d H:i" }}</td>
                 </tr>
                 {% endfor %}

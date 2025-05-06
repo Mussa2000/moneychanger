@@ -75,7 +75,9 @@ class ExchangeProposal(models.Model):
     def __str__(self):
         return f"{self.buyer} proposes {self.amount} @ {self.proposed_rate} to {self.seller_rate.user}"
 
-
+    def total(self):
+        return self.amount * self.proposed_rate
+    
 class ChatMessage(models.Model):
     proposal = models.ForeignKey(ExchangeProposal, on_delete=models.CASCADE, related_name='messages')
     sender = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE)
