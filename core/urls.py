@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('', include('dashboard.urls')),
     path('exchange_rate/', include('exchange_rate.urls')),
+    path('chat_room/', include('chat_room.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

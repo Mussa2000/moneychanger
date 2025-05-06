@@ -12,12 +12,15 @@ class CustomSignupForm(SignupForm):
         ('Regulator', 'Regulator'),
     ]
     user_role = forms.ChoiceField(choices=USER_ROLE_CHOICES, label='User Role', initial='Trader')
+    profile_picture = forms.ImageField(required=False, label='Profile Picture')
 
     def save(self, request):
         user = super().save(request)
         user.first_name = self.cleaned_data.get('first_name')
         user.last_name = self.cleaned_data.get('last_name')
         user.user_role= self.cleaned_data.get('user_role')
+        if self.cleaned_data.get('profile_picture'):
+            user.profile_picture = self.cleaned_data.get('profile_picture')
         user.save()
         return user
     

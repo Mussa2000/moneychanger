@@ -15,6 +15,7 @@ class CustomUser(AbstractUser):
         choices=USER_ROLE_CHOICES,
         default='Trader'
     )
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
 
     def __str__(self):
         return f"{self.username} ({self.user_role})"
@@ -42,6 +43,7 @@ class KYCProfile(models.Model):
     is_verified = models.BooleanField(default=False)
     currency = models.ForeignKey(Currency, on_delete=models.SET_NULL, null=True, blank=True)
     document = models.FileField(upload_to='kyc_documents/', null=True, blank=True)
+    
 
     def __str__(self):
         return f"KYC Profile - {self.user.username}"

@@ -73,6 +73,7 @@
                         {% endif %}
                     {% else %}
                     <p> Deal Sealed</p>
+                    <a href="{% url 'agreement-chat-room' obj.pk %}" class="btn btn-info btn-sm">Chat</a>
                     {% endif %}
                 </td>
             </tr>

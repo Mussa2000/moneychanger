@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'dashboard.apps.DashboardConfig',
     'exchange_rate.apps.ExchangeRateConfig',
+    'chat_room.apps.ChatRoomConfig',
     # approval engine apps
 
     # Authentication  
