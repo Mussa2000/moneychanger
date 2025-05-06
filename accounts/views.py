@@ -90,3 +90,4 @@ class CustomPasswordResetView(PasswordResetView):
 
         email_message.content_subtype = 'html'
         email_message.send()
+        

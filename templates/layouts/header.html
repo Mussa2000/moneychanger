@@ -36,11 +36,6 @@
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item has-sub">
-                                    <a href="{% url 'regulator_dashboard' %}" class="nk-menu-link">
-                                        <span class="nk-menu-text">Regulator Dashboard</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-item has-sub">
                                     <a href="{% url 'proposal-index' %}" class="nk-menu-link">
                                         <span class="nk-menu-text">Exchange Proposals</span>
                                     </a>
@@ -51,33 +46,40 @@
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item has-sub">
-                                    <a href="{% url 'user-index' %}" class="nk-menu-link">
-                                        <span class="nk-menu-text">Users</span>
+                                    <a href="{% url 'regulator_dashboard' %}" class="nk-menu-link">
+                                        <span class="nk-menu-text">Regulator Dashboard</span>
                                     </a>
                                 </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-item has-sub">
-                                    <a href="{% url 'source-index' %}" class="nk-menu-link">
-                                        <span class="nk-menu-text">Source</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-item has-sub">
-                                    <a href="{% url 'currency-index' %}" class="nk-menu-link">
-                                        <span class="nk-menu-text">Currency</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
-                                <li class="nk-menu-item has-sub">
-                                    <a href="{% url 'rate-index' %}" class="nk-menu-link">
-                                        <span class="nk-menu-text">Exchange Rates</span>
-                                    </a>
-                                </li><!-- .nk-menu-item -->
+                                {% if request.user.user_role == 'Regulator' %}
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="{% url 'user-index' %}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Users</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="{% url 'source-index' %}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Source</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="{% url 'currency-index' %}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Currency</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                    <li class="nk-menu-item has-sub">
+                                        <a href="{% url 'rate-index' %}" class="nk-menu-link">
+                                            <span class="nk-menu-text">Exchange Rates</span>
+                                        </a>
+                                    </li><!-- .nk-menu-item -->
+                                {% endif %}
                                 <li class="nk-menu-item has-sub">
                                     <a href="{% url 'user-rate-index' %}" class="nk-menu-link">
                                         <span class="nk-menu-text">Sell Currency</span>
                                     </a>
                                 </li><!-- .nk-menu-item -->
                                 <li class="nk-menu-item has-sub">
-                                    <a href="{% url 'account_logout' %}" class="nk-menu-link">
-                                        <span class="nk-menu-text">logout</span>
+                                    <a href="{% url 'custom-logout' %}" class="nk-menu-link">
+                                        <span class="nk-menu-text">User:({{request.user}})  logout</span>
                                     </a>
                                 </li><!-- .nk-menu-item -->
                             </ul><!-- .nk-menu -->

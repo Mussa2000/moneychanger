@@ -7,6 +7,7 @@ from accounts.forms.user import CustomUserCreationForm
 from accounts.models.user import CustomUser
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth import authenticate, login, logout
 
 class UserListView(ListView):
     model = CustomUser
@@ -96,3 +97,9 @@ def reset_password(request):
             return redirect('reset-password')
     else:
         return render(request, 'registration/reset.html')
+    
+class CustomLogoutView(View):
+    def get(self, request):
+        logout(request)
+        messages.success(request, "You have been logged out successfully.")
+        return redirect(reverse("account_login"))  # Replace 'login-view' with your app's login URL name

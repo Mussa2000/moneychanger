@@ -1,4 +1,6 @@
 from django.urls import path, include
+
+from accounts.views.user import CustomLogoutView
 from . import views
 from django.contrib.auth import views as auth_views
 from . import views
@@ -21,5 +23,6 @@ urlpatterns = [
     path('user/update/<int:pk>/', UserUpdateView.as_view(), name="user-update"), 
     path('user/details/<int:pk>/', UserDetailView.as_view(), name="user-details"), 
     path('user/delete/<int:pk>/',UserDeleteView.as_view(), name="user-delete"), 
+    path('user/logout/', CustomLogoutView.as_view(), name="custom-logout"),
     
 ]
