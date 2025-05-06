@@ -78,7 +78,7 @@
                 <tr>
                     <td>{{ rate.base_currency.code }}</td>
                     <td>{{ rate.target_currency.code }}</td>
-                    <td>{{ rate.rate }}</td>
+                    <td>1 as To ${{ rate.rate|floatformat:2 }}</td>
                     <td>{{ rate.source.name }}</td>
                     <td>{{ rate.date }}</td>
                 </tr>
