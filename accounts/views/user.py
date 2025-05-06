@@ -4,7 +4,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from accounts.forms import KYCProfileForm
-from accounts.forms.user import CustomUserCreationForm
+from accounts.forms.user import CustomSignupForm, CustomUserCreationForm, CustomUserRegisterForm
 from accounts.models.user import CustomUser, KYCProfile
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -150,3 +150,21 @@ class KYCProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("kyc-profile-create")
+    
+
+class CustomSignupView(View):
+    template_name = "account/signup.html"
+
+    def get(self, request):
+        form = CustomUserRegisterForm()
+        return render(request, self.template_name, {"form": form})
+
+    def post(self, request):
+        form = CustomUserRegisterForm(request.POST, request.FILES)
+        if form.is_valid():
+            user = form.save()
+            messages.success(request, "Account created successfully!")
+            return redirect(reverse("dashboard"))  # Replace with your dashboard URL name
+        else:
+            messages.error(request, "Please correct the errors below.")
+        return render(request, self.template_name, {"form": form})

@@ -24,7 +24,9 @@ urlpatterns = [
     path('user/details/<int:pk>/', UserDetailView.as_view(), name="user-details"), 
     path('user/delete/<int:pk>/',UserDeleteView.as_view(), name="user-delete"), 
     path('user/logout/', CustomLogoutView.as_view(), name="custom-logout"),
+    path('user/signup/', views.CustomSignupView.as_view(), name="custom-signup"),
     
     path('kyc-profile/create/', KYCProfileCreateView.as_view(), name="kyc-profile-create"),
     path('kyc-profile/update/<int:pk>/', KYCProfileUpdateView.as_view(), name="kyc-profile-update"),
+    
 ]
