@@ -174,3 +174,33 @@ class ExchangeProposalListView(ListView):
     context_object_name = "proposals"
     template_name = "proposal/index.html"
     ordering = ['-id']
+    
+class ExchangeProposalCreateView(SuccessMessageMixin, CreateView):
+    model = ExchangeProposal
+    fields = ['amount']
+    template_name = "proposal/create.html"
+    success_message = "Exchange proposal created successfully"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("proposal-index")
+
+
+class ExchangeProposalUpdateView(LoginRequiredMixin, View):
+    def post(self, request, **kwargs):
+        agreement = get_object_or_404(ExchangeAgreement, pk=kwargs.get("pk"))
+        agreement.proposal.amount = request.POST.get("amount")
+        agreement.proposal.save()
+        messages.success(request, f"{agreement.proposal} updated successfully")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
+
+
+class ExchangeProposalDeleteView(View):
+    def get(self, request, **kwargs):
+        obj = get_object_or_404(ExchangeProposal, pk=kwargs.get("pk"), user=request.user)
+        obj.delete()
+        messages.success(request, f"{obj} deleted successfully")
+        return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

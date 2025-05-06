@@ -29,4 +29,5 @@ urlpatterns = [
     # Transaction URLs
     path('transactions/list/', views.TransactionListView.as_view(), name='transaction-index'),
     path('transactions/proposals/', views.ExchangeProposalListView.as_view(), name='proposal-index'),
+    path('transactions/proposals/<int:pk>/edit/', views.ExchangeProposalUpdateView.as_view(), name='proposal-edit'),
 ]
