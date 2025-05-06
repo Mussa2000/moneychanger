@@ -1,0 +1,176 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block navigation %}
+<div style="background-color: grey; padding: 20px;">
+    <div class="text-center">
+        <h2 class="text-white">Official Forex Bureau Platform</h2>
+        <p class="text-white">Streamlining foreign exchange transactions for everyone, everywhere and anytime in Zimbabwe</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row text-center">
+        <h3 class="text-success mb-4">Overall Statistics</h3>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-success">
+                <div class="card-body">
+                    <h5 class="card-title">Total Proposals</h5>
+                    <p class="display-6">{{ proposal_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Agreements</h5>
+                    <p class="display-6">{{ agreement_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-info">
+                <div class="card-body">
+                    <h5 class="card-title">Transaction Volume</h5>
+                    <p class="display-6">${{ total_volume|floatformat:2 }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <div class="card shadow-sm border-warning">
+                <div class="card-body">
+                    <h5 class="card-title">Active Users</h5>
+                    <p class="display-6">{{ user_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Daily Transaction Volume</h5>
+            <canvas id="volumeChart" height="100"></canvas>
+        </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="mt-5">
+        <h4 class="mb-3">Latest Exchange Rates</h4>
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Base</th>
+                    <th>Target</th>
+                    <th>Rate</th>
+                    <th>Source</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rate in exchange_rates %}
+                <tr>
+                    <td>{{ rate.base_currency.code }}</td>
+                    <td>{{ rate.target_currency.code }}</td>
+                    <td>{{ rate.rate }}</td>
+                    <td>{{ rate.source.name }}</td>
+                    <td>{{ rate.date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-5">
+        <h4 class="mb-3">Recent Proposals</h4>
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Buyer</th>
+                    <th>Seller</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in proposals %}
+                <tr>
+                    <td>{{ p.buyer.username }}</td>
+                    <td>{{ p.seller_rate.user.username }}</td>
+                    <td>{{ p.proposed_rate }}</td>
+                    <td>{{ p.amount }}</td>
+                    <td>{{ p.status }}</td>
+                    <td>{{ p.created_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-5">
+        <h4 class="mb-3">Recent Transactions</h4>
+        <table class="table table-striped table-sm">
+            <thead>
+                <tr>
+                    <th>Buyer</th>
+                    <th>Seller</th>
+                    <th>Type</th>
+                    <th>Base</th>
+                    <th>Target</th>
+                    <th>Amount</th>
+                    <th>Received</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for t in transactions %}
+                <tr>
+                    <td>{{ t.get_buyer.buyer }}</td>
+                    <td>{{ t.get_seller }}</td>
+                    <td>{{ t.transaction_type }}</td>
+                    <td>{{ t.base_currency.code }}</td>
+                    <td>{{ t.target_currency.code }}</td>
+                    <td>{{ t.amount }}</td>
+                    <td>{{ t.received_amount }}</td>
+                    <td>{{ t.created_at|date:"Y-m-d H:i" }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const ctx = document.getElementById('volumeChart').getContext('2d');
+const volumeChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: {{ transaction_dates|safe }},
+        datasets: [{
+            label: 'Volume (USD)',
+            data: {{ transaction_volumes|safe }},
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.3
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

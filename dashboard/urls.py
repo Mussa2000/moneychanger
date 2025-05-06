@@ -1,5 +1,5 @@
 from django.urls import path
-from dashboard.views import DashboardListView, accept_proposal_view, cancel_proposal_view, complete_proposal_view, create_exchange_proposal, create_transaction, get_exchange_rate, get_seller_rates, reject_proposal_view
+from dashboard.views import DashboardListView, RegulatorDashboardListView, accept_proposal_view, cancel_proposal_view, complete_proposal_view, create_exchange_proposal, create_transaction, get_exchange_rate, get_seller_rates, reject_proposal_view
 
 urlpatterns = [
     path('', DashboardListView.as_view(), name="dashboard"), 
@@ -11,5 +11,7 @@ urlpatterns = [
     path('proposals/<int:pk>/reject/', reject_proposal_view, name='reject_proposal'),
     path('proposals/<int:pk>/complete/', complete_proposal_view, name='proposal-complete'),
     path('proposals/<int:pk>/cancel/', cancel_proposal_view, name='proposal-cancel'),
+    
+    path('regulator-dashboard/', RegulatorDashboardListView.as_view(), name='regulator_dashboard'),
 
 ]

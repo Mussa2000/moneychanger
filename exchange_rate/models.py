@@ -124,3 +124,11 @@ class Transaction(models.Model):
     def __str__(self):
         return f"{self.created_at} | {self.amount} {self.base_currency.code} -> {self.rate} {self.target_currency.code} ({self.rate})"
     
+    def get_buyer(self):
+        return ExchangeProposal.objects.filter(id = self.agreement.proposal.id).first()
+    
+    def get_seller(self):
+        if self.agreement and self.agreement.proposal and self.agreement.proposal.seller_rate:
+            return self.agreement.proposal.seller_rate.user
+        return None
+
