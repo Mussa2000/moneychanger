@@ -1,3 +1,4 @@
 from accounts.models.user import (
-    CustomUser
+    CustomUser,
+    KYCProfile
 )

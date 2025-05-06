@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 
+from accounts.models.user import KYCProfile
 from helpers.submit_helper import SubmitButtonHelper
 
 
@@ -12,3 +13,4 @@ class UserCreationForm(SubmitButtonHelper,forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ['email','username','first_name', 'last_name',  'password','is_staff', ]
+

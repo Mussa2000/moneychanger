@@ -1,0 +1,116 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-gray-300 rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Create KYC Profile</h3>
+            </div><!-- .nk-block-head-content -->
+            <div class="nk-block-head-content">
+                <div class="toggle-wrap nk-block-tools-toggle">
+                    <div class="toggle-expand-content" data-content="pageMenu">
+                      
+                    </div>
+                </div>
+            </div> <!-- .nk-block-head-content  -->
+        </div> <!-- .nk-block-between-->
+    </div><!-- .nk-block-head -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card card-bordered card-preview">
+    <div class="card-inner">
+        <div class="preview-block">
+            <span class="preview-title-lg overline-title">Create KYC Profile</span>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row g-4">
+                    <div class="col-12">
+                    <div class="form-group">
+                        {% if form.errors %}
+                        <ul class="errorlist">
+                            {% for field, errors in form.errors.items %}
+                            <li>
+                                {{ field }}:<ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                                </ul>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        <div class="row my-2">
+                            <div class="col-md-6">
+                                <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                                <div class="form-control-wrap">
+                                    {{ form.first_name }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                                <div class="form-control-wrap">
+                                    {{ form.last_name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-6">
+                                <label for="{{ form.date_of_birth.id_for_label }}">Date of Birth</label>
+                                <div class="form-control-wrap">
+                                    {{ form.date_of_birth }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.gender.id_for_label }}">Gender</label>
+                                <div class="form-control-wrap">
+                                    {{ form.gender }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-6">
+                                <label for="{{ form.nationality.id_for_label }}">Nationality</label>
+                                <div class="form-control-wrap">
+                                    {{ form.nationality }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="{{ form.currency.id_for_label }}">Currency</label>
+                                <div class="form-control-wrap">
+                                    {{ form.currency }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                <label for="{{ form.residential_address.id_for_label }}">Residential Address</label>
+                                <div class="form-control-wrap">
+                                    {{ form.residential_address }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-md-12">
+                                <label for="{{ form.document.id_for_label }}">Document</label>
+                                <div class="form-control-wrap">
+                                    {{ form.document }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-lg btn-primary" value="save">Create KYC Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- .card-preview -->
+{% endblock %}

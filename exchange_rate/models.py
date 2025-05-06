@@ -1,6 +1,6 @@
 from django.db import models
 
-from accounts.models.user import CustomUser
+
 
 class Currency(models.Model):
     """
@@ -52,7 +52,7 @@ class UserExchangeRate(models.Model):
     base_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='user_base_rates')
     target_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='user_target_rates')
     rate = models.DecimalField(max_digits=20, decimal_places=6)  # e.g., 15500.00
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE, null=True)
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
@@ -65,7 +65,7 @@ class ExchangeProposal(models.Model):
     ]
 
     seller_rate = models.ForeignKey(UserExchangeRate, on_delete=models.CASCADE, related_name='proposals')
-    buyer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='proposals')
+    buyer = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE, related_name='proposals')
     proposed_rate = models.DecimalField(max_digits=20, decimal_places=6)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
@@ -78,7 +78,7 @@ class ExchangeProposal(models.Model):
 
 class ChatMessage(models.Model):
     proposal = models.ForeignKey(ExchangeProposal, on_delete=models.CASCADE, related_name='messages')
-    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    sender = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE)
     message = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 

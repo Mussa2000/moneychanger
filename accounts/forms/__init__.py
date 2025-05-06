@@ -1,3 +1,4 @@
 from accounts.forms.user import (
-    CustomUserCreationForm
+    CustomUserCreationForm,
+    KYCProfileForm,
 )

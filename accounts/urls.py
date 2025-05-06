@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from accounts.views.user import CustomLogoutView
+from accounts.views.user import CustomLogoutView, KYCProfileCreateView, KYCProfileUpdateView
 from . import views
 from django.contrib.auth import views as auth_views
 from . import views
@@ -25,4 +25,6 @@ urlpatterns = [
     path('user/delete/<int:pk>/',UserDeleteView.as_view(), name="user-delete"), 
     path('user/logout/', CustomLogoutView.as_view(), name="custom-logout"),
     
+    path('kyc-profile/create/', KYCProfileCreateView.as_view(), name="kyc-profile-create"),
+    path('kyc-profile/update/<int:pk>/', KYCProfileUpdateView.as_view(), name="kyc-profile-update"),
 ]

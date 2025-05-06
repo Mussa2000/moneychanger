@@ -3,11 +3,15 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from accounts.forms import KYCProfileForm
 from accounts.forms.user import CustomUserCreationForm
-from accounts.models.user import CustomUser
+from accounts.models.user import CustomUser, KYCProfile
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 class UserListView(ListView):
     model = CustomUser
@@ -103,3 +107,39 @@ class CustomLogoutView(View):
         logout(request)
         messages.success(request, "You have been logged out successfully.")
         return redirect(reverse("account_login"))  # Replace 'login-view' with your app's login URL name
+    
+    
+    
+
+
+class KYCProfileCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = KYCProfile
+    form_class = KYCProfileForm
+    template_name = "kyc_profile/create.html"
+    success_message = "KYC Profile created successfully"
+
+    def dispatch(self, request, *args, **kwargs):
+        if KYCProfile.objects.filter(user=self.request.user).exists():
+            messages.info(request, "You already have a KYC Profile. You can update it instead.")
+            return redirect(reverse("kyc-profile-update", kwargs={"pk": KYCProfile.objects.get(user=self.request.user).pk}))
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("kyc-profile-create")
+
+
+class KYCProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = KYCProfile
+    form_class = KYCProfileForm
+    template_name = "kyc_profile/update.html"
+    success_message = "KYC Profile updated successfully"
+
+    def get_queryset(self):
+        return KYCProfile.objects.filter(user=self.request.user)
+
+    def get_success_url(self):
+        return reverse("kyc-profile-create")

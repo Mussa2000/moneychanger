@@ -1,5 +1,7 @@
 from django import forms
 from django.forms import ModelForm
+
+from accounts.models.user import KYCProfile
 from .models import ChatMessage, Currency, ExchangeProposal, ExchangeSource, ExchangeRate, Transaction, UserExchangeRate
 
 class CurrencyForm(ModelForm):
@@ -89,3 +91,6 @@ class ChatMessageForm(ModelForm):
         super(ChatMessageForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+            
+            
+            

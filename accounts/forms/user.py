@@ -1,7 +1,7 @@
 from allauth.account.forms import SignupForm
 from django import forms
 
-from accounts.models.user import CustomUser
+from accounts.models.user import CustomUser, KYCProfile
 
 
 class CustomSignupForm(SignupForm):
@@ -28,3 +28,18 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = CustomUser
         fields = UserCreationForm.Meta.fields + ("email",)
+
+from django.forms import ModelForm
+class KYCProfileForm(ModelForm):
+    class Meta:
+        model = KYCProfile
+        exclude = ['user']
+        widgets = {
+            'date_of_birth': forms.DateInput(attrs={"type": "date"}),
+            'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(KYCProfileForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
