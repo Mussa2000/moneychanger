@@ -34,10 +34,21 @@ def handle_agreement_status(sender, instance, created, **kwargs):
             exchange_agreement.status = 'Accepted'
             exchange_agreement.save()
 
-    elif instance.status == 'Cancelled':
-        # Optional: handle cleanup or notification
-        pass
 
     elif instance.status == 'Completed':
-        # Optional: update wallet balances or logs
-        pass
+        
+        proposal = instance.proposal
+        seller_rate = proposal.seller_rate
+
+        # Create transaction
+        Transaction.objects.create(
+            transaction_type='Transfer', 
+            base_currency=seller_rate.base_currency,
+            target_currency=seller_rate.target_currency,
+            amount=proposal.amount,
+            rate=proposal,
+            agreement=instance,
+            received_amount=(proposal.amount * proposal.proposed_rate)
+        )
+        
+

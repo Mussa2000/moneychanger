@@ -116,7 +116,7 @@ class Transaction(models.Model):
     base_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='base_transactions')
     target_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='target_transactions')
     amount = models.DecimalField(max_digits=20, decimal_places=2) 
-    rate = models.OneToOneField(ExchangeProposal, on_delete=models.SET_NULL, null=True, blank=True)
+    rate = models.ForeignKey(ExchangeProposal, on_delete=models.SET_NULL, null=True, blank=True)
     agreement = models.ForeignKey(ExchangeAgreement, on_delete=models.SET_NULL, null=True, blank=True)  # Link to the agreement if applicable
     received_amount = models.DecimalField(max_digits=20, decimal_places=2) 
     created_at = models.DateTimeField(auto_now_add=True)

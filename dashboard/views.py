@@ -188,7 +188,7 @@ def accept_proposal_view(request, pk):
     if request.method == 'POST':
         if agreement.status != 'Pending':
             messages.error(request, 'This agreement has already been processed.')
-            return redirect('dashboard')
+            return redirect('proposal-index')
 
         # Mark proposal as accepted
         agreement.status = 'Accepted'
@@ -209,7 +209,7 @@ def reject_proposal_view(request, pk):
     if request.method == 'POST':
         if agreement.status != 'Pending':
             messages.error(request, 'This agreement has already been processed.')
-            return redirect('dashboard')
+            return redirect('proposal-index')
 
         # Mark proposal as rejected
         agreement.status = 'Rejected'
@@ -221,4 +221,44 @@ def reject_proposal_view(request, pk):
         return redirect('proposal-index')
 
     messages.success(request, 'An error occured.')
+    return redirect('proposal-index')
+
+
+@login_required
+def complete_proposal_view(request, pk):
+    agreement = get_object_or_404(ExchangeAgreement, pk=pk)
+
+    if request.method == 'POST':
+        if agreement.status != 'Accepted':
+            messages.error(request, 'Only accepted agreements can be marked as completed.')
+            return redirect('proposal-index')
+
+        agreement.status = 'Completed'
+        agreement.responded_at = timezone.now()
+        agreement.save()
+
+        messages.success(request, 'Agreement marked as completed.')
+        return redirect('proposal-index')
+
+    messages.error(request, 'Invalid request.')
+    return redirect('proposal-index')
+
+
+@login_required
+def cancel_proposal_view(request, pk):
+    agreement = get_object_or_404(ExchangeAgreement, pk=pk)
+
+    if request.method == 'POST':
+        if agreement.status not in ['Pending', 'Accepted']:
+            messages.error(request, 'Only pending or accepted agreements can be cancelled.')
+            return redirect('proposal-index')
+
+        agreement.status = 'Cancelled'
+        agreement.responded_at = timezone.now()
+        agreement.save()
+
+        messages.success(request, 'Agreement has been cancelled.')
+        return redirect('proposal-index')
+
+    messages.error(request, 'Invalid request.')
     return redirect('proposal-index')
