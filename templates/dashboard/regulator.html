@@ -94,6 +94,8 @@
                 <tr>
                     <th>Buyer</th>
                     <th>Seller</th>
+                    <th>Base Currency</th>
+                    <th>Target Currency</th>
                     <th>Rate</th>
                     <th>Amount</th>
                     <th>Status</th>
@@ -105,6 +107,8 @@
                 <tr>
                     <td>{{ p.buyer.username }}</td>
                     <td>{{ p.seller_rate.user.username }}</td>
+                    <td>{{ p.seller_rate.base_currency.code }}</td>
+                    <td>{{ p.seller_rate.target_currency.code }}</td>
                     <td>{{ p.proposed_rate }}</td>
                     <td>{{ p.amount }}</td>
                     <td>{{ p.status }}</td>
