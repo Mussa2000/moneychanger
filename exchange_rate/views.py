@@ -13,13 +13,15 @@ from .forms import CurrencyForm, ExchangeSourceForm, ExchangeRateForm, UserExcha
 
 # ------------------ Currency ------------------
 
-class CurrencyListView(ListView):
+class CurrencyListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = Currency
     context_object_name = "currencies"
     template_name = "currency/index.html"
 
 
-class CurrencyCreateView(SuccessMessageMixin, CreateView):
+class CurrencyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = Currency
     form_class = CurrencyForm
     template_name = "currency/create.html"
@@ -29,7 +31,8 @@ class CurrencyCreateView(SuccessMessageMixin, CreateView):
         return reverse("currency-index")
 
 
-class CurrencyUpdateView(SuccessMessageMixin, UpdateView):
+class CurrencyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    login_url = reverse_lazy('account_login')
     model = Currency
     form_class = CurrencyForm
     template_name = "currency/update.html"
@@ -39,7 +42,8 @@ class CurrencyUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("currency-index")
 
 
-class CurrencyDeleteView(View):
+class CurrencyDeleteView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def get(self, request, **kwargs):
         obj = get_object_or_404(Currency, pk=kwargs.get("pk"))
         obj.delete()
@@ -48,13 +52,15 @@ class CurrencyDeleteView(View):
 
 # ------------------ Exchange Source ------------------
 
-class ExchangeSourceListView(ListView):
+class ExchangeSourceListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeSource
     context_object_name = "sources"
     template_name = "source/index.html"
 
 
-class ExchangeSourceCreateView(SuccessMessageMixin, CreateView):
+class ExchangeSourceCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeSource
     form_class = ExchangeSourceForm
     template_name = "source/create.html"
@@ -64,7 +70,8 @@ class ExchangeSourceCreateView(SuccessMessageMixin, CreateView):
         return reverse("source-index")
 
 
-class ExchangeSourceUpdateView(SuccessMessageMixin, UpdateView):
+class ExchangeSourceUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeSource
     form_class = ExchangeSourceForm
     template_name = "source/update.html"
@@ -74,7 +81,8 @@ class ExchangeSourceUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("source-index")
 
 
-class ExchangeSourceDeleteView(View):
+class ExchangeSourceDeleteView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def get(self, request, **kwargs):
         obj = get_object_or_404(ExchangeSource, pk=kwargs.get("pk"))
         obj.delete()
@@ -83,13 +91,15 @@ class ExchangeSourceDeleteView(View):
 
 # ------------------ Exchange Rate ------------------
 
-class ExchangeRateListView(ListView):
+class ExchangeRateListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeRate
     context_object_name = "rates"
     template_name = "rate/index.html"
 
 
-class ExchangeRateCreateView(SuccessMessageMixin, CreateView):
+class ExchangeRateCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeRate
     form_class = ExchangeRateForm
     template_name = "rate/create.html"
@@ -99,7 +109,8 @@ class ExchangeRateCreateView(SuccessMessageMixin, CreateView):
         return reverse("rate-index")
 
 
-class ExchangeRateUpdateView(SuccessMessageMixin, UpdateView):
+class ExchangeRateUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeRate
     form_class = ExchangeRateForm
     template_name = "rate/update.html"
@@ -109,7 +120,8 @@ class ExchangeRateUpdateView(SuccessMessageMixin, UpdateView):
         return reverse("rate-index")
 
 
-class ExchangeRateDeleteView(View):
+class ExchangeRateDeleteView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def get(self, request, **kwargs):
         obj = get_object_or_404(ExchangeRate, pk=kwargs.get("pk"))
         obj.delete()
@@ -119,6 +131,7 @@ class ExchangeRateDeleteView(View):
 # ------------------ User Exchange Rate ------------------
 
 class UserExchangeRateListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = UserExchangeRate
     context_object_name = "user_rates"
     template_name = "user_rate/index.html"
@@ -128,6 +141,7 @@ class UserExchangeRateListView(LoginRequiredMixin, ListView):
 
 
 class UserExchangeRateCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = UserExchangeRate
     form_class = UserExchangeRateForm
     template_name = "user_rate/create.html"
@@ -142,6 +156,7 @@ class UserExchangeRateCreateView(LoginRequiredMixin, SuccessMessageMixin, Create
 
 
 class UserExchangeRateUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    login_url = reverse_lazy('account_login')
     model = UserExchangeRate
     form_class = UserExchangeRateForm
     template_name = "user_rate/update.html"
@@ -155,6 +170,7 @@ class UserExchangeRateUpdateView(LoginRequiredMixin, SuccessMessageMixin, Update
 
 
 class UserExchangeRateDeleteView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def get(self, request, **kwargs):
         obj = get_object_or_404(UserExchangeRate, pk=kwargs.get("pk"), user=request.user)
         obj.delete()
@@ -163,19 +179,22 @@ class UserExchangeRateDeleteView(LoginRequiredMixin, View):
     
     # ------------------ Transaction ------------------
 
-class TransactionListView(ListView):
+class TransactionListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = Transaction
     context_object_name = "transactions"
     template_name = "transaction/index.html"
     ordering = ['-created_at']
     
-class ExchangeProposalListView(ListView):
+class ExchangeProposalListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeAgreement
     context_object_name = "proposals"
     template_name = "proposal/index.html"
     ordering = ['-id']
     
 class ExchangeProposalCreateView(SuccessMessageMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = ExchangeProposal
     fields = ['amount']
     template_name = "proposal/create.html"
@@ -190,6 +209,7 @@ class ExchangeProposalCreateView(SuccessMessageMixin, CreateView):
 
 
 class ExchangeProposalUpdateView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def post(self, request, **kwargs):
         agreement = get_object_or_404(ExchangeAgreement, pk=kwargs.get("pk"))
         agreement.proposal.proposed_rate = request.POST.get("amount")
@@ -198,7 +218,8 @@ class ExchangeProposalUpdateView(LoginRequiredMixin, View):
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
 
 
-class ExchangeProposalDeleteView(View):
+class ExchangeProposalDeleteView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def get(self, request, **kwargs):
         obj = get_object_or_404(ExchangeProposal, pk=kwargs.get("pk"), user=request.user)
         obj.delete()

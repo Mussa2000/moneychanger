@@ -19,11 +19,13 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from dashboard.views import DashboardListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('accounts.urls')),
-    path('', include('dashboard.urls')),
+    path('accounts/', include('accounts.urls')),
+    path('', DashboardListView.as_view(), name='dashboard'), 
+    path('dashboard/', include('dashboard.urls')),
     path('exchange_rate/', include('exchange_rate.urls')),
     path('chat_room/', include('chat_room.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

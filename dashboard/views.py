@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from accounts.models.user import CustomUser
 from dashboard.helpers.province_stats import ProvinceStats
 from django.db.models import Sum
-
+from django.contrib.auth.decorators import login_required
 from exchange_rate.forms import TransactionForm
 from exchange_rate.models import ExchangeAgreement, ExchangeProposal, ExchangeRate, Transaction, UserExchangeRate
 from exchange_rate.models import Currency
@@ -94,8 +94,7 @@ class RegulatorDashboardListView(LoginRequiredMixin, TemplateView):
         return context
 
 
-class DashboardListView(LoginRequiredMixin,TemplateView):   
-    login_url = reverse_lazy('account_login')
+class DashboardListView(TemplateView):   
     template_name = 'dashboard/dashboard.html'
     
     def get_context_data(self, **kwargs):
@@ -135,6 +134,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from exchange_rate.forms import ExchangeProposalForm
 
+@login_required
 def create_transaction(request):
     if request.method == 'POST':
         base_currency_id = request.POST.get('base_currency')
@@ -169,7 +169,7 @@ def create_transaction(request):
     }
     return render(request, 'dashboard/dashboard.html', context)
 
-
+@login_required
 def create_exchange_proposal(request):
     if request.method == 'POST':
         base_currency_id = request.POST.get('base_currency')

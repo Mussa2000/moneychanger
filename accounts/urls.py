@@ -16,7 +16,7 @@ from accounts.views import(
 
 
 urlpatterns = [
-    path("", include("allauth.urls")),
+    path("auth/", include("allauth.urls")),
     path('user/index/',UserListView.as_view(), name="user-index"), 
     path('user/create/', register_user, name="user-create"),  
     path('user/password-reset/', reset_password, name="reset-password"),  

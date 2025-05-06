@@ -164,7 +164,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_FORMS = {'signup': 'accounts.forms.user.CustomSignupForm'}
 
 
-LOGIN_REDIRECT_URL = 'dashboard'
+# LOGIN_REDIRECT_URL = 'dashboard'
 AUTH_USER_MODEL = 'accounts.CustomUser' 
 
 CORS_ALLOW_ALL_ORIGINS = True

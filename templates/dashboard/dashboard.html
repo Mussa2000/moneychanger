@@ -17,8 +17,8 @@
 
     <div class="mt-4 text-center">
         <div class="text-center">
-            <a href="" class="btn btn-warning me-2">Registration</a>
-            <a href="" class="btn btn-outline-light text-white">Login to Portal</a>
+            <a href="{% url 'account_signup' %}" class="btn btn-warning me-2">Registration</a>
+            <a href="{% url 'account_login' %}" class="btn btn-outline-light text-white">Login to Portal</a>
         </div>
     </div><!-- .nk-block-head-content -->
 </div>
@@ -182,9 +182,15 @@
                 </div>
         
                 <!-- Submit Button -->
-                <div class="col-12">
-                    <button type="submit" class="btn btn-success w-100">Proceed to Transaction</button>
-                </div>
+                {% if user.is_authenticated %}
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-success w-100">Proceed to Transaction</button>
+                    </div>
+                {% else %}
+                    <div class="col-12">
+                        <p class="text-danger text-center">You must be logged in to proceed with a transaction.</p>
+                    </div>
+                {% endif %}
             </div>
         </form>
         
@@ -235,7 +241,7 @@
                 if (baseId && targetId && baseId !== targetId) {
                     if (type === "Buy") {
                         // Fetch available seller rates
-                        fetch(`/api/seller-rates/?base=${baseId}&target=${targetId}`)
+                        fetch(`/dashboard/api/seller-rates/?base=${baseId}&target=${targetId}`)
                             .then(response => response.json())
                             .then(data => {
                                 sellerList.innerHTML = "";

@@ -13,18 +13,21 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('account_login')
     model = CustomUser
     template_name = 'registration/index.html'
     context_object_name = 'user'
 
-class UserCreateView(CreateView):
+class UserCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = CustomUser
     template_name = 'registration/create.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('user-list')
     
-class UserDetailView(DetailView):
+class UserDetailView(LoginRequiredMixin, DetailView):
+    login_url = reverse_lazy('account_login')
     model = CustomUser
     template_name = 'registration/details.html'
     context_object_name = 'users'   
@@ -36,7 +39,8 @@ class UserDetailView(DetailView):
 #     success_url = reverse_lazy('user-list')
     
 
-class UserDeleteView(View):
+class UserDeleteView(LoginRequiredMixin, View):
+    login_url = reverse_lazy('account_login')
     def get(self, request, **kwargs):
         obj = get_object_or_404( CustomUser, pk=kwargs.get('pk'))
         obj.delete()
@@ -62,7 +66,8 @@ def register_user(request):
             messages.success(request, ("Something went wrong please try again"))
             return redirect('user-create')
         
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UpdateView):
+    login_url = reverse_lazy('account_login')
     model = CustomUser
     template_name = 'registration/update.html'
     form_class = CustomUserCreationForm
@@ -102,7 +107,7 @@ def reset_password(request):
     else:
         return render(request, 'registration/reset.html')
     
-class CustomLogoutView(View):
+class CustomLogoutView(LoginRequiredMixin, View):
     def get(self, request):
         logout(request)
         messages.success(request, "You have been logged out successfully.")
@@ -113,6 +118,7 @@ class CustomLogoutView(View):
 
 
 class KYCProfileCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+    login_url = reverse_lazy('account_login')
     model = KYCProfile
     form_class = KYCProfileForm
     template_name = "kyc_profile/create.html"
@@ -133,6 +139,7 @@ class KYCProfileCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
 
 class KYCProfileUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    login_url = reverse_lazy('account_login')
     model = KYCProfile
     form_class = KYCProfileForm
     template_name = "kyc_profile/update.html"
