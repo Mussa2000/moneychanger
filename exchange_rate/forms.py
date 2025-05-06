@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Currency, ExchangeSource, ExchangeRate, Transaction, UserExchangeRate
+from .models import ChatMessage, Currency, ExchangeProposal, ExchangeSource, ExchangeRate, Transaction, UserExchangeRate
 
 class CurrencyForm(ModelForm):
     class Meta:
@@ -58,5 +58,34 @@ class UserExchangeRateForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserExchangeRateForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+            
+class ExchangeProposalForm(ModelForm):
+    class Meta:
+        model = ExchangeProposal
+        fields = ['seller_rate', 'buyer', 'proposed_rate', 'amount', 'status']
+        widgets = {
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'proposed_rate': forms.NumberInput(attrs={'class': 'form-control'}),
+            'amount': forms.NumberInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ExchangeProposalForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
+
+
+class ChatMessageForm(ModelForm):
+    class Meta:
+        model = ChatMessage
+        fields = ['proposal', 'sender', 'message']
+        widgets = {
+            'message': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(ChatMessageForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'

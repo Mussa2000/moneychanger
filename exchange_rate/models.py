@@ -56,6 +56,47 @@ class UserExchangeRate(models.Model):
     date = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
+class ExchangeProposal(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Accepted', 'Accepted'),
+        ('Rejected', 'Rejected'),
+        ('Cancelled', 'Cancelled'),
+    ]
+
+    seller_rate = models.ForeignKey(UserExchangeRate, on_delete=models.CASCADE, related_name='proposals')
+    buyer = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='proposals')
+    proposed_rate = models.DecimalField(max_digits=20, decimal_places=6)
+    amount = models.DecimalField(max_digits=20, decimal_places=2)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    responded_at = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.buyer} proposes {self.amount} @ {self.proposed_rate} to {self.seller_rate.user}"
+
+
+class ChatMessage(models.Model):
+    proposal = models.ForeignKey(ExchangeProposal, on_delete=models.CASCADE, related_name='messages')
+    sender = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    message = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class ExchangeAgreement(models.Model):
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Accepted', 'Accepted'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+    ]
+
+    proposal = models.ForeignKey(ExchangeProposal, on_delete=models.CASCADE, related_name='agreements')
+    agreed_at = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='Pending')
+    
+    def __str__(self):
+        return f"Agreement for {self.proposal.amount}"
+
 
 class Transaction(models.Model):
     """
@@ -75,9 +116,11 @@ class Transaction(models.Model):
     base_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='base_transactions')
     target_currency = models.ForeignKey(Currency, on_delete=models.CASCADE, related_name='target_transactions')
     amount = models.DecimalField(max_digits=20, decimal_places=2) 
-    rate = models.ForeignKey(ExchangeRate, on_delete=models.SET_NULL, null=True)
+    rate = models.OneToOneField(ExchangeProposal, on_delete=models.SET_NULL, null=True, blank=True)
+    agreement = models.ForeignKey(ExchangeAgreement, on_delete=models.SET_NULL, null=True, blank=True)  # Link to the agreement if applicable
     received_amount = models.DecimalField(max_digits=20, decimal_places=2) 
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.created_at} | {self.amount} {self.base_currency.code} -> {self.rate} {self.target_currency.code} ({self.rate})"
+    
