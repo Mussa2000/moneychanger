@@ -46,3 +46,20 @@ class KYCProfileForm(ModelForm):
         super(KYCProfileForm, self).__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'form-control'
+            
+class CustomUserRegisterForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        exclude = ['is_active', 'is_staff', 'is_superuser', 'last_login', 'date_joined', 'groups', 'user_permissions']
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'user_role': forms.Select(attrs={'class': 'form-control'}),
+            'profile_picture': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserRegisterForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'form-control'
