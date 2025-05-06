@@ -192,7 +192,7 @@ class ExchangeProposalCreateView(SuccessMessageMixin, CreateView):
 class ExchangeProposalUpdateView(LoginRequiredMixin, View):
     def post(self, request, **kwargs):
         agreement = get_object_or_404(ExchangeAgreement, pk=kwargs.get("pk"))
-        agreement.proposal.amount = request.POST.get("amount")
+        agreement.proposal.proposed_rate = request.POST.get("amount")
         agreement.proposal.save()
         messages.success(request, f"{agreement.proposal} updated successfully")
         return HttpResponseRedirect(request.META.get("HTTP_REFERER"))

@@ -132,3 +132,5 @@ class Transaction(models.Model):
             return self.agreement.proposal.seller_rate.user
         return None
 
+    def amount_received(self):
+        return self.amount * self.rate.proposed_rate
