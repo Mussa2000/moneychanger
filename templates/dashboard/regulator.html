@@ -2,10 +2,10 @@
 {% load static %}
 
 {% block navigation %}
-<div style="background-color: grey; padding: 20px;">
+<div style="background-color: #343a40; padding: 20px;">
     <div class="text-center">
         <h2 class="text-white">Official Forex Bureau Platform</h2>
-        <p class="text-white">Streamlining foreign exchange transactions for everyone, everywhere and anytime in Zimbabwe</p>
+        <p class="text-white-50">Streamlining foreign exchange transactions for everyone, everywhere and anytime in Zimbabwe</p>
     </div>
 </div>
 {% endblock %}
@@ -13,58 +13,58 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row text-center">
-        <h3 class="text-success mb-4">Overall Statistics</h3>
+        <h3 class="text-primary mb-4">Overall Statistics</h3>
 
         <div class="col-md-3 mb-3">
             <div class="card shadow-sm border-success">
-                <div class="card-body">
-                    <h5 class="card-title">Total Proposals</h5>
-                    <p class="display-6">{{ proposal_count }}</p>
+                <div class="card-body bg-light">
+                    <h5 class="card-title text-success">Total Proposals</h5>
+                    <p class="display-6 text-dark">{{ proposal_count }}</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-3">
             <div class="card shadow-sm border-primary">
-                <div class="card-body">
-                    <h5 class="card-title">Total Agreements</h5>
-                    <p class="display-6">{{ agreement_count }}</p>
+                <div class="card-body bg-light">
+                    <h5 class="card-title text-primary">Total Agreements</h5>
+                    <p class="display-6 text-dark">{{ agreement_count }}</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-3">
             <div class="card shadow-sm border-info">
-                <div class="card-body">
-                    <h5 class="card-title">Transaction Volume</h5>
-                    <p class="display-6">${{ total_volume|floatformat:2 }}</p>
+                <div class="card-body bg-light">
+                    <h5 class="card-title text-info">Transaction Volume</h5>
+                    <p class="display-6 text-dark">${{ total_volume|floatformat:2 }}</p>
                 </div>
             </div>
         </div>
 
         <div class="col-md-3 mb-3">
             <div class="card shadow-sm border-warning">
-                <div class="card-body">
-                    <h5 class="card-title">Active Users</h5>
-                    <p class="display-6">{{ user_count }}</p>
+                <div class="card-body bg-light">
+                    <h5 class="card-title text-warning">Active Users</h5>
+                    <p class="display-6 text-dark">{{ user_count }}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Chart -->
-    <div class="card mt-5">
-        <div class="card-body">
-            <h5 class="card-title">Daily Transaction Volume</h5>
+    <div class="card mt-5 shadow-sm">
+        <div class="card-body bg-light">
+            <h5 class="card-title text-primary">Daily Transaction Volume</h5>
             <canvas id="volumeChart" height="100"></canvas>
         </div>
     </div>
 
     <!-- Tables -->
     <div class="mt-5">
-        <h4 class="mb-3">Latest Exchange Rates</h4>
-        <table class="table table-striped table-sm">
-            <thead>
+        <h4 class="mb-3 text-primary">Latest Exchange Rates</h4>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
                 <tr>
                     <th>Base</th>
                     <th>Target</th>
@@ -88,9 +88,9 @@
     </div>
 
     <div class="mt-5">
-        <h4 class="mb-3">Recent Proposals</h4>
-        <table class="table table-striped table-sm">
-            <thead>
+        <h4 class="mb-3 text-primary">Recent Proposals</h4>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
                 <tr>
                     <th>Buyer</th>
                     <th>Seller</th>
@@ -116,9 +116,9 @@
     </div>
 
     <div class="mt-5">
-        <h4 class="mb-3">Recent Transactions</h4>
-        <table class="table table-striped table-sm">
-            <thead>
+        <h4 class="mb-3 text-primary">Recent Transactions</h4>
+        <table class="table table-striped table-hover table-bordered">
+            <thead class="table-dark">
                 <tr>
                     <th>Buyer</th>
                     <th>Seller</th>
